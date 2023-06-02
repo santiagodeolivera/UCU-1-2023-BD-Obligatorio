@@ -1,5 +1,5 @@
 <div class="card" *ngIf="info">
-    <img class="card-img-top" src="/assets/a.png" alt="Card image cap">
+    <img  class="card-img-top" [src]="info.imgUrl" [alt]="info.imgAlt || 'Image not found'">
     <div class="card-body">
         <h2 class="card-title">{{info.name}}</h2>
         <p class="card-text">{{info.desc}}</p>

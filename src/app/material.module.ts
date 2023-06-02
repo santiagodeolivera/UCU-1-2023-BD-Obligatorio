@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatToolbarModule } from '@angular/material/toolbar'; 
 
 
 const MATERIAL_COMPONENTS = [
@@ -27,7 +28,8 @@ const MATERIAL_COMPONENTS = [
   MatIconModule,
   MatDialogModule,
   MatCheckboxModule,
-  MatChipsModule
+  MatChipsModule,
+  MatToolbarModule
 ];
 
 @NgModule({

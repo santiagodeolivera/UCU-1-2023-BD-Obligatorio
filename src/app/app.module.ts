@@ -10,9 +10,10 @@ import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './material.module';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { TestComponent } from './test/test.component';
+import { DashboardComponent } from './competition/dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CardComponent } from './competition/card/card.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,13 @@ import { CardComponent } from './competition/card/card.component';
     HomeComponent,
     LoginComponent,
     NavbarComponent,
-    TestComponent,
+    DashboardComponent,
     CardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,

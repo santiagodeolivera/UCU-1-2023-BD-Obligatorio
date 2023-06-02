@@ -1,7 +1,11 @@
-<div class="card" *ngIf="info">
-    <img  class="card-img-top" [src]="info.imgUrl" [alt]="info.imgAlt || 'Image not found'">
-    <div class="card-body">
-        <h2 class="card-title">{{info.name}}</h2>
-        <p class="card-text">{{info.desc}}</p>
-    </div>
+<div *ngIf="info" style="display: contents;">
+    <a [href]="link" style="display: contents;">
+        <div class="card" [routerLink]="link">
+            <img class="card-img-top" [src]="info.imgUrl" [alt]="info.imgAlt || 'Image not found'">
+            <div class="card-body">
+                <h2 class="card-title">{{info.name}}</h2>
+                <p class="card-text">{{info.desc}}</p>
+            </div>
+        </div>
+    </a>
 </div>

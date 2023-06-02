@@ -1,5 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Competition } from '..';
+
+// Incomplete
+export interface Competition {
+    id: number,
+    name: string,
+    desc: string,
+    imgUrl: string,
+    imgAlt?: string
+}
 
 @Component({
     selector: 'app-comp-card',
@@ -10,9 +18,17 @@ export class CardComponent implements OnInit {
 
     @Input() info: Competition | undefined;
 
+    get link(): string {
+        return this.info ? ("/competitions/" + this.info.id) : "#";
+    }
+
     constructor() { }
 
     ngOnInit(): void {
+    }
+
+    onClick(): void {
+
     }
 
 }

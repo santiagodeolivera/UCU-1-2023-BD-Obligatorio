@@ -10,13 +10,16 @@ import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './material.module';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { TestComponent } from './test/test.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     ReactiveFormsModule,
     FormsModule,
     CoreModule,
-    MaterialModule
+    MaterialModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TestComponent } from './test/test.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CardComponent } from './competition/card/card.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     LoginComponent,
     NavbarComponent,
-    TestComponent
+    TestComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

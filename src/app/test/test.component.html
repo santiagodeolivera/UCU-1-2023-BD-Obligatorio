@@ -1,9 +1,8 @@
 <div class="container px-5">
     <div class="row">
-        <div *ngFor="let _ of [1, 2, 3]" style="display: contents;">
+        <div *ngFor="let c of competitions" style="display: contents;">
             <div class="col-lg-4 col-md-6 col-12 my-4 px-1">
-                <mat-card>
-                </mat-card>
+                <app-comp-card [info]="c"></app-comp-card>
             </div>
         </div>
     </div>

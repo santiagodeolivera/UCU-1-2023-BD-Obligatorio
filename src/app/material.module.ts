@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 // Leer documentación: https://material.angular.io/components/categories
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
@@ -14,6 +14,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 const MATERIAL_COMPONENTS = [
@@ -27,7 +30,10 @@ const MATERIAL_COMPONENTS = [
   MatIconModule,
   MatDialogModule,
   MatCheckboxModule,
-  MatChipsModule
+  MatChipsModule,
+  MatMenuModule,
+  MatToolbarModule,
+  MatDatepickerModule
 ];
 
 @NgModule({

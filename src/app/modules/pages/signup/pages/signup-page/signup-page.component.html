@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>Inicio de sesión</h2>
+
+  <form (formGroup)="loginForm" (ngSubmit)="login()">
+    <div>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" id="username" formControlName="text" require placeholder="Username">
+          <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+    </p>
+    </div>
+
+    <div>
+      <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" id="password" formControlName="password" require placeholder="Password">
+            <mat-hint>Hint</mat-hint>
+          </mat-form-field>
+      </p>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Iniciar sesión</button>
+  </form>
+
+  <mat-form-field appearance="outline">
+    <mat-icon matPrefix>person</mat-icon>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" [formControl]="signUpForm.controls.name" maxLength="20">
+    <mat-error>Please enter your full name</mat-error>
+</mat-form-field>
+
+</div>

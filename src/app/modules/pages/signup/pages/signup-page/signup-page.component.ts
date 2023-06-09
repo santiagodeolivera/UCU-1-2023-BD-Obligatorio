@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
-
+import { SignupFormsComponent } from '../../components/signup-forms/signup-forms.component';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { User } from 'src/app/modules/core/interfaces/user';
+//import { SignupService } from 'src/app/modules/core/services/signup.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -8,61 +12,21 @@ import { FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
   styleUrls: ['./signup-page.component.scss'],
 })
 export class SignupPageComponent implements OnInit {
+  
+  @ViewChild('signUpForm')
+  formData!: SignupFormsComponent;
 
-  loginForm!: FormGroup;
-  hidePassword!: true;
-
-  constructor() { }
-
-  ngOnInit() {
-    this.loginForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required)
-    });
-    
-  }
-    togglePasswordVisibility() {
-      this.hidePassword= this.hidePassword;
-    }
-
-  login() {
-    if (this.loginForm.valid) {
-      // Obtener los valores del formulario
-      const username = this.loginForm.get('username')!.value;
-      const password = this.loginForm.get('password')!.value;
-
-      // Aquí puedes agregar la lógica para autenticar al usuario
-      if (username === 'usuario' && password === 'contraseña') {
-        // Usuario autenticado correctamente
-        console.log('Inicio de sesión exitoso');
-        // Aquí puedes redirigir al usuario a otra página
-      } else {
-        // Credenciales inválidas
-        console.log('Inicio de sesión fallido');
-      }
-    }
-  } 
-
-  signUpForm = this.formBuilder.group(
-    {
-      name : ['',[Validators.required, Validators.minLength(3)]],
-      username : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-      birthdate : ['',[Validators.required]],
-      password : ['',[Validators.required,
-                      Validators.minLength(6),
-                      Validators.maxLength(16),]],
-      gender : ['',[Validators.required]],
-      phone : ['',[Validators.required, Validators.maxLength(10), Validators.pattern('[0-9]+')]],
-      email : ['',[Validators.required, Validators.email]],
-    }
-  );
-
-  get passwordIconColor(): string {
-    return this.hidePassword ? '' : 'primary';
+  constructor(private fb : FormBuilder,
+    private router: Router,
+    //private signupService : SignupService,
+    private dialog: MatDialog) { }
+  
+  ngOnInit(): void {
   }
 
-  get passwordInputType(): string {
-    return this.hidePassword ? 'password' : 'text';
+  pullFormData(){
+    const user = this.formData.signUpForm.value as User;
+    return user;
   }
   
 

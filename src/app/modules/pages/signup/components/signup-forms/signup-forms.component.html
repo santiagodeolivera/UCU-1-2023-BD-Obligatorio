@@ -1,7 +1,9 @@
-<div class="container">
-
+<mat-card class="">
+  
   <form [formGroup]="signUpForm">
-    
+    <mat-card-header>
+      <mat-card-title>SignUp</mat-card-title>
+    </mat-card-header>
     <!--Name-->
     <mat-form-field appearance="outline">
       <mat-icon matPrefix>person</mat-icon>
@@ -21,7 +23,7 @@
     <!--idPicture upload an picture of Identification Card-->
     <mat-form-field appearance="outline">
       <mat-label>Identification Card</mat-label>
-      <input matInput placeholder="Identification Card" [formControl]="signUpForm.controls.idPicture" maxLength="20">
+      <input matInput placeholder="Identification Card" [formControl]="signUpForm.controls.idPicture" maxLength="8">
       <mat-icon matPrefix>perm_identity</mat-icon>
       <mat-error>Please upload a valid picture of your identification card</mat-error>
     </mat-form-field>
@@ -48,23 +50,18 @@
     </mat-form-field>
     
     <!--Age-->
-    <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Birthdate</mat-label>
+      <input matInput 
+      [matDatepicker]="picker"
+      [formControl]="signUpForm.controls.birthdate" maxLength="20"
+      >
+      <mat-datepicker-toggle matSuffix
+      [for]="picker">calendar</mat-datepicker-toggle>
+      <mat-datepicker #picker [color]="'primary'" ></mat-datepicker>
+      <mat-error>Please enter a valid date</mat-error>
+    </mat-form-field>
       
-      <div class="col-7">
-        <mat-form-field appearance="outline">
-          <mat-label>Birthdate</mat-label>
-          <input matInput 
-          [matDatepicker]="picker"
-          [formControl]="signUpForm.controls.birthdate" maxLength="20"
-          >
-          <mat-datepicker-toggle matSuffix
-          [for]="picker">calendar</mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-error>Please enter a valid date</mat-error>
-        </mat-form-field>
-      </div>
-    </div>
-    
     <!--Phone-->
     <mat-form-field appearance="outline">
       <mat-label>Phone</mat-label>
@@ -101,4 +98,7 @@
         <mat-error>Please enter a valid state</mat-error>
     </mat-form-field>
   </form>
-</div>
+  <mat-card-footer>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-card-footer>
+</mat-card>

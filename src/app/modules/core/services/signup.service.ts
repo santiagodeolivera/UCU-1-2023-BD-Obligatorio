@@ -6,7 +6,7 @@ import { User } from '../interfaces/user';
 @Injectable({
   providedIn: 'root'
 })
-export class SingupService {
+export class SignupService {
 
   constructor(private http: HttpClient) { }
 
@@ -25,5 +25,7 @@ export class SingupService {
       error?: { message: string }
     }>('../i', user);
   }
+
+
 }
 

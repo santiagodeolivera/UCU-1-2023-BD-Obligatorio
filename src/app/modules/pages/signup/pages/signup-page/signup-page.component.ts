@@ -4,7 +4,7 @@ import { SignupFormsComponent } from '../../components/signup-forms/signup-forms
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/modules/core/interfaces/user';
-//import { SignupService } from 'src/app/modules/core/services/signup.service';
+import { SignupService } from 'src/app/modules/core/services/signup.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -18,16 +18,26 @@ export class SignupPageComponent implements OnInit {
 
   constructor(private fb : FormBuilder,
     private router: Router,
-    //private signupService : SignupService,
+    private signupService : SignupService,
     private dialog: MatDialog) { }
   
   ngOnInit(): void {
+    
   }
-
+  
   pullFormData(){
     const user = this.formData.signUpForm.value as User;
     return user;
   }
-  
+
+  onSubmit(){
+    const user = this.pullFormData();
+    this.signupService.createUser(user).subscribe( (res) => {
+      if (res.success) {
+        this.router.navigate(['/login']);
+        return;
+      }
+    });
+  }
 
 }

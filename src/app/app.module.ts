@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { SignupModule } from './modules/pages/signup/signup.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { LoginModule } from './modules/pages/login/login.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     CoreModule, 
     SignupModule,
+    LoginModule,
     MaterialModule,
     HttpClientModule
   ],

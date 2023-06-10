@@ -19,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 const MATERIAL_COMPONENTS = [
@@ -37,7 +38,8 @@ const MATERIAL_COMPONENTS = [
   MatToolbarModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatGridListModule
+  MatGridListModule,
+  MatProgressBarModule
 ];
 
 @NgModule({

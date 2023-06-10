@@ -1,7 +1,7 @@
 
 
 export interface User {
-  uid?: string;
+  ci?: string;
   name?: string;
   username?: string;
   password?: string;

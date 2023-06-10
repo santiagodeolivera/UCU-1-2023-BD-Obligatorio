@@ -11,4 +11,7 @@ export class NecessityService {
 
   constructor() { }
 
+  createNecessity(necessity: INecessity): Observable<IHTTPResponse>{
+    return of({ success: true });
+  }
 }

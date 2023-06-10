@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapComponent } from './components/map/map.component';
+import { MaterialModule } from 'src/app/material.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { MapComponent } from './components/map/map.component';
   ],
   imports: [
     CommonModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    MaterialModule
   ],
   exports: [
     MapComponent

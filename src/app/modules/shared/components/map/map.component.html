@@ -1,1 +1,24 @@
-<google-map></google-map>
+<div class="w-100 h-100 position-relative">
+  <mat-spinner
+    class="spinner"
+    *ngIf="isLoading"
+  >
+  </mat-spinner>
+
+  <input
+    matInput
+    #mapSearchField
+    *ngIf="hasSearch"
+    placeholder="Escribe un lugar"
+  />
+
+  <google-map
+    *ngIf="!isLoading"
+    height="100%"
+    width="100%"
+    [options]="mapConfigurations"
+    [center]="initialCoordinates || { lat: 0, lng: 0 }"
+    [zoom]="13"
+  >
+  </google-map>
+</div>

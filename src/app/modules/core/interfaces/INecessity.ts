@@ -3,6 +3,7 @@ import { IGeolocation, IPostulation, ISkill } from ".";
 export interface INecessity {
   id?: string;
   userId?: string;
+  title?: string;
   description?: string;
   status?: string;
   createdDate?: Date;

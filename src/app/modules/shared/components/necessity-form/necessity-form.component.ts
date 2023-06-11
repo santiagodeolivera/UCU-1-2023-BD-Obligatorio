@@ -30,6 +30,7 @@ export class NecessityFormComponent implements OnInit {
   minDate: Date = new Date();
 
   necessityForm = this.fb.group({
+    title: [ '', [ Validators.required, Validators.maxLength(80) ] ],
     description: [ '', Validators.maxLength(500) ],
     startDate: new FormControl<Date | undefined>(undefined, Validators.required), //Validators.min(new Date().getTime())
     endDate: new FormControl<Date | undefined>(undefined),
@@ -63,6 +64,7 @@ export class NecessityFormComponent implements OnInit {
 
     const value = this.necessityForm.value;
     const necessity: INecessity = {
+      title: value.title || undefined,
       description: value.description || undefined,
       startDate: value.startDate || undefined,
       endDate: value.endDate || undefined,

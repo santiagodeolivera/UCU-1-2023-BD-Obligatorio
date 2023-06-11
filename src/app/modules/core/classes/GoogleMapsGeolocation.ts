@@ -16,7 +16,11 @@ export class GoogleMapsGeolocation implements IGeolocation {
               this.country?.trim() ? `${this.country.trim()}.` : ''}`;
   }
 
-  constructor(place: google.maps.places.PlaceResult) {
+  constructor(place: google.maps.places.PlaceResult | { results: google.maps.places.PlaceResult[] }) {
+    if ('results' in place) {
+      place = place.results[0];
+    }
+
     if (place.geometry?.location) {
       this.bounds.extend(place.geometry.location);
     } else {

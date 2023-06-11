@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 
@@ -6,8 +5,8 @@ import { GoogleMapsGeolocation } from 'src/app/modules/core/classes';
 import { IGeolocation } from 'src/app/modules/core/interfaces';
 import { LocationService } from 'src/app/modules/core/services/location.service';
 import { MapSearchBoxComponent } from '../map-search-box/map-search-box.component';
+import { MapService } from 'src/app/modules/core/services/map.service';
 
-const GOOGLE_MAPS_KEY = 'AIzaSyA54hOBFif3kxMjxNcSMld8Kx4UYD0j5KU';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -24,6 +23,7 @@ export class MapComponent implements OnInit {
 
   @Input() initialCoordinates = { lat: 0, lng: 0 };
   @Input() enableSearch: boolean = true;
+  @Input() queryLocationOnClick: boolean = false;
 
   @Output() mapClick = new EventEmitter<IGeolocation>();
   @Output() mapSearch = new EventEmitter<IGeolocation>();
@@ -37,7 +37,7 @@ export class MapComponent implements OnInit {
 
   constructor(
     private locationService: LocationService,
-    private http: HttpClient
+    private mapService: MapService
   ) { }
 
   ngOnInit(): void {
@@ -68,22 +68,25 @@ export class MapComponent implements OnInit {
     const lat = $event.latLng?.lat();
     const lng = $event.latLng?.lng();
 
-    this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${GOOGLE_MAPS_KEY}&latlng=${lat},${lng}`)
-    .subscribe((result: any): void => {
-      if (result?.results?.length > 0) {
-        const place = result.results[0] as google.maps.places.PlaceResult;
-        const location = new GoogleMapsGeolocation(place);
+    const baseLocation: IGeolocation = {
+      latitude: lat,
+      longitude: lng
+    };
 
+    if (!this.queryLocationOnClick) {
+      this.mapClick.emit(baseLocation);
+      return;
+    }
+
+    this.mapService.getPlaceInformationFromCoordinates<GoogleMapsGeolocation>(lat!, lng!, GoogleMapsGeolocation)
+    .subscribe({
+      next: (location) => {
         this.mapClick.emit(location);
         this.searchBox?.setPlaceName(location.locationName);
-        return;
-      }
-
-      const location: IGeolocation = {
-        latitude: lat,
-        longitude: lng
-      };
-      this.mapClick.emit(location);
+      },
+      error: (e) => {
+        this.mapClick.emit(baseLocation);
+      },
     });
   }
 

@@ -50,12 +50,16 @@
       </mat-form-field>
       
       <!--Is Admin default false-->
-        <mat-form-field appearance="outline">
-            <mat-label>Is Admin</mat-label>
-            <input type="checkbox" matInput placeholder="Is Admin" [formControl]="profileUpdateForm.controls.isAdmin" maxLength="20">
-            <mat-icon matPrefix>admin_panel_settings</mat-icon>
-            <mat-error>Please enter a valid admin</mat-error>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Is Admin</mat-label>
+        <mat-select [formControl]="profileUpdateForm.controls.isAdmin">
+          <mat-option *ngFor="let isAdmin of adminOption" [value]="isAdmin.value">
+            {{isAdmin.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-icon matPrefix>verified_user</mat-icon>
+        <mat-error>Please enter a valid state</mat-error>
+      </mat-form-field>
         
       <!--Phone-->
       <mat-form-field appearance="outline">

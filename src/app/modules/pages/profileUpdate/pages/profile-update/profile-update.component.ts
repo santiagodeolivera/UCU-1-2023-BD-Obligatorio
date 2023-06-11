@@ -38,7 +38,7 @@ export class ProfileUpdateComponent implements OnInit {
     });
   }
 
-  getUserProfile (ci: string){
+  async getUserProfile (ci: string){
     this.profileUpdateService.getUserProfile(ci)
       .subscribe(user => this.user = user);
   }

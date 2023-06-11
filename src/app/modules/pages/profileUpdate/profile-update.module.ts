@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileUpdateComponent } from './pages/profile-update/profile-update.component';
 import { ProfileUpdateFormComponent } from './component/profile-update-form/profile-update-form.component';
-import { SignupRoutingModule } from '../signup/signup-routing.module';
 import { MaterialModule } from 'src/app/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileUpdateService } from '../../core/services/profile-update.service';
+import { ProfileUpdateRoutingModule } from './profile-update-routing.module';
 
 
 
@@ -19,7 +19,7 @@ import { ProfileUpdateService } from '../../core/services/profile-update.service
   ],
   imports: [
     CommonModule,
-    SignupRoutingModule,
+    ProfileUpdateRoutingModule,
     MaterialModule,
     ReactiveFormsModule
   ]

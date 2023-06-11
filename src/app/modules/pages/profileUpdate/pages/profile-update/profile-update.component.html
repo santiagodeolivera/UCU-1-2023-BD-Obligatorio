@@ -3,26 +3,25 @@
       
         
       <div class="forms-body-container">
-        <app-profile-update-form #signUpForm ></app-profile-update-form>
+        <app-profile-update-form #profileUpdateForm ></app-profile-update-form>
       </div>
     </div>
     <div class="bb-signup-footer">
       <button mat-raised-button
         matStepperPrevious
         class="bb-previous-button"
-        color="ancents">RETURN
+        color="primary" routerLink="/">RETURN
       </button>
       
       <button mat-raised-button
         matStepperNext
         class="bb-next-button"
         color="primary"
-        (click)="pullFormData()">CREATE ACCOUNT
+        (click)="pullFormData()">UPDATE NOW
       </button>
      
       <p class="bb-signup-subtitle">
-        Already have an account?
-        <a routerLink="/login">Sign in</a>
+        Do you want to return to the home page?
       </p>
     </div>
   </div>

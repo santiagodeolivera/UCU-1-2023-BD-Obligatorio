@@ -1,16 +1,17 @@
 <div class="w-100 h-100 position-relative">
   <mat-spinner
-    class="spinner"
     *ngIf="isLoading"
+    class="spinner"
   >
   </mat-spinner>
 
-  <input
-    matInput
-    #mapSearchField
-    *ngIf="hasSearch"
-    placeholder="Escribe un lugar"
-  />
+  <app-map-search-box
+    *ngIf="enableSearch"
+    class="search-box"
+    (searchBoxInit)="setSearchBox($event)"
+    (placesChange)="handlePlacesChange($event)"
+  >
+  </app-map-search-box>
 
   <google-map
     *ngIf="!isLoading"
@@ -19,6 +20,13 @@
     [options]="mapConfigurations"
     [center]="initialCoordinates || { lat: 0, lng: 0 }"
     [zoom]="13"
+    (mapClick)="handleMapClick($event)"
   >
+    <map-marker
+      #focusOnMarker
+      *ngIf="focusedPosition"
+      [position]="focusedPosition"
+    >
+    </map-marker>
   </google-map>
 </div>

@@ -1,0 +1,12 @@
+<mat-spinner
+  *ngIf="isLoading"
+  class="spinner"
+>
+</mat-spinner>
+
+<div *ngIf="necessity && !isLoading">
+  <app-necessity-fields
+    [necessity]="necessity"
+  >
+  </app-necessity-fields>
+</div>

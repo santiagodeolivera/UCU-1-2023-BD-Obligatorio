@@ -1,0 +1,28 @@
+<div class="container center-content-x">
+    <div class="center-content">
+      
+        
+      <div class="forms-body-container">
+        <app-profile-update-form #signUpForm ></app-profile-update-form>
+      </div>
+    </div>
+    <div class="bb-signup-footer">
+      <button mat-raised-button
+        matStepperPrevious
+        class="bb-previous-button"
+        color="ancents">RETURN
+      </button>
+      
+      <button mat-raised-button
+        matStepperNext
+        class="bb-next-button"
+        color="primary"
+        (click)="pullFormData()">CREATE ACCOUNT
+      </button>
+     
+      <p class="bb-signup-subtitle">
+        Already have an account?
+        <a routerLink="/login">Sign in</a>
+      </p>
+    </div>
+  </div>

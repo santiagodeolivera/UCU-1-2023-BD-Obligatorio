@@ -2,15 +2,17 @@ import { User } from "../interfaces/user";
 
 
 export const MOCKED_USER: User = {
-    name: 'John Doe',
-    username: 'johndoe',
-    birthdate: '1990-01-01',
-    description: 'hello world',
-    email: 'ejemplo@angular.com',
-    gender: 'Male',
-    iconUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinter',
+    ci: '123456789',
+    name: 'John',
+    surname: 'Doe',
+    urlPictureID: 'https://picsum.photos/200',
     password: '123456',
-    phone: '1234567890',
-    uid: '01'
-
+    isAdmin: false,
+    phone: '123456789',
+    geoDistance: 0,
+    geoState: false,
+    email: 'prueba@prueba.com',
+    city: 'Cochabamba',
+    state: 'Cochabamba',
+    address: 'Av. America #123'
 };

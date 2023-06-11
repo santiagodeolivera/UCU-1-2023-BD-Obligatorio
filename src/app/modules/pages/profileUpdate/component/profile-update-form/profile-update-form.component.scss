@@ -1,0 +1,19 @@
+form{
+    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+mat-form-field{
+    width: 100%;
+    justify-self: center;
+    align-self: center;
+    justify-items: center;
+    
+}
+mat-card{
+    display: flex;
+    background-color: rgba(240, 240, 240, 0.61);
+    width: 35rem;
+}

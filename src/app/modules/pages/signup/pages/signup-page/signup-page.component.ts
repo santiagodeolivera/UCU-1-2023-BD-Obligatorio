@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
+import { FormBuilder} from '@angular/forms';
 import { SignupFormsComponent } from '../../components/signup-forms/signup-forms.component';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/modules/core/interfaces/user';
 import { SignupService } from 'src/app/modules/core/services/signup.service';
 
@@ -18,8 +17,7 @@ export class SignupPageComponent implements OnInit {
 
   constructor(private fb : FormBuilder,
     private router: Router,
-    private signupService : SignupService,
-    private dialog: MatDialog) { }
+    private signupService : SignupService) { }
   
   ngOnInit(): void {
     

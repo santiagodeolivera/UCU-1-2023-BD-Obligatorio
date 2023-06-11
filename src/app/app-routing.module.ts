@@ -10,6 +10,10 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./modules/pages/login/login.module').then( m => m.LoginModule ),
   },
+  {
+    path: 'profile-update',
+    loadChildren: () => import('./modules/pages/profileUpdate/profile-update.module').then( m => m.ProfileUpdateModule ),
+  },
 ];
 
 @NgModule({

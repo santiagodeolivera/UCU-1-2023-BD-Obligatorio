@@ -21,9 +21,17 @@
     <mat-icon class="align-middle">
       location_on
     </mat-icon>
-    <!-- TODO: Retrieve location data using google maps API -->
-    <span class="ms-2 align-bottom">Constitución 2450, Montevideo</span>
+    <span class="ms-2 align-bottom">{{locationString}}</span>
   </p>
+
+  <h2 class="mt-4">
+    Habilidades Requeridas
+  </h2>
+
+  <app-skill-chip-list
+    [skills]="necessity.skills || []"
+  >
+  </app-skill-chip-list>
 
   <h2 class="mt-4">
     Descripción

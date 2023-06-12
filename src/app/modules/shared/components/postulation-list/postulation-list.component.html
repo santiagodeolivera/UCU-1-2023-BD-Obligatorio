@@ -1,0 +1,12 @@
+<div
+  class="mt-2 mb-2"
+  *ngFor="let postulation of postulations"
+>
+  <app-postulation-card
+    [postulation]="postulation"
+    [isRunningUserNecessity]="isRunningUserNecessity"
+    (postulationDelete)="handlePostulationDelete($event)"
+    (postulationStatusUpdate)="updatePostulationStatus($event)"
+  >
+  </app-postulation-card>
+</div>

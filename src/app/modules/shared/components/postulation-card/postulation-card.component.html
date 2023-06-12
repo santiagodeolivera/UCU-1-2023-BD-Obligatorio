@@ -1,0 +1,51 @@
+<mat-card class="w-100">
+  <mat-card-header>
+    <mat-card-title>
+      {{postulation.user!.name}} - {{postulation.status}}
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="mt-2">
+    <div class="mt-4">
+      <app-skill-chip-list
+        [skills]="postulation.user!.skills!"
+      >
+      </app-skill-chip-list>
+    </div>
+  </mat-card-content>
+
+  <mat-card-footer>
+    <mat-card-actions
+      class="text-center"
+    >
+    <div *ngIf="isRunningUserNecessity && !isRunningUser">
+      <button
+        mat-flat-button
+        color="warn"
+        (click)="updatePostulationStatus('Rechazada')"
+      >
+        Rechazar
+      </button>
+
+      <button
+        class="ms-2"
+        mat-flat-button
+        color="primary"
+        (click)="updatePostulationStatus('Aprobada')"
+      >
+        Aceptar
+      </button>
+    </div>
+
+    <div *ngIf="isRunningUser">
+      <button
+        mat-flat-button
+        color="warn"
+        (click)="handlePostulationDelete()"
+      >
+        Eliminar
+      </button>
+    </div>
+    </mat-card-actions>
+  </mat-card-footer>
+</mat-card>

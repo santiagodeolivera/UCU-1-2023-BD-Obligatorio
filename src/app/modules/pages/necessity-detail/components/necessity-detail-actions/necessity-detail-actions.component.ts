@@ -8,13 +8,15 @@ import { UserService } from 'src/app/modules/core/services/user.service';
   styleUrls: ['./necessity-detail-actions.component.scss']
 })
 export class NecessityDetailActionsComponent implements OnInit {
+  isEditMode: boolean = false;
 
   @Input() necessity!: INecessity;
 
   @Output() newPostulation = new EventEmitter<IPostulation>();
+  @Output() editToggle = new EventEmitter<boolean>();
 
   get runningUserId(): string | undefined {
-    return this.userService.runningUser?.userId;
+    return this.userService.runningUser?.id;
   }
 
   get isByRunningUser(): boolean {
@@ -41,10 +43,14 @@ export class NecessityDetailActionsComponent implements OnInit {
 
     const postulation: IPostulation = {
       necessityId: this.necessity.id,
-      userId: this.userService.runningUser?.userId
+      userId: this.userService.runningUser?.id
     };
 
     this.newPostulation.emit(postulation);
   }
 
+  handleEditStart() {
+    this.isEditMode = true;
+    this.editToggle.emit(this.isEditMode);
+  }
 }

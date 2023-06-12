@@ -9,13 +9,35 @@
   class="container"
 >
   <app-necessity-fields
+    *ngIf="!isEditMode"
     [necessity]="necessity"
   >
   </app-necessity-fields>
+  <!-- Show edit-necessity-form -->
 
-  <app-necessity-detail-actions
-    [necessity]="necessity"
-    (newPostulation)="handleNewPostulation($event)"
+  <div
+    *ngIf="necessity.userId === userService.runningUser?.id && !isEditMode"
+    class="mt-3"
   >
-  </app-necessity-detail-actions>
-</div>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Postulaciones</mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-necessity-postulation-list
+        [necessity]="necessity"
+        [isRunningUserNecessity]="necessity.userId === userService.runningUser?.id"
+      >
+      </app-necessity-postulation-list>
+    </mat-expansion-panel>
+  </div>
+
+  <div
+    class="w-100 mt-5 text-center"
+  >
+    <app-necessity-detail-actions
+      [necessity]="necessity"
+      (newPostulation)="handleNewPostulation($event)"
+      (editToggle)="isEditMode = $event"
+    >
+    </app-necessity-detail-actions>
+  </div>

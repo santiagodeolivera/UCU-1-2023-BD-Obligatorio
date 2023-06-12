@@ -6,18 +6,22 @@ import { NecessityDetailPageComponent } from './pages/necessity-detail-page/nece
 import { NecessityFieldsComponent } from './components/necessity-fields/necessity-fields.component';
 import { MaterialModule } from 'src/app/material.module';
 import { NecessityDetailActionsComponent } from './components/necessity-detail-actions/necessity-detail-actions.component';
+import { SharedModule } from '../../shared/shared.module';
+import { NecessityPostulationListComponent } from './components/necessity-postulation-list/necessity-postulation-list.component';
 
 
 @NgModule({
   declarations: [
     NecessityDetailPageComponent,
     NecessityFieldsComponent,
-    NecessityDetailActionsComponent
+    NecessityDetailActionsComponent,
+    NecessityPostulationListComponent
   ],
   imports: [
     CommonModule,
     NecessityDetailRoutingModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ]
 })
 export class NecessityDetailModule { }

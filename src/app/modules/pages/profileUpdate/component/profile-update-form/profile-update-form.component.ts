@@ -45,7 +45,7 @@ export class ProfileUpdateFormComponent implements OnInit {
     {value: 'Paysandú', viewValue: 'Paysandú'}]
   
   adminOption = [
-    {value: 'true', viewValue: 'Yes'},
+    {value: 'true', viewValue: 'Si'},
     {value: 'false', viewValue: 'No'}
   ]
   

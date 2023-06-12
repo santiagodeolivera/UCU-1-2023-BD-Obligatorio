@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ILogin } from 'src/app/modules/core/interfaces';
 
 @Component({
   selector: 'app-login-forms',
   templateUrl: './login-forms.component.html',
   styleUrls: ['./login-forms.component.scss']
 })
-export class LoginFormsComponent implements OnInit {
+export class LoginFormsComponent implements OnInit, ILogin{
   hidePassword = true;
-
+  ci!: string;
+  hashPassword!: string;
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {

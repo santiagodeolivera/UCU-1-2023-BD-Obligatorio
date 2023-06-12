@@ -2,100 +2,107 @@
   
   <form [formGroup]="signUpForm">
     <mat-card-header>
-      <mat-card-title>SignUp</mat-card-title>
+      <mat-card-title>Registrarse</mat-card-title>
     </mat-card-header>
+    <!--CI-->
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>perm_identity</mat-icon>
+      <mat-label>CI</mat-label>
+      <input matInput placeholder="CI" [formControl]="signUpForm.controls.ci" maxLength="8">
+      <mat-error>Por favor ingrese su CI</mat-error>
+    </mat-form-field>
+
     <!--Name-->
     <mat-form-field appearance="outline">
       <mat-icon matPrefix>person</mat-icon>
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="Name" [formControl]="signUpForm.controls.name" maxLength="20">
-      <mat-error>Please enter your full name</mat-error>
+      <mat-label>Nombres</mat-label>
+      <input matInput placeholder="Nombres" [formControl]="signUpForm.controls.name" maxLength="20">
+      <mat-error>Por favor ingrese el nombre</mat-error>
     </mat-form-field>
     
     <!--Surname-->
     <mat-form-field appearance="outline">
       <mat-icon matPrefix>person</mat-icon>
-      <mat-label>Surname</mat-label> 
-      <input matInput placeholder="Surname" [formControl]="signUpForm.controls.surname" maxLength="20">
-      <mat-error>Surname must be between 3 and 10 characters</mat-error>
+      <mat-label>Apellidos</mat-label> 
+      <input matInput placeholder="Apellidos" [formControl]="signUpForm.controls.surname" maxLength="20">
+      <mat-error>Por favor ingrese los apellidos</mat-error>
     </mat-form-field>
     
     <!--idPicture upload an picture of Identification Card-->
     <mat-form-field appearance="outline">
-      <mat-label>Identification Card</mat-label>
-      <input matInput placeholder="Identification Card" [formControl]="signUpForm.controls.idPicture" maxLength="8">
+      <mat-label>URL DNI</mat-label>
+      <input matInput placeholder="Enlace a foto de CI" [formControl]="signUpForm.controls.urlPictureID" maxLength="50">
       <mat-icon matPrefix>perm_identity</mat-icon>
-      <mat-error>Please upload a valid picture of your identification card</mat-error>
+      <mat-error>Por favor ingrese el enlace a la foto de su CI</mat-error>
     </mat-form-field>
     
     <!--HashPassword-->
     <mat-form-field appearance="outline">
       <mat-icon matPrefix >lock</mat-icon>
-      <mat-label>Password</mat-label>
+      <mat-label>Contraseña</mat-label>
       <input matInput
       [type]="passwordInputType"
       [formControl]="signUpForm.controls.hashPassword" maxLength="20">
       <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
         <mat-icon color="{{passwordIconColor}}">{{passwordIconName}}</mat-icon>
       </button>
-      <mat-error>Please enter a valid alfanumeric password</mat-error>
+      <mat-error>Por favor ingrese una contraseña alfa-numérica</mat-error>
     </mat-form-field>
     
     <!--Email-->
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input type="email" matInput placeholder="Email" [formControl]="signUpForm.controls.email" maxLength="50">
+      <input type="email" matInput placeholder="Correo Electrónico" [formControl]="signUpForm.controls.email" maxLength="50">
       <mat-icon matPrefix>mail</mat-icon>
-      <mat-error>Please enter a valid email</mat-error>
+      <mat-error>Por favor ingrese un correo válido</mat-error>
     </mat-form-field>
     
-    <!--Age-->
+    <!--Is Admin default false
     <mat-form-field appearance="outline">
-      <mat-label>Birthdate</mat-label>
-      <input matInput 
-      [matDatepicker]="picker"
-      [formControl]="signUpForm.controls.birthdate" maxLength="20"
-      >
-      <mat-datepicker-toggle matSuffix
-      [for]="picker">calendar</mat-datepicker-toggle>
-      <mat-datepicker #picker [color]="'primary'" ></mat-datepicker>
-      <mat-error>Please enter a valid date</mat-error>
-    </mat-form-field>
+      <mat-label>Es Admin</mat-label>
+      <mat-select [formControl]="signUpForm.controls.isAdmin">
+        <mat-option *ngFor="let isAdmin of adminOption" [value]="isAdmin.value">
+          {{isAdmin.viewValue}}
+        </mat-option>
+      </mat-select>
+      <mat-icon matPrefix>verified_user</mat-icon>
+      <mat-error>Por</mat-error>
+    </mat-form-field>-->
       
     <!--Phone-->
     <mat-form-field appearance="outline">
-      <mat-label>Phone</mat-label>
-      <input type="tel" matInput placeholder="Phone" [formControl]="signUpForm.controls.phone" maxLength="20">
+      <mat-label>Teléfono</mat-label>
+      <input type="tel" matInput placeholder="Teléfono" [formControl]="signUpForm.controls.phone" maxLength="20">
       <mat-icon matPrefix>phone</mat-icon>
-      <mat-error>Please enter a valid phone number</mat-error>
+      <mat-error>Por favor ingrese un número de Teléfono válido</mat-error>
     </mat-form-field>
     
     <!--Address-->
     <mat-form-field appearance="outline">
-      <mat-label>Address</mat-label>
-      <input matInput placeholder="Address" [formControl]="signUpForm.controls.address" maxLength="20">
+      <mat-label>Dirección</mat-label>
+      <input matInput placeholder="Dirección" [formControl]="signUpForm.controls.address" maxLength="20">
       <mat-icon matPrefix>home</mat-icon>
-      <mat-error>Please enter a valid address</mat-error>
+      <mat-error>Por favor ingrese una dirección válida</mat-error>
     </mat-form-field>
     
     <!--City-->
     <mat-form-field appearance="outline">
-      <mat-label>City</mat-label>
-      <input matInput placeholder="City" [formControl]="signUpForm.controls.city" maxLength="20">
+      <mat-label>Ciudad</mat-label>
+      <input matInput placeholder="Ciudad" [formControl]="signUpForm.controls.city" maxLength="20">
       <mat-icon matPrefix>location_city</mat-icon>
-      <mat-error>Please enter a valid city</mat-error>
+      <mat-error>Por favor ingrese una Ciudad válida</mat-error>
     </mat-form-field>
     
     <!--State with class mat-select -->
     <mat-form-field appearance="outline">
-      <mat-label>State</mat-label>
+      <mat-label>Departamento</mat-label>
         <mat-select [formControl]="signUpForm.controls.state">
           <mat-option *ngFor="let state of states" [value]="state.value">
             {{state.viewValue}}
           </mat-option>
         </mat-select>
         <mat-icon matPrefix>location_on</mat-icon>
-        <mat-error>Please enter a valid state</mat-error>
+        <mat-error>Por favor seleccione un Departamento</mat-error>
     </mat-form-field>
   </form>
   <mat-card-footer>

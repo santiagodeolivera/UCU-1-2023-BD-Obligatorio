@@ -1,28 +1,28 @@
 <mat-card>
     <mat-card-header>
-      <mat-card-title>LogIn</mat-card-title>
+      <mat-card-title>Ingresar</mat-card-title>
     </mat-card-header>
     <form [formGroup]="loginForm">
       
       <!--idPicture upload an picture of Identification Card-->
       <mat-form-field appearance="outline">
-        <mat-label>Identification Card</mat-label>
-        <input matInput placeholder="Identification Card" [formControl]="loginForm.controls.ci" maxLength="8">
+        <mat-label>Cédula de Identidad</mat-label>
+        <input matInput placeholder="Cédula de Identidad sin puntos ni guion" [formControl]="loginForm.controls.ci" maxLength="8">
         <mat-icon matPrefix>perm_identity</mat-icon>
-        <mat-error>Please upload a valid picture of your identification card</mat-error>
+        <mat-error>Por favor ingrese su Cédula de Identidad sin puntos ni guion</mat-error>
       </mat-form-field>
       
       <!--HashPassword-->
       <mat-form-field appearance="outline">
         <mat-icon matPrefix >lock</mat-icon>
-        <mat-label>Password</mat-label>
+        <mat-label>Contraseña</mat-label>
         <input matInput
         [type]="passwordInputType"
         [formControl]="loginForm.controls.hashPassword" maxLength="20">
         <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
           <mat-icon color="{{passwordIconColor}}">{{passwordIconName}}</mat-icon>
         </button>
-        <mat-error>Please enter a valid alfanumeric password</mat-error>
+        <mat-error>Por favor ingrese su contraseña</mat-error>
       </mat-form-field>
       
     </form>

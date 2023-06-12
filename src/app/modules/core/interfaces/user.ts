@@ -1,14 +1,16 @@
 
-
 export interface User {
   ci?: string;
   name?: string;
-  username?: string;
+  surname?: string;
+  urlPictureID?: string;
   password?: string;
-  birthdate?: string;
-  gender?: string;
+  isAdmin?: boolean;
   phone?: string;
+  geoDistance?: number;
+  geoState?: boolean;
   email?: string;
-  iconUrl?: string;
-  description?: string;
+  city: string;
+  state: string;
+  address: string;
 }

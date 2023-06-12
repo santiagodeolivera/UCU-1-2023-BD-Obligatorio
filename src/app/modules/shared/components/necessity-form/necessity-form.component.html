@@ -88,7 +88,14 @@
     </div>
   </div>
 
-  <h3 class="mt-4">¿Dónde necesitas ayuda?</h3>
+  <app-skills-dropdown
+    class="mt-5"
+    [formControl]="necessityForm.controls.requiredSkills"
+    label="¿Qué habilidades requieres?"
+  >
+  </app-skills-dropdown>
+
+  <h3>¿Dónde necesitas ayuda?</h3>
   <app-map
     class="location-map mt-3"
     [enableSearch]="true"

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { IGeolocation, INecessity } from 'src/app/modules/core/interfaces';
+import { IGeolocation, INecessity, ISkill } from 'src/app/modules/core/interfaces';
 import { UserService } from 'src/app/modules/core/services/user.service';
 
 import { MapComponent } from 'src/app/modules/shared/components/map/map.component';
@@ -35,7 +35,8 @@ export class NecessityFormComponent implements OnInit {
     description: [ '', Validators.maxLength(500) ],
     startDate: new FormControl<Date | undefined>(undefined, Validators.required), //Validators.min(new Date().getTime())
     endDate: new FormControl<Date | undefined>(undefined),
-    location: new FormControl<IGeolocation | undefined>(undefined, Validators.required)
+    requiredSkills: new FormControl<string[] | undefined>(undefined),
+    location: new FormControl<IGeolocation | undefined>(undefined, Validators.required),
   });
 
   @ViewChild(MapComponent) map?: MapComponent;
@@ -65,14 +66,18 @@ export class NecessityFormComponent implements OnInit {
     if (!this.necessityForm.valid) return;
 
     const value = this.necessityForm.value;
+    const requiredSkills: ISkill[] | undefined = value.requiredSkills?.map(skill => {
+      return { id: skill } as ISkill;
+    });
     const necessity: INecessity = {
-      userId: this.userService.runningUser?.userId,
+      userId: this.userService.runningUser?.id,
       title: value.title || undefined,
       description: value.description || undefined,
       startDate: value.startDate || undefined,
       endDate: value.endDate || undefined,
-      location: value.location || undefined
-    }
+      location: value.location || undefined,
+      skills: requiredSkills || undefined
+    };
 
     this.save.emit(necessity);
   }

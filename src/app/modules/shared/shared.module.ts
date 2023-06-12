@@ -7,12 +7,14 @@ import { MapComponent } from './components/map/map.component';
 import { MaterialModule } from 'src/app/material.module';
 import { MapSearchBoxComponent } from './components/map-search-box/map-search-box.component';
 import { NecessityFormComponent } from './components/necessity-form/necessity-form.component';
+import { SkillsDropdownComponent } from './components/skills-dropdown/skills-dropdown.component';
 
 @NgModule({
   declarations: [
     MapComponent,
     MapSearchBoxComponent,
-    NecessityFormComponent
+    NecessityFormComponent,
+    SkillsDropdownComponent
   ],
   imports: [
     CommonModule,

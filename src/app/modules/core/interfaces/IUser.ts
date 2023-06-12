@@ -1,9 +1,8 @@
 import { IGeoConfiguration, IGeolocation } from ".";
 
 export interface IUser {
-  userId?: string;
-  firstName?: string;
-  lastName?: string;
+  id?: string;
+  name?: string;
   email?: string;
   isAdmin?: boolean;
   address?: IGeolocation;

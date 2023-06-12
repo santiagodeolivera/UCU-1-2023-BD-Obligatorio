@@ -1,0 +1,21 @@
+<div class="container mt-3" *ngIf="!isLoading">
+  <h2>Nueva Necesidad</h2>
+
+  <app-necessity-form
+    [necessity]="necessity"
+    (cancel)="handleCancel()"
+    (save)="handleSave($event)"
+  >
+  </app-necessity-form>
+</div>
+
+<div *ngIf="isLoading">
+  <div
+    class="spinner-background"
+  >
+  </div>
+  <mat-spinner
+    class="spinner"
+  >
+  </mat-spinner>
+</div>

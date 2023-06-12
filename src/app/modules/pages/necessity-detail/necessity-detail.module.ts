@@ -8,6 +8,8 @@ import { MaterialModule } from 'src/app/material.module';
 import { NecessityDetailActionsComponent } from './components/necessity-detail-actions/necessity-detail-actions.component';
 import { SharedModule } from '../../shared/shared.module';
 import { NecessityPostulationListComponent } from './components/necessity-postulation-list/necessity-postulation-list.component';
+import { EditNecessityFormComponent } from './components/edit-necessity-form/edit-necessity-form.component';
+import { NecessityEditPageComponent } from './pages/necessity-edit-page/necessity-edit-page.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { NecessityPostulationListComponent } from './components/necessity-postul
     NecessityDetailPageComponent,
     NecessityFieldsComponent,
     NecessityDetailActionsComponent,
-    NecessityPostulationListComponent
+    NecessityPostulationListComponent,
+    EditNecessityFormComponent,
+    NecessityEditPageComponent
   ],
   imports: [
     CommonModule,

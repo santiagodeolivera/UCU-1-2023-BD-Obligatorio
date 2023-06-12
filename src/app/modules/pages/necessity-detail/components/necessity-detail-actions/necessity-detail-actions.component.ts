@@ -8,12 +8,11 @@ import { UserService } from 'src/app/modules/core/services/user.service';
   styleUrls: ['./necessity-detail-actions.component.scss']
 })
 export class NecessityDetailActionsComponent implements OnInit {
-  isEditMode: boolean = false;
 
   @Input() necessity!: INecessity;
 
   @Output() newPostulation = new EventEmitter<IPostulation>();
-  @Output() editToggle = new EventEmitter<boolean>();
+  @Output() startEdit = new EventEmitter<void>();
 
   get runningUserId(): string | undefined {
     return this.userService.runningUser?.id;
@@ -50,7 +49,6 @@ export class NecessityDetailActionsComponent implements OnInit {
   }
 
   handleEditStart() {
-    this.isEditMode = true;
-    this.editToggle.emit(this.isEditMode);
+    this.startEdit.emit();
   }
 }

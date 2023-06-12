@@ -52,6 +52,7 @@ export class NecessityFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.necessity);
     if (this.necessity) this.prepopulateForm();
   }
 

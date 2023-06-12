@@ -20,6 +20,7 @@ export class NecessityEditPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getNecessity();
   }
 
   getNecessity() {

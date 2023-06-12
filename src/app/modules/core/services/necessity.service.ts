@@ -23,6 +23,12 @@ export class NecessityService {
     );
   }
 
+  updateNecessity(necessity: INecessity): Observable<IHTTPResponse<void>> {
+    return of({
+      success: true
+    });
+  }
+
   getNecessityById(necessityId: string): Observable<IHTTPResponse<INecessity>> {
     return of({
       success: true,

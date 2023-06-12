@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { IGeolocation, INecessity } from 'src/app/modules/core/interfaces';
+import { UserService } from 'src/app/modules/core/services/user.service';
 
 import { MapComponent } from 'src/app/modules/shared/components/map/map.component';
 
@@ -44,6 +45,7 @@ export class NecessityFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +66,7 @@ export class NecessityFormComponent implements OnInit {
 
     const value = this.necessityForm.value;
     const necessity: INecessity = {
+      userId: this.userService.runningUser?.userId,
       title: value.title || undefined,
       description: value.description || undefined,
       startDate: value.startDate || undefined,

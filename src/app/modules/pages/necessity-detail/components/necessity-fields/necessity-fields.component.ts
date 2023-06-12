@@ -10,6 +10,17 @@ export class NecessityFieldsComponent implements OnInit {
 
   @Input() necessity!: INecessity;
 
+  get dateString(): string {
+    const startDateString = this.necessity.startDate?.toLocaleDateString();
+    const endDateString = this.necessity.endDate?.toLocaleDateString();
+
+    if (endDateString && startDateString !== endDateString) {
+      return `${startDateString} - ${endDateString}`;
+    }
+
+    return `${startDateString}`;
+  }
+
   constructor() { }
 
   ngOnInit(): void {

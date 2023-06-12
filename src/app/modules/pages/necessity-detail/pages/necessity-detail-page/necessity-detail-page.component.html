@@ -4,9 +4,18 @@
 >
 </mat-spinner>
 
-<div *ngIf="necessity && !isLoading">
+<div
+  *ngIf="necessity && !isLoading"
+  class="container"
+>
   <app-necessity-fields
     [necessity]="necessity"
   >
   </app-necessity-fields>
+
+  <app-necessity-detail-actions
+    [necessity]="necessity"
+    (newPostulation)="handleNewPostulation($event)"
+  >
+  </app-necessity-detail-actions>
 </div>

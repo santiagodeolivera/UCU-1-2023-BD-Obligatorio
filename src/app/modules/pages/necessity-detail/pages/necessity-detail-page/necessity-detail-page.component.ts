@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { INecessity } from 'src/app/modules/core/interfaces';
+import { INecessity, IPostulation } from 'src/app/modules/core/interfaces';
 
 import { NecessityService } from 'src/app/modules/core/services/necessity.service';
+import { PostulationService } from 'src/app/modules/core/services/postulation.service';
 
 @Component({
   selector: 'app-necessity-detail-page',
@@ -16,6 +17,7 @@ export class NecessityDetailPageComponent implements OnInit {
 
   constructor(
     private necessityService: NecessityService,
+    private postulationService: PostulationService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -38,6 +40,22 @@ export class NecessityDetailPageComponent implements OnInit {
       }
 
       this.router.navigate(['']);
+    });
+  }
+
+  handleNewPostulation($event: IPostulation) {
+    this.isLoading = true;
+
+    this.postulationService.createPostulation($event)
+    .subscribe(result => {
+      this.isLoading = false;
+
+      if (result.success) {
+        this.getNecessity();
+        return;
+      }
+
+      // TODO: Show snackbar message
     });
   }
 }

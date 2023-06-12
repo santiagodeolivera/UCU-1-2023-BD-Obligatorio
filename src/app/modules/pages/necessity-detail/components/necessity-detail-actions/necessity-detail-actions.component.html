@@ -1,0 +1,17 @@
+<div *ngIf="isByRunningUser">
+  <!-- postulation list from shared module -->
+</div>
+
+<div
+  *ngIf="!isByRunningUser && !hasPostulation"
+  class="w-100 mt-5 text-center"
+>
+  <button
+    class="help-button"
+    mat-raised-button
+    color="primary"
+    (click)="handleNewPostulation()"
+  >
+    Ofrecer Ayuda
+  </button>
+</div>

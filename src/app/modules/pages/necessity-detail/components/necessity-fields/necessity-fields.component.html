@@ -1,0 +1,34 @@
+<div class="mt-4">
+  <h1 class="mt-4">
+    {{necessity.title}}
+  </h1>
+
+  <p class="necessity-field mt-4">
+    <mat-icon class="align-middle">
+      calendar_month
+    </mat-icon>
+    <span class="ms-2 align-bottom">{{dateString}}</span>
+  </p>
+
+  <p class="necessity-field mt-4">
+    <mat-icon class="align-middle">
+      rule
+    </mat-icon>
+    <span class="ms-2 align-bottom">{{necessity.status}}</span>
+  </p>
+
+  <p class="necessity-field mt-4">
+    <mat-icon class="align-middle">
+      location_on
+    </mat-icon>
+    <!-- TODO: Retrieve location data using google maps API -->
+    <span class="ms-2 align-bottom">Constitución 2450, Montevideo</span>
+  </p>
+
+  <h2 class="mt-4">
+    Descripción
+  </h2>
+  <p class="necessity-description">
+    <span>{{necessity.description}}</span>
+  </p>
+</div>

@@ -1,4 +1,4 @@
-import { IGeolocation, IPostulation, ISkill } from ".";
+import { IGeolocation, IPostulation, ISkill, IUser } from ".";
 
 export interface INecessity {
   id?: string;
@@ -11,6 +11,7 @@ export interface INecessity {
   endDate?: Date;
   solvedDate?: Date;
   location?: IGeolocation;
+  user?: IUser;
   postulations?: IPostulation[];
   skills?: ISkill[];
 }

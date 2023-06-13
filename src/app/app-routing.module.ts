@@ -8,6 +8,12 @@ const routes: Routes = [
     //canActivate: GUARDS GO HERE,
     //canLoad: GUARDS GO HERE
   },
+  {
+    path: 'necessities/:id',
+    loadChildren: () => import('./modules/pages/necessity-detail/necessity-detail.module').then( m => m.NecessityDetailModule ),
+    //canActivate: GUARDS GO HERE,
+    //canLoad: GUARDS GO HERE
+  }
 ];
 
 @NgModule({

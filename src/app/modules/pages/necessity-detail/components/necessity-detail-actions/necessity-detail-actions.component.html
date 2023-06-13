@@ -1,0 +1,19 @@
+<button
+  *ngIf="!isByRunningUser && !hasPostulation"
+  class="action-button"
+  mat-raised-button
+  color="primary"
+  (click)="handleNewPostulation()"
+>
+  Ofrecer Ayuda
+</button>
+
+<button
+  *ngIf="isByRunningUser && !isEditMode"
+  class="action-button"
+  mat-raised-button
+  color="primary"
+  (click)="handleEditStart()"
+>
+  Editar
+</button>

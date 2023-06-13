@@ -1,4 +1,4 @@
-import { IGeoConfiguration, IGeolocation } from ".";
+import { IGeoConfiguration, IGeolocation, ISkill } from ".";
 
 export interface IUser {
   id?: string;
@@ -7,4 +7,5 @@ export interface IUser {
   isAdmin?: boolean;
   address?: IGeolocation;
   geoConfiguration?: IGeoConfiguration;
+  skills?: ISkill[]
 }

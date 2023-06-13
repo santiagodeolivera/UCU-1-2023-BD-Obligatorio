@@ -51,6 +51,27 @@ export class NecessityDetailPageComponent implements OnInit {
     });
   }
 
+  deleteNecessity() {
+    this.necessityService.deleteNecessity(this.necessity?.id!)
+    .subscribe(result => {
+      if (result.success) {
+        this.router.navigate([''])
+        .then(() => {
+          this.snackbarService.openSnackBar(
+            'La necesidad fue eliminada exitosamente.',
+            undefined, 2000
+          );
+        });
+        return;
+      }
+
+      this.snackbarService.openSnackBar(
+        'Hubo un error al crear tu postulación. Intenta de nuevo más tarde.',
+        'Aceptar'
+      );
+    });
+  }
+
   handleNewPostulation($event: IPostulation) {
     this.isLoading = true;
 

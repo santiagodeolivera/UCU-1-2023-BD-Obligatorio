@@ -13,6 +13,7 @@ export class NecessityDetailActionsComponent implements OnInit {
 
   @Output() newPostulation = new EventEmitter<IPostulation>();
   @Output() startEdit = new EventEmitter<void>();
+  @Output() delete = new EventEmitter<void>();
 
   get runningUserId(): string | undefined {
     return this.userService.runningUser?.id;
@@ -50,5 +51,9 @@ export class NecessityDetailActionsComponent implements OnInit {
 
   handleEditStart() {
     this.startEdit.emit();
+  }
+
+  handleDelete() {
+    this.delete.emit();
   }
 }

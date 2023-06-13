@@ -1,0 +1,43 @@
+<mat-spinner
+  *ngIf="isLoading"
+  class="spinner"
+>
+</mat-spinner>
+
+<div
+  *ngIf="necessity && !isLoading"
+  class="container"
+>
+  <app-necessity-fields
+    [necessity]="necessity"
+  >
+  </app-necessity-fields>
+  <!-- Show edit-necessity-form -->
+
+  <div
+    *ngIf="isByRunningUser"
+    class="mt-3"
+  >
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Postulaciones</mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-necessity-postulation-list
+        [necessity]="necessity"
+        [isRunningUserNecessity]="isByRunningUser"
+      >
+      </app-necessity-postulation-list>
+    </mat-expansion-panel>
+  </div>
+
+  <div
+    class="w-100 mt-4 text-center"
+  >
+    <app-necessity-detail-actions
+      [necessity]="necessity"
+      (newPostulation)="handleNewPostulation($event)"
+      (startEdit)="navigateToEdit()"
+      (delete)="deleteNecessity()"
+    >
+    </app-necessity-detail-actions>
+  </div>

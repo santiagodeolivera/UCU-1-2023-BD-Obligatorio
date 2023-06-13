@@ -1,0 +1,129 @@
+<form
+  [formGroup]="necessityForm"
+  (submit)="handleSubmit()"
+>
+  <mat-form-field class="w-100" appearance="outline">
+    <mat-label>
+      Título
+    </mat-label>
+    <input
+      matInput
+      formControlName="title"
+      placeholder="Ingresa un título breve."
+      maxlength="80"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="w-100" appearance="outline">
+    <mat-label>
+      Descripción
+    </mat-label>
+
+    <textarea
+      #descriptionInput
+      matInput
+      formControlName="description"
+      placeholder="Ingresa una descripción detallada de tu necesidad"
+      maxlength="500"
+      rows="4"
+    >
+    </textarea>
+
+    <mat-hint align="end">
+      {{ descriptionInput.value.length || 0 }}/500
+    </mat-hint>
+  </mat-form-field>
+
+  <div class="row">
+    <div class="col-6">
+      <mat-form-field
+        class="w-100"
+        appearance="outline"
+      >
+        <mat-label>¿Cuándo necesitas ayuda?</mat-label>
+        <input
+          matInput
+          formControlName="startDate"
+          [value]="necessityForm.value.startDate"
+          [min]="minDate"
+          [matDatepicker]="necessityStartDatePicker"
+        >
+
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="necessityStartDatePicker"
+        >
+          calendar
+        </mat-datepicker-toggle>
+        <mat-datepicker #necessityStartDatePicker></mat-datepicker>
+
+        <mat-hint>MM/DD/YYYY</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-6">
+      <mat-form-field
+        class="w-100"
+        appearance="outline"
+      >
+        <mat-label>¿Hasta cuándo?</mat-label>
+        <input
+          matInput
+          formControlName="endDate"
+          [value]="necessityForm.value.endDate || necessityForm.value.startDate"
+          [min]="necessityForm.value.startDate"
+          [matDatepicker]="necessityEndDatePicker"
+          [disabled]="!necessityForm.value.startDate"
+        >
+
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="necessityEndDatePicker"
+        >
+          calendar
+        </mat-datepicker-toggle>
+        <mat-datepicker #necessityEndDatePicker></mat-datepicker>
+
+        <mat-hint>MM/DD/YYYY</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <app-skills-dropdown
+    *ngIf="necessityForm?.controls?.requiredSkills"
+    class="mt-5"
+    [formControl]="necessityForm.controls.requiredSkills"
+    label="¿Qué habilidades requieres?"
+  >
+  </app-skills-dropdown>
+
+  <h3>¿Dónde necesitas ayuda?</h3>
+  <app-map
+    class="location-map mt-3"
+    [position]="necessity?.location"
+    [enableSearch]="true"
+    [queryLocationOnClick]="true"
+    (mapClick)="handleMapClick($event)"
+    (mapSearch)="handleMapSearch($event)"
+  >
+  </app-map>
+
+  <div class="mt-4 d-flex justify-content-end">
+    <button
+      mat-button
+      type="button"
+      (click)="handleCancel()"
+    >
+      Cancelar
+    </button>
+
+    <button
+      mat-flat-button
+      class="ms-3"
+      color="primary"
+      type="submit"
+      [disabled]="!necessityForm.valid"
+    >
+      Guardar
+    </button>
+  </div>
+</form>

@@ -14,6 +14,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 const MATERIAL_COMPONENTS = [
@@ -27,7 +32,12 @@ const MATERIAL_COMPONENTS = [
   MatIconModule,
   MatDialogModule,
   MatCheckboxModule,
-  MatChipsModule
+  MatChipsModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatSnackBarModule,
+  MatProgressSpinnerModule,
+  MatExpansionModule
 ];
 
 @NgModule({

@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { IGeolocation } from 'src/app/modules/core/interfaces';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Output, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-map-search-box',
@@ -11,6 +10,8 @@ export class MapSearchBoxComponent implements AfterViewInit {
   searchBox?: google.maps.places.SearchBox;
 
   @ViewChild('mapSearchField') searchField?: ElementRef;
+
+  @Input() searchBoxValue: string = '';
 
   @Output() searchBoxInit = new EventEmitter<ElementRef>();
   @Output() placesChange = new EventEmitter<google.maps.places.PlaceResult>();

@@ -24,7 +24,6 @@ export class NecessityFieldsComponent implements OnInit {
   }
 
   get locationString(): string {
-    //{{necessity.location?.streetAddress}}, {{necessity.location?.city}}, {{necessity.location?.province}}
     const location = this.necessity.location;
     let locationString = location?.streetAddress ? location.streetAddress : '';
     locationString = location?.city ? `${locationString}, ${location?.city}` : locationString;

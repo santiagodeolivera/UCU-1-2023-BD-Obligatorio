@@ -99,6 +99,7 @@
   <h3>¿Dónde necesitas ayuda?</h3>
   <app-map
     class="location-map mt-3"
+    [position]="necessity?.location"
     [enableSearch]="true"
     [queryLocationOnClick]="true"
     (mapClick)="handleMapClick($event)"

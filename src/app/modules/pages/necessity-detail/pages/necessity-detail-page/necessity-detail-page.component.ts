@@ -14,12 +14,15 @@ import { UserService } from 'src/app/modules/core/services/user.service';
 })
 export class NecessityDetailPageComponent implements OnInit {
 
-  isEditMode: boolean = false;
   isLoading: boolean = false;
   necessity?: INecessity;
 
+  get isByRunningUser(): boolean {
+    return this.necessity?.userId === this.userService.runningUser?.id
+  }
+
   constructor(
-    public userService: UserService,
+    private userService: UserService,
     private necessityService: NecessityService,
     private postulationService: PostulationService,
     private snackbarService: SnackbarService,
@@ -65,5 +68,11 @@ export class NecessityDetailPageComponent implements OnInit {
         'Aceptar'
       );
     });
+  }
+
+  navigateToEdit() {
+    if (!this.isByRunningUser) return;
+
+    this.router.navigate([ `/necessities/${this.necessity?.id}/edit` ])
   }
 }

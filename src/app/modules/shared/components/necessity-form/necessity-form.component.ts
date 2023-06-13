@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { IGeolocation, INecessity, ISkill } from 'src/app/modules/core/interfaces';
@@ -41,6 +41,8 @@ export class NecessityFormComponent implements OnInit {
 
   @ViewChild(MapComponent) map?: MapComponent;
 
+  @Input() necessity?: INecessity;
+
   @Output() cancel = new EventEmitter<void>();
   @Output() save = new EventEmitter<INecessity>();
 
@@ -50,6 +52,20 @@ export class NecessityFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.necessity) this.prepopulateForm();
+  }
+
+  prepopulateForm() {
+    this.necessityForm.setValue({
+      title: this.necessity?.title || null,
+      description: this.necessity?.description || null,
+      startDate: this.necessity?.startDate || null,
+      endDate: this.necessity?.endDate || null,
+      location: this.necessity?.location || null,
+      requiredSkills: this.necessity?.skills?.map(skill => {
+        return skill.id
+      })
+    });
   }
 
   handleMapClick($event: IGeolocation) {

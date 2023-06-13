@@ -28,7 +28,8 @@ export class PostulationListComponent implements OnInit {
     .subscribe(result => {
       if (result.success) {
         this.snackbarService.openSnackBar(
-          'Postulación eliminada exitosamente.'
+          'Postulación eliminada exitosamente.',
+          undefined, 2000
         );
 
         this.postulationUpdate.emit();
@@ -47,7 +48,8 @@ export class PostulationListComponent implements OnInit {
     .subscribe(result => {
       if (result.success) {
         this.snackbarService.openSnackBar(
-          'Postulación actualizada exitosamente.'
+          'Postulación actualizada exitosamente.',
+          undefined, 2000
         );
 
         this.postulationUpdate.emit();

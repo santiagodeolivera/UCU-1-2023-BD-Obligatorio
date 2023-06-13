@@ -34,7 +34,8 @@ export class EditNecessityFormComponent implements OnInit {
         this.router.navigate([`/necessities/${this.necessity.id}`])
         .then(() => {
           this.snackbarService.openSnackBar(
-            'Necesidad actualizada exitosamente.'
+            'Necesidad actualizada exitosamente.',
+            undefined, 2000
           );
         });
         return;

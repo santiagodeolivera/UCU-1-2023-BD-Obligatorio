@@ -8,6 +8,7 @@
   <app-map-search-box
     *ngIf="enableSearch"
     class="search-box"
+    [searchBoxValue]="locationString"
     (searchBoxInit)="setSearchBox($event)"
     (placesChange)="handlePlacesChange($event)"
   >

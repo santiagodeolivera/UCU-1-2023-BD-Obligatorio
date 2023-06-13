@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GoogleMapsGeolocation } from 'src/app/modules/core/classes';
 import { INecessity } from 'src/app/modules/core/interfaces';
+import { MapService } from 'src/app/modules/core/services/map.service';
 import { NecessityService } from 'src/app/modules/core/services/necessity.service';
 
 @Component({
@@ -15,6 +17,7 @@ export class NecessityEditPageComponent implements OnInit {
 
   constructor(
     private necessityService: NecessityService,
+    private mapService: MapService,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
@@ -33,6 +36,7 @@ export class NecessityEditPageComponent implements OnInit {
 
       if (result.success) {
         this.necessity = result.data;
+        this.getNecessityLocation();
         return;
       }
 
@@ -40,4 +44,15 @@ export class NecessityEditPageComponent implements OnInit {
     });
   }
 
+  getNecessityLocation() {
+    if (!(this.necessity!.location?.latitude && this.necessity!.location.longitude)) return;
+
+    this.mapService.getPlaceInformationFromCoordinates(
+      this.necessity!.location?.latitude,
+      this.necessity!.location?.longitude,
+      GoogleMapsGeolocation
+    ).subscribe(result => {
+      this.necessity!.location = result;
+    });
+  }
 }

@@ -22,6 +22,7 @@ export class MapComponent implements OnInit {
   focusedPosition?: { lat: number, lng: number } = undefined;
 
   @Input() initialCoordinates = { lat: 0, lng: 0 };
+  @Input() position?: IGeolocation;
   @Input() enableSearch: boolean = true;
   @Input() queryLocationOnClick: boolean = false;
 
@@ -33,6 +34,16 @@ export class MapComponent implements OnInit {
 
   get hasCoordinates(): boolean {
     return this.initialCoordinates.lat !== 0 && this.initialCoordinates.lng !== 0;
+  }
+
+  get locationString(): string {
+    const location = this.position;
+    let locationString = location?.streetAddress ? location.streetAddress : '';
+    locationString = location?.city ? `${locationString}, ${location?.city}` : locationString;
+    locationString = location?.province ? `${locationString}, ${location?.province}` : locationString;
+    locationString = location?.country ? `${locationString}, ${location?.country}` : locationString;
+
+    return locationString ? locationString : `${location?.latitude}, ${location?.longitude}`;
   }
 
   constructor(
@@ -49,8 +60,12 @@ export class MapComponent implements OnInit {
 
     this.locationService.getCurrentPosition()
     .then(location => {
-      this.initialCoordinates.lat = location.coords.latitude;
-      this.initialCoordinates.lng = location.coords.longitude;
+      if (this.hasCoordinates) return;
+
+      this.initialCoordinates = {
+        lat: location.coords.latitude,
+        lng: location.coords.longitude
+      };
     })
     .catch(err => {
       console.log(err);
@@ -104,5 +119,7 @@ export class MapComponent implements OnInit {
       lat: position.latitude!,
       lng: position.longitude!
     };
+
+    this.initialCoordinates = { ...this.focusedPosition };
   }
 }

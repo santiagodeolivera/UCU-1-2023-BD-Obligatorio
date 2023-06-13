@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { IGeolocation, INecessity, ISkill } from 'src/app/modules/core/interfaces';
@@ -27,7 +27,7 @@ const UY_DATE_FORMAT = {
     { provide: MAT_DATE_LOCALE, useValue: 'es-UY' }
   ]
 })
-export class NecessityFormComponent implements OnInit {
+export class NecessityFormComponent implements AfterViewInit {
   minDate: Date = new Date();
 
   necessityForm = this.fb.group({
@@ -51,7 +51,7 @@ export class NecessityFormComponent implements OnInit {
     private userService: UserService
   ) { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     if (this.necessity) this.prepopulateForm();
   }
 
@@ -66,6 +66,12 @@ export class NecessityFormComponent implements OnInit {
         return skill.id
       })
     });
+
+    if (this.necessity?.location) {
+      this.map?.setFocusedPosition(
+        this.necessity.location
+      );
+    }
   }
 
   handleMapClick($event: IGeolocation) {

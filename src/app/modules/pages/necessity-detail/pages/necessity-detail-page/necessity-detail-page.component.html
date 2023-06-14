@@ -12,7 +12,6 @@
     [necessity]="necessity"
   >
   </app-necessity-fields>
-  <!-- Show edit-necessity-form -->
 
   <div
     *ngIf="isByRunningUser"
@@ -38,6 +37,7 @@
       (newPostulation)="handleNewPostulation($event)"
       (startEdit)="navigateToEdit()"
       (delete)="deleteNecessity()"
+      (solve)="solveNecessity()"
     >
     </app-necessity-detail-actions>
   </div>

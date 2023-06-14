@@ -5,12 +5,42 @@
     </mat-card-title>
   </mat-card-header>
 
-  <mat-card-content class="mt-2">
-    <div class="mt-4">
+  <mat-card-content>
+    <div class="mt-2">
       <app-skill-chip-list
         [skills]="postulation.user!.skills!"
       >
       </app-skill-chip-list>
+    </div>
+
+    <div
+      *ngIf="postulation.status === 'Aprobada'"
+      class="mt-3"
+    >
+      <p>
+        <mat-icon
+          class="align-middle"
+          color="primary"
+        >
+          mail
+        </mat-icon>
+        <a
+          class="ms-2 align-bottom user-field"
+          href="mailto:{{postulation.user!.email}}"
+        >{{ postulation.user!.email }}</a>
+      </p>
+      <p *ngFor="let phone of postulation.user?.phoneNumbers || []">
+        <mat-icon
+          class="align-middle"
+          color="primary"
+        >
+          phone
+        </mat-icon>
+        <a
+          class="ms-2 align-bottom user-field"
+          href="tel:{{phone}}"
+        >{{ phone }}</a>
+      </p>
     </div>
   </mat-card-content>
 
@@ -18,7 +48,7 @@
     <mat-card-actions
       class="text-center"
     >
-    <div *ngIf="isRunningUserNecessity && !isRunningUser">
+    <div *ngIf="showNecessityOwnerActions && isRunningUserNecessity && !isRunningUser">
       <button
         mat-flat-button
         color="warn"
@@ -33,7 +63,7 @@
         color="primary"
         (click)="updatePostulationStatus('Aprobada')"
       >
-        Aceptar
+        Aprobar
       </button>
     </div>
 

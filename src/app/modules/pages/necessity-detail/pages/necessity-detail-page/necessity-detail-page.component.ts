@@ -72,6 +72,28 @@ export class NecessityDetailPageComponent implements OnInit {
     });
   }
 
+  solveNecessity() {
+    this.necessityService.updateNecessity({
+        ...this.necessity!,
+        status: 'Solucionada'
+    })
+    .subscribe(result => {
+      if (result.success) {
+        this.snackbarService.openSnackBar(
+          'La necesidad fue resuelta exitosamente.',
+          undefined, 2000
+        );
+        this.getNecessity();
+        return;
+      }
+
+      this.snackbarService.openSnackBar(
+        'Hubo un error al actualizar la necesidad. Intenta de nuevo más tarde.',
+        'Aceptar'
+      );
+    });
+  }
+
   handleNewPostulation($event: IPostulation) {
     this.isLoading = true;
 

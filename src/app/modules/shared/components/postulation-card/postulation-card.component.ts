@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { IPostulation } from 'src/app/modules/core/interfaces';
-import { PostulationService } from 'src/app/modules/core/services/postulation.service';
-import { SnackbarService } from 'src/app/modules/core/services/snackbar.service';
 import { UserService } from 'src/app/modules/core/services/user.service';
 
 @Component({
@@ -19,6 +17,10 @@ export class PostulationCardComponent implements OnInit {
 
   get isRunningUser(): boolean {
     return this.postulation.userId === this.userService.runningUser?.id;
+  }
+
+  get showNecessityOwnerActions(): boolean {
+    return this.postulation.status !== 'Aprobada' && this.postulation.status !== 'Rechazada'
   }
 
   constructor(

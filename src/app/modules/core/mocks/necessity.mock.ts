@@ -1,5 +1,6 @@
 import { INecessity } from "../interfaces";
 import { SKILLS_MOCK } from "./skills.mock";
+import { USER_MOCK } from "./user.mock";
 
 export const NECESSITY_MOCK: INecessity = {
   id: '1',
@@ -14,5 +15,6 @@ export const NECESSITY_MOCK: INecessity = {
     latitude: -34.8825235,
     longitude: -56.1812066
   },
-  skills: SKILLS_MOCK
+  skills: SKILLS_MOCK,
+  user: USER_MOCK
 };

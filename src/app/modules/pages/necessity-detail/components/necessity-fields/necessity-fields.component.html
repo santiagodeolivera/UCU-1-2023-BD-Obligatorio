@@ -24,6 +24,23 @@
     <span class="ms-2 align-bottom">{{locationString}}</span>
   </p>
 
+  <div *ngIf="isApprovedNecessity"
+      class="mt-4 necessity-field">
+    <p>
+      <mat-icon class="align-middle"> mail </mat-icon>
+      <a class="ms-2 align-bottom user-field"
+        href="mailto:{{necessity.user!.email}}"
+      >{{ necessity.user!.email }}</a>
+    </p>
+    <p *ngFor="let phone of necessity.user?.phoneNumbers || []"
+      class="mt-4">
+      <mat-icon class="align-middle"> phone </mat-icon>
+      <a class="ms-2 align-bottom user-field"
+        href="tel:{{phone}}"
+      >{{ phone }}</a>
+    </p>
+  </div>
+
   <h2 class="mt-4">
     Habilidades Requeridas
   </h2>

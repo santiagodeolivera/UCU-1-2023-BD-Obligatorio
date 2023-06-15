@@ -14,20 +14,20 @@ export class ProfileUpdateFormComponent implements OnInit {
   profileUpdateForm = this.formBuilder.group(
     {
       //cada campo se completa con los datos del usuario de la variable user como el nombre user.name
-      name: [this.user?.name,[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-      surname : [this.user?.surname,[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      name: [this.user?.name,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      surname : [this.user?.surname,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       urlPictureID : [this.user?.urlPictureID,[Validators.required, Validators.pattern('https?://.+')]],
       isAdmin: [this.user?.isAdmin, [Validators.required]],
       hashPassword : [this.user?.password,[Validators.required,
-                      Validators.minLength(6),
-                      Validators.maxLength(16),]],
+                      Validators.minLength(8),
+                      Validators.maxLength(20),]],
       email : [this.user?.email,[Validators.required, Validators.email]],
-      phone : [this.user?.phone,[Validators.required, Validators.maxLength(10), Validators.pattern('[0-9]+')]],
-      geoDistance : [this.user?.geoDistance,[Validators.required, Validators.maxLength(3), Validators.pattern('[0-9]+')]],
+      phone : [this.user?.phone,[Validators.required, Validators.maxLength(9), Validators.pattern('[0-9]+')]],
+      geoDistance : [this.user?.geoDistance,[Validators.required, Validators.maxLength(20), Validators.pattern('[0-9]+')]],
       geoState : [this.user?.geoState,[Validators.required]],
-      city : [this.user?.city,[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-      state : [this.user?.state,[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-      address : [this.user?.address ,[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      city : [this.user?.city,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      state : [this.user?.state,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      address : [this.user?.address ,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
     }
   );
   // list with the viewValue of state of Uruguay

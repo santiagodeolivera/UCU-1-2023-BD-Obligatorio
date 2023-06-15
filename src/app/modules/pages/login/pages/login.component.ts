@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { LoginFormsComponent } from '../login-forms/login-forms.component';
+import { LoginFormsComponent } from '../component/login-forms/login-forms.component';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/modules/core/services/login.service';

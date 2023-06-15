@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ILogin } from 'src/app/modules/core/interfaces';
+import { ILogin } from 'src/app/modules/core/interfaces/ILogin';
 
 @Component({
   selector: 'app-login-forms',

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ILogin } from 'src/app/modules/core/interfaces';
 import { User } from 'src/app/modules/core/interfaces/user';
+import { ILogin } from 'src/app/modules/core/interfaces/ILogin';
 
 @Component({
   selector: 'app-signup-forms',
@@ -17,21 +17,21 @@ export class SignupFormsComponent implements OnInit, ILogin {
   signUpForm = this.formBuilder.group(
     {
       //cada campo se completa con los datos del usuario de la variable user como el nombre user.name
-      ci: ['',[Validators.required, Validators.minLength(7), Validators.maxLength(8), Validators.pattern('[0-9]+')]],
-      name: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-      surname : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      ci: ['',[Validators.required, Validators.minLength(6), Validators.maxLength(8), Validators.pattern('[0-9]+')]],
+      name: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      surname : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       urlPictureID : ['',[Validators.required, Validators.pattern('https?://.+')]],
       isAdmin: ['', [Validators.required]],
       hashPassword : ['',[Validators.required,
-                      Validators.minLength(6),
-                      Validators.maxLength(16),]],
+                      Validators.minLength(8),
+                      Validators.maxLength(20),]],
       email : ['',[Validators.required, Validators.email]],
-      phone : ['',[Validators.required, Validators.maxLength(10), Validators.pattern('[0-9]+')]],
-      geoDistance : ['',[Validators.required, Validators.maxLength(3), Validators.pattern('[0-9]+')]],
+      phone : ['',[Validators.required, Validators.maxLength(9), Validators.pattern('[0-9]+')]],
+      geoDistance : ['',[Validators.required, Validators.maxLength(20), Validators.pattern('[0-9]+')]],
       geoState : ['',[Validators.required]],
-      city : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-      state : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-      address : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      city : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      state : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      address : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
     }
   );
   // list with the viewValue of state of Uruguay

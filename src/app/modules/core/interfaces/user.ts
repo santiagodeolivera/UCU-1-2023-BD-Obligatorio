@@ -5,7 +5,7 @@ export interface User {
   name?: string;
   surname?: string;
   urlPictureID?: string;
-  password?: string;
+  hashPassword?: string;
   isAdmin?: boolean;
   phone?: string;
   geoDistance?: number;

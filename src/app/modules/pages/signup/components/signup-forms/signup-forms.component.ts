@@ -14,6 +14,11 @@ export class SignupFormsComponent implements OnInit, ILogin {
   hashPassword!: string;
   @Input() user?: User;
 
+  constructor(private formBuilder: FormBuilder) { }
+  
+  ngOnInit(): void {
+  }
+
   signUpForm = this.formBuilder.group(
     {
       //cada campo se completa con los datos del usuario de la variable user como el nombre user.name
@@ -27,11 +32,12 @@ export class SignupFormsComponent implements OnInit, ILogin {
                       Validators.maxLength(20),]],
       email : ['',[Validators.required, Validators.email]],
       phone : ['',[Validators.required, Validators.maxLength(9), Validators.pattern('[0-9]+')]],
-      geoDistance : ['',[Validators.required, Validators.maxLength(20), Validators.pattern('[0-9]+')]],
+      geoDistance : ['',[Validators.required, Validators.pattern('[0-9]+')]],
       geoState : ['',[Validators.required]],
       city : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       state : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      address : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      address : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]]
+      
     }
   );
   // list with the viewValue of state of Uruguay
@@ -62,11 +68,8 @@ export class SignupFormsComponent implements OnInit, ILogin {
     return this.hidePassword ? 'password' : 'text';
   }
 
-  constructor(private formBuilder: FormBuilder) { }
   
 
-  ngOnInit(): void {
-  }
 
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;

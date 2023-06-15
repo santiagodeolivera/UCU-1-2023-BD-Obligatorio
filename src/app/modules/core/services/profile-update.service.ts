@@ -17,13 +17,14 @@ export class ProfileUpdateService {
     message?: string,
     error?: { message: string }
   }> {
+    const url = `${this.userUrl}/${user.ci}`;
     return this.http.put<
     {
       success: boolean,
       data?:string
       message?: string,
       error?: { message: string }
-    }>('../i', user);
+    }>(url, user);
   }
 
   //get user from mock

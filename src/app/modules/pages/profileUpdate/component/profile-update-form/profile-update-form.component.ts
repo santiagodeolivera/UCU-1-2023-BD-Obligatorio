@@ -18,7 +18,7 @@ export class ProfileUpdateFormComponent implements OnInit {
       surname : [this.user?.surname,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       urlPictureID : [this.user?.urlPictureID,[Validators.required, Validators.pattern('https?://.+')]],
       isAdmin: [this.user?.isAdmin, [Validators.required]],
-      hashPassword : [this.user?.password,[Validators.required,
+      hashPassword : [this.user?.hashPassword,[Validators.required,
                       Validators.minLength(8),
                       Validators.maxLength(20),]],
       email : [this.user?.email,[Validators.required, Validators.email]],

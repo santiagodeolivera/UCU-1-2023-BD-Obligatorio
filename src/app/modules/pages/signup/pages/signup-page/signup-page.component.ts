@@ -15,23 +15,37 @@ export class SignupPageComponent implements OnInit {
   
   @ViewChild('signUpForm')
   formData!: SignupFormsComponent;
-
   constructor(private fb : FormBuilder,
     private router: Router,
-    private signupService : SignupService,
-    private dialog: MatDialog) { }
+    private signupService : SignupService) { }
   
   ngOnInit(): void {
     
   }
-  
+  /*
   pullFormData(){
-    const user = this.formData.signUpForm.value as User;
-    return user;
+    const data = this.formData.signUpForm.value;
+    return data;
   }
 
   onSubmit(){
     const user = this.pullFormData();
+    this.signupService.createUser(user.ci!, user.name!, user.surname!, user.urlPictureID!,
+          user.hashPassword!, false, user.phone!,  user.geoDistance!, false, user.email!,
+          user.city!, user.state!, user.address!).subscribe( (res) => {
+      if (res.success) {
+        this.router.navigate(['/login']);
+        return;
+      }
+    });
+  }*/
+  pullFormData(){
+    const user = this.formData.signUpForm.value;
+    return user;
+  }
+
+  onSubmit(){
+    const user = this.pullFormData() as User;
     this.signupService.createUser(user).subscribe( (res) => {
       if (res.success) {
         this.router.navigate(['/login']);
@@ -39,5 +53,7 @@ export class SignupPageComponent implements OnInit {
       }
     });
   }
+
+
 
 }

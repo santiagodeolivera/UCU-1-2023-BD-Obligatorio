@@ -6,7 +6,7 @@ export const MOCKED_USER: User = {
     name: 'John',
     surname: 'Doe',
     urlPictureID: 'https://picsum.photos/200',
-    password: '123456',
+    hashPassword: '123456',
     isAdmin: false,
     phone: '123456789',
     geoDistance: 0,

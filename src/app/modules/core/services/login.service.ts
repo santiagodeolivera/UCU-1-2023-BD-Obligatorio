@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-
+  private userUrl = 'http://localhost:3000/api/v1/users';
   constructor(private http: HttpClient ) { }
 
   login(ci: string, password: string) : Observable<
@@ -16,13 +16,14 @@ export class LoginService {
     message?: string,
     error?: { message: string }
   }> {
+    const url = `${this.userUrl}`;
     return this.http.post<
     {
       success: boolean,
       data?:string
       message?: string,
       error?: { message: string }
-    }>('../i', { ci, password });
+    }>(url, { ci, password });
   }
   
   logout() {

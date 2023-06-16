@@ -9,6 +9,7 @@ import { ISkill } from 'src/app/modules/core/interfaces';
 export class SkillChipListComponent implements OnInit {
 
   @Input() skills!: ISkill[];
+  @Input() enableSkillModal: boolean = false;
 
   constructor() { }
 

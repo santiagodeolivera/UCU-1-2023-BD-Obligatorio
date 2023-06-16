@@ -11,6 +11,8 @@ import { SkillsDropdownComponent } from './components/skills-dropdown/skills-dro
 import { SkillChipListComponent } from './components/skill-chip-list/skill-chip-list.component';
 import { PostulationListComponent } from './components/postulation-list/postulation-list.component';
 import { PostulationCardComponent } from './components/postulation-card/postulation-card.component';
+import { SkillChipComponent } from './components/skill-chip/skill-chip.component';
+import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { PostulationCardComponent } from './components/postulation-card/postulat
     SkillsDropdownComponent,
     SkillChipListComponent,
     PostulationListComponent,
-    PostulationCardComponent
+    PostulationCardComponent,
+    SkillChipComponent,
+    SkillDialogComponent
   ],
   imports: [
     CommonModule,

@@ -13,6 +13,12 @@ const routes: Routes = [
     loadChildren: () => import('./modules/pages/necessity-detail/necessity-detail.module').then( m => m.NecessityDetailModule ),
     //canActivate: GUARDS GO HERE,
     //canLoad: GUARDS GO HERE
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./modules/pages/search/search.module').then( m => m.SearchModule ),
+    //canActivate: GUARDS GO HERE,
+    //canLoad: GUARDS GO HERE
   }
 ];
 

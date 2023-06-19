@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-title
+    routerLink="{{searchResult.url}}"
+  >
+    {{searchResult.title}}
+  </mat-card-title>
+
+  <mat-card-content
+    *ngIf="searchResult.content"
+  >
+  </mat-card-content>
+    {{searchResult.content}}
+  <mat-card-footer
+    *ngIf="searchResult.skills"
+  >
+    <app-skill-chip-list
+      [enableSkillModal]="enableSkillModal"
+      [skills]="searchResult.skills"
+    >
+    </app-skill-chip-list>
+  </mat-card-footer>
+</mat-card>

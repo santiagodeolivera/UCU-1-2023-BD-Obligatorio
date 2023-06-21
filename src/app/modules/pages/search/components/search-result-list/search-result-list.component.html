@@ -1,5 +1,9 @@
-<app-search-result-item
+<div
+  class="my-4"
   *ngFor="let searchResult of searchResults"
-  [searchResult]="searchResult"
 >
-</app-search-result-item>
+  <app-search-result-item
+    [searchResult]="searchResult"
+  >
+  </app-search-result-item>
+</div>

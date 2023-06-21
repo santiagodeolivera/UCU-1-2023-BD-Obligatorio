@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ILogin } from 'src/app/modules/core/interfaces';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { IGeolocation, ILogin } from 'src/app/modules/core/interfaces';
 import { User } from 'src/app/modules/core/interfaces/user';
+import { MapComponent } from 'src/app/modules/shared/components/map/map.component';
 
 @Component({
   selector: 'app-signup-forms',
@@ -13,29 +14,32 @@ export class SignupFormsComponent implements OnInit, ILogin {
   ci!: string;
   hashPassword!: string;
   @Input() user?: User;
+  @ViewChild(MapComponent) map?: MapComponent;
 
   signUpForm = this.formBuilder.group(
     {
-      //cada campo se completa con los datos del usuario de la variable user como el nombre user.name
-      ci: ['',[Validators.required, Validators.minLength(7), Validators.maxLength(8), Validators.pattern('[0-9]+')]],
-      name: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-      surname : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      // La cedula debe tener entre 6 y 8 digitos, y no puede comenzar ser mayor a 100000 y menor a 80000000
+      ci: ['',[Validators.required, Validators.minLength(6), Validators.maxLength(8), Validators.pattern('[0-9]+'), 
+            Validators.min(100000), Validators.max(80000000)]],
+      name: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z ]+')]],
+      surname : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z ]+')]],
       urlPictureID : ['',[Validators.required, Validators.pattern('https?://.+')]],
       isAdmin: ['', [Validators.required]],
+      // La contraseña debe iniciar con mayuscula y tener al menos un numero
       hashPassword : ['',[Validators.required,
-                      Validators.minLength(6),
-                      Validators.maxLength(16),]],
+                      Validators.minLength(8),
+                      Validators.maxLength(20),
+                      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]],
       email : ['',[Validators.required, Validators.email]],
-      phone : ['',[Validators.required, Validators.maxLength(10), Validators.pattern('[0-9]+')]],
-      geoDistance : ['',[Validators.required, Validators.maxLength(3), Validators.pattern('[0-9]+')]],
-      geoState : ['',[Validators.required]],
-      city : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-      state : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-      address : ['',[Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      // el telefono debe iniciar con 09 y tener 9 digitos
+      phone : ['',[Validators.required, Validators.maxLength(9), Validators.pattern('09[0-9]+')]],
+      geoDistance : [this.user?.geoDistance,[Validators.required, Validators.maxLength(20), Validators.pattern('[0-9]+')]],
+      geoState : [this.user?.geoState,[Validators.required]],
+      location: new FormControl<IGeolocation | undefined>(undefined, Validators.required),
     }
   );
   // list with the viewValue of state of Uruguay
-  states = [ 
+  /*states = [ 
     {value: 'Artigas', viewValue: 'Artigas'},
     {value: 'Canelones', viewValue: 'Canelones'},
     {value: 'Cerro Largo', viewValue: 'Cerro Largo'},
@@ -48,7 +52,7 @@ export class SignupFormsComponent implements OnInit, ILogin {
     {value: 'Montevideo', viewValue: 'Montevideo'},
     {value: 'Paysandú', viewValue: 'Paysandú'}]
     
-
+    */
   
   get passwordIconName(): string {
     return this.hidePassword ? 'visibility_off' : 'visibility';
@@ -70,6 +74,15 @@ export class SignupFormsComponent implements OnInit, ILogin {
 
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
+  }
+  handleMapClick($event: IGeolocation) {
+    this.signUpForm.controls.location.setValue($event);
+    this.map?.setFocusedPosition($event);
+  }
+
+  handleMapSearch($event: IGeolocation) {
+    this.signUpForm.controls.location.setValue($event);
+    this.map?.setFocusedPosition($event);
   }
 
 }

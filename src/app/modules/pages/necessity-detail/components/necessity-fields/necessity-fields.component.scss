@@ -1,0 +1,18 @@
+
+.necessity-field {
+  font-size: 1.1rem;
+
+  & a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.necessity-description {
+  font-size: .9rem;
+}
+
+.skill-chip-list {
+  max-height: 5rem;
+  overflow-y: auto;
+}

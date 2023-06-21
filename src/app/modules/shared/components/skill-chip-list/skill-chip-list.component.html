@@ -1,0 +1,10 @@
+<mat-chip-list>
+  <app-skill-chip
+    *ngFor="let skill of skills"
+    color="primary"
+    [selected]="true"
+    [skill]="skill"
+    [enableSkillModal]="enableSkillModal"
+  >
+  </app-skill-chip>
+</mat-chip-list>

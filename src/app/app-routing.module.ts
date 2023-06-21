@@ -10,6 +10,18 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./modules/pages/login/login.module').then( m => m.LoginModule ),
   },
+  {
+    path: 'create-necessity',
+    loadChildren: () => import('./modules/pages/create-necessity/create-necessity.module').then( m => m.CreateNecessityModule ),
+    //canActivate: GUARDS GO HERE,
+    //canLoad: GUARDS GO HERE
+  },
+  {
+    path: 'necessities/:id',
+    loadChildren: () => import('./modules/pages/necessity-detail/necessity-detail.module').then( m => m.NecessityDetailModule ),
+    //canActivate: GUARDS GO HERE,
+    //canLoad: GUARDS GO HERE
+  }
 ];
 
 @NgModule({

@@ -1,0 +1,9 @@
+.action-button {
+  font-size: 1.2rem;
+  height: 3rem;
+
+  &.green {
+    color: white;
+    background-color: green;
+  }
+}

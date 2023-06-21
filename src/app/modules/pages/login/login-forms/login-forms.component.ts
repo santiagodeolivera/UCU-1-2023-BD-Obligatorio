@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ILogin } from 'src/app/modules/core/interfaces';
+import { AuthRequest, ILogin } from 'src/app/modules/core/interfaces';
 
 @Component({
   selector: 'app-login-forms',
   templateUrl: './login-forms.component.html',
   styleUrls: ['./login-forms.component.scss']
 })
-export class LoginFormsComponent implements OnInit, ILogin{
+export class LoginFormsComponent implements OnInit, AuthRequest{
   hidePassword = true;
   ci!: string;
   hashPassword!: string;
@@ -17,8 +17,10 @@ export class LoginFormsComponent implements OnInit, ILogin{
   }
 
   loginForm = this.formBuilder.group({
-    ci: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(8), Validators.pattern('[0-9]+')]],
-    hashPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]]
+    ci: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(8), Validators.pattern('[0-9]+')
+          ,Validators.min(100000), Validators.max(80000000)]],
+    hashPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20),
+      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]]
   });
 
   get passwordIconName(): string {

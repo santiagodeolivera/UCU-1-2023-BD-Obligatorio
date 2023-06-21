@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProfileUpdateService } from 'src/app/modules/core/services/profile-update.service';
@@ -15,6 +15,9 @@ export class ProfileUpdateComponent implements OnInit {
   @ViewChild('profileUpdateForm')
   formData!: ProfileUpdateFormComponent;
 
+  @Output() cancel = new EventEmitter<void>();
+  @Output() save = new EventEmitter<User>();
+ 
   constructor(private fb : FormBuilder,
     private router: Router,
     private profileUpdateService : ProfileUpdateService) { }
@@ -41,6 +44,31 @@ export class ProfileUpdateComponent implements OnInit {
   async getUserProfile (ci: string){
     this.profileUpdateService.getUserProfile(ci)
       .subscribe(user => this.user = user);
+  }
+
+  handleSubmit() {
+    if (!this.formData.profileUpdateForm.valid) return;
+
+    const value = this.formData.profileUpdateForm.value;
+    const user: User = {
+      ci: this.user?.ci,
+      name: value.name || undefined,
+      surname: value.surname || undefined,
+      urlPictureID: value.urlPictureID || undefined,
+      isAdmin: value.isAdmin || undefined,
+      hashPassword: value.hashPassword || undefined,
+      email: value.email || undefined,
+      phone: value.phone || undefined,
+      geoDistance: value.geoDistance || undefined,
+      geoState: value.geoState || undefined,
+      location: value.location || undefined,
+    };
+
+    this.save.emit(user);
+  }
+
+  handleCancel() {
+    this.cancel.emit();
   }
   
 }

@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{data.name}}</h2>
+
+<mat-dialog-content class="mat-typography">
+  <p>
+    {{skillDescription}}
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button
+    mat-flat-button
+    (click)="handleClose()"
+  >
+    Cerrar
+  </button>
+</mat-dialog-actions>

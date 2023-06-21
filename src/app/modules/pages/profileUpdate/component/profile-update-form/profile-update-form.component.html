@@ -69,33 +69,16 @@
         <mat-error>Por favor ingrese un número de Teléfono válido</mat-error>
       </mat-form-field>
       
-      <!--Address-->
-      <mat-form-field appearance="outline">
-        <mat-label>Dirección</mat-label>
-        <input matInput placeholder="Dirección" [formControl]="profileUpdateForm.controls.address" maxLength="20">
-        <mat-icon matPrefix>home</mat-icon>
-        <mat-error>Por favor ingrese una dirección válida</mat-error>
-      </mat-form-field>
-      
-      <!--City-->
-      <mat-form-field appearance="outline">
-        <mat-label>Ciudad</mat-label>
-        <input matInput placeholder="Ciudad" [formControl]="profileUpdateForm.controls.city" maxLength="20">
-        <mat-icon matPrefix>location_city</mat-icon>
-        <mat-error>Por favor ingrese una Ciudad válida</mat-error>
-      </mat-form-field>
-      
-      <!--State with class mat-select -->
-      <mat-form-field appearance="outline">
-        <mat-label>Departamento</mat-label>
-          <mat-select [formControl]="profileUpdateForm.controls.state">
-            <mat-option *ngFor="let state of states" [value]="state.value">
-              {{state.viewValue}}
-            </mat-option>
-          </mat-select>
-          <mat-icon matPrefix>location_on</mat-icon>
-          <mat-error>Por favor seleccione un Departamento</mat-error>
-      </mat-form-field>
+      <app-map
+        class="location-map mt-3"
+        [position]="user?.location"
+        [enableSearch]="true"
+        [queryLocationOnClick]="true"
+        (mapClick)="handleMapClick($event)"
+        (mapSearch)="handleMapSearch($event)"
+        [initialCoordinates]="{lat: -34.88838, lng: -56.15944}"
+      >
+      </app-map>
     </form>
     <mat-card-footer>
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>

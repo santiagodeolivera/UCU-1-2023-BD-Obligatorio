@@ -1,0 +1,11 @@
+<mat-spinner
+  *ngIf="isLoading"
+  class="spinner"
+>
+</mat-spinner>
+
+<app-edit-necessity-form
+  *ngIf="!isLoading && necessity"
+  [necessity]="necessity"
+>
+</app-edit-necessity-form>

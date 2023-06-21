@@ -6,6 +6,8 @@ import { MaterialModule } from 'src/app/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileUpdateService } from '../../core/services/profile-update.service';
 import { ProfileUpdateRoutingModule } from './profile-update-routing.module';
+import {  GoogleMapsModule } from '@angular/google-maps';
+import { SharedModule } from '../../shared/shared.module';
 
 
 
@@ -20,6 +22,8 @@ import { ProfileUpdateRoutingModule } from './profile-update-routing.module';
   imports: [
     CommonModule,
     ProfileUpdateRoutingModule,
+    GoogleMapsModule,
+    SharedModule,
     MaterialModule,
     ReactiveFormsModule
   ]

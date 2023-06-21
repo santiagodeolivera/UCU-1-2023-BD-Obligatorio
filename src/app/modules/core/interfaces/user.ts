@@ -1,3 +1,4 @@
+import { IGeolocation } from ".";
 
 
 export interface User {
@@ -11,7 +12,5 @@ export interface User {
   geoDistance?: number;
   geoState?: boolean;
   email?: string;
-  city: string;
-  state: string;
-  address: string;
+  location?: IGeolocation;
 }

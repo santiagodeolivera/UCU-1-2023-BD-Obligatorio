@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { IGeolocation } from 'src/app/modules/core/interfaces';
 import { User } from 'src/app/modules/core/interfaces/user';
+import { MapComponent } from 'src/app/modules/shared/components/map/map.component';
 
 @Component({
   selector: 'app-profile-update-form',
@@ -10,6 +12,9 @@ import { User } from 'src/app/modules/core/interfaces/user';
 export class ProfileUpdateFormComponent implements OnInit {
   hidePassword = true;
   @Input() user?: User;
+  @ViewChild(MapComponent) map?: MapComponent;
+  @Output() cancel = new EventEmitter<void>();
+  @Output() save = new EventEmitter<User>();
 
   profileUpdateForm = this.formBuilder.group(
     {
@@ -25,9 +30,7 @@ export class ProfileUpdateFormComponent implements OnInit {
       phone : [this.user?.phone,[Validators.required, Validators.maxLength(9), Validators.pattern('[0-9]+')]],
       geoDistance : [this.user?.geoDistance,[Validators.required, Validators.maxLength(20), Validators.pattern('[0-9]+')]],
       geoState : [this.user?.geoState,[Validators.required]],
-      city : [this.user?.city,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      state : [this.user?.state,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      address : [this.user?.address ,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      location: new FormControl<IGeolocation | undefined>(undefined, Validators.required),
     }
   );
   // list with the viewValue of state of Uruguay
@@ -70,4 +73,39 @@ export class ProfileUpdateFormComponent implements OnInit {
     this.hidePassword = !this.hidePassword;
   }
 
+  handleMapClick($event: IGeolocation) {
+    this.profileUpdateForm.controls.location.setValue($event);
+    this.map?.setFocusedPosition($event);
+  }
+
+  handleMapSearch($event: IGeolocation) {
+    this.profileUpdateForm.controls.location.setValue($event);
+    this.map?.setFocusedPosition($event);
+  }
+/*
+  handleSubmit() {
+    if (!this.profileUpdateForm.valid) return;
+
+    const value = this.profileUpdateForm.value;
+    const user: User = {
+      ci: this.user?.ci,
+      name: value.name || undefined,
+      surname: value.surname || undefined,
+      urlPictureID: value.urlPictureID || undefined,
+      isAdmin: value.isAdmin || undefined,
+      hashPassword: value.hashPassword || undefined,
+      email: value.email || undefined,
+      phone: value.phone || undefined,
+      geoDistance: value.geoDistance || undefined,
+      geoState: value.geoState || undefined,
+      location: value.location || undefined,
+    };
+
+    this.save.emit(user);
+  }
+
+  handleCancel() {
+    this.cancel.emit();
+  }
+*/
 }

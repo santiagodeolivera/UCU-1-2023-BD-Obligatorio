@@ -14,6 +14,18 @@ const routes: Routes = [
     path: 'profile-update',
     loadChildren: () => import('./modules/pages/profileUpdate/profile-update.module').then( m => m.ProfileUpdateModule ),
   },
+  {
+    path: 'create-necessity',
+    loadChildren: () => import('./modules/pages/create-necessity/create-necessity.module').then( m => m.CreateNecessityModule ),
+    //canActivate: GUARDS GO HERE,
+    //canLoad: GUARDS GO HERE
+  },
+  {
+    path: 'necessities/:id',
+    loadChildren: () => import('./modules/pages/necessity-detail/necessity-detail.module').then( m => m.NecessityDetailModule ),
+    //canActivate: GUARDS GO HERE,
+    //canLoad: GUARDS GO HERE
+  }
 ];
 
 @NgModule({

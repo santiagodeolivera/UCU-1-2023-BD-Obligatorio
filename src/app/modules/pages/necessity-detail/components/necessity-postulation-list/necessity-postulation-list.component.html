@@ -1,0 +1,14 @@
+
+<mat-spinner
+  class="m-auto"
+  *ngIf="isLoading"
+>
+</mat-spinner>
+
+<app-postulation-list
+  *ngIf="!isLoading"
+  [postulations]="postulations"
+  [isRunningUserNecessity]="isRunningUserNecessity"
+  (postulationUpdate)="getPostulations()"
+>
+</app-postulation-list>

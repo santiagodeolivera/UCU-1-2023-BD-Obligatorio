@@ -18,7 +18,7 @@ export class SkillsDropdownComponent implements OnInit {
 
   get selectedSkillsString(): string {
     const optionNamesById: Map<string, string> = new Map<string, string>();
-    this.options.forEach(opt => optionNamesById.set(opt.id, opt.name));
+    this.options.forEach(opt => optionNamesById.set(opt.name, opt.name));
 
     let skillString = '';
     this.formControl.value?.forEach((value, i) => {

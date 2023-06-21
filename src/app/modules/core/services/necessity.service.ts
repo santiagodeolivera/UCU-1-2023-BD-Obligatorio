@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IHTTPResponse, INecessity } from '../interfaces';
+import { IHTTPResponse, INecessity, INecessitySearchRequest, ISearchResult } from '../interfaces';
 import { NECESSITY_MOCK } from '../mocks/necessity.mock';
 
 
@@ -45,5 +45,31 @@ export class NecessityService {
     // .pipe(
     //   catchError(err => of(err))
     // );
+  }
+
+  getNecessitiesByFilters(filters: INecessitySearchRequest): Observable<IHTTPResponse<ISearchResult[]>> {
+
+    return of<IHTTPResponse<INecessity[]>>({
+      success: true,
+      data: [ NECESSITY_MOCK, NECESSITY_MOCK ]
+    })
+    .pipe(
+      map(res => {
+        if (!res.success) return res;
+
+        return {
+          data: res.data!.map(necessity => {
+            return {
+              title: necessity.title,
+              content: necessity.description,
+              skills: necessity.skills,
+              url: `/necessities/${necessity.id}`
+            } as ISearchResult;
+          }),
+          success: res.success
+        };
+      }),
+      catchError(err => of(err))
+    );
   }
 }

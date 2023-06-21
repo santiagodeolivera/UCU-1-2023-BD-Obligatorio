@@ -1,8 +1,18 @@
-<app-necessity-search-form>
-</app-necessity-search-form>
-
-<app-search-result-list
-  *ngIf="searchResults"
-  [searchResults]="searchResults"
+<app-fixed-spinner
+  *ngIf="isLoading"
+  [hasOverlay]="true"
 >
-</app-search-result-list>
+</app-fixed-spinner>
+
+<div class="container">
+  <app-necessity-search-form
+    (search)="handleSearch($event)"
+  >
+  </app-necessity-search-form>
+
+  <app-search-result-list
+    *ngIf="searchResults"
+    [searchResults]="searchResults"
+  >
+  </app-search-result-list>
+</div>

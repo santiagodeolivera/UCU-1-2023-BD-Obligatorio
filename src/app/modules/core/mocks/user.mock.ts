@@ -7,5 +7,15 @@ export const USER_MOCK: IUser = {
   phoneNumbers: [
     '23142143213',
     '09342849324'
+  ],
+  skills: [
+    {
+      name: 'Carpintería',
+      description: 'Soy carpintero y me gusta carpintear'
+    },
+    {
+      name: 'Magia',
+      description: 'Soy carpintero y me gusta magiquear'
+    }
   ]
 };

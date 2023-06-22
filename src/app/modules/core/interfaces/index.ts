@@ -5,3 +5,5 @@ export * from './IGeolocation';
 export * from './IGeoConfiguration';
 export * from './IHTTPResponse';
 export * from './ISkill'
+export * from './IUserSkill';
+export * from './user';

@@ -13,7 +13,14 @@ const routes: Routes = [
     loadChildren: () => import('./modules/pages/necessity-detail/necessity-detail.module').then( m => m.NecessityDetailModule ),
     //canActivate: GUARDS GO HERE,
     //canLoad: GUARDS GO HERE
-  }
+  },
+  {
+    path: 'postSkill',
+    loadChildren: () => import('./modules/pages/post-skill/post-skill.module').then( m => m.PostSkillModule ),
+    //canActivate: GUARDS GO HERE,
+    //canLoad: GUARDS GO HERE
+  },
+
 ];
 
 @NgModule({

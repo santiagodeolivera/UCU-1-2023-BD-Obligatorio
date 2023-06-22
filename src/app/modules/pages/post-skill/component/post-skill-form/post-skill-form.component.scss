@@ -1,0 +1,58 @@
+form{
+    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+mat-form-field{
+    width: 90%;
+    
+    justify-self: center;
+    align-self: center;
+    justify-items: center;
+    margin: 1.6rem;
+}
+mat-card{
+    display: flexbox;
+    background-color: rgba(240, 240, 240, 0.61);
+    width: 60vh;
+    height: 100%;
+    justify-items: center;
+    align-items: center;
+}
+
+
+input{
+  width: 100%;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  margin: 1rem;
+  font-size: 1rem;
+  outline: none;
+}
+
+// Alinear contenido en el centro de la pantalla en el eje X
+
+
+.bb-signup-title{
+ 
+  font-size: 1.2rem;
+  font-family: 'Roboto', sans-serif;
+  color: 'primary';
+}
+  
+button{
+  margin: 2rem;
+}
+.bb-signup-footer {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+
+  width: 100%;
+  height: 100%;
+}

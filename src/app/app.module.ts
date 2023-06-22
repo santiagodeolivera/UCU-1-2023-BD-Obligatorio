@@ -10,6 +10,7 @@ import { MaterialModule } from './material.module';
 import { SignupModule } from './modules/pages/signup/signup.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './modules/pages/login/login.module';
+import { NavbarComponent } from './modules/shared/components/navbar/navbar.component';
 
 @NgModule({
   declarations: [

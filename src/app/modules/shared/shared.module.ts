@@ -7,6 +7,7 @@ import { MapComponent } from './components/map/map.component';
 import { MaterialModule } from 'src/app/material.module';
 import { MapSearchBoxComponent } from './components/map-search-box/map-search-box.component';
 import { NecessityFormComponent } from './components/necessity-form/necessity-form.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { SkillsDropdownComponent } from './components/skills-dropdown/skills-dropdown.component';
 import { SkillChipListComponent } from './components/skill-chip-list/skill-chip-list.component';
 import { PostulationListComponent } from './components/postulation-list/postulation-list.component';
@@ -18,13 +19,14 @@ import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.com
   declarations: [
     MapComponent,
     MapSearchBoxComponent,
+    NavbarComponent,
     NecessityFormComponent,
     SkillsDropdownComponent,
     SkillChipListComponent,
     PostulationListComponent,
     PostulationCardComponent,
     SkillChipComponent,
-    SkillDialogComponent
+    SkillDialogComponent,
   ],
   imports: [
     CommonModule,

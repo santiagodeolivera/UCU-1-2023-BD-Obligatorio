@@ -39,7 +39,8 @@ import { FixedSpinnerComponent } from './components/fixed-spinner/fixed-spinner.
     NecessityFormComponent,
     SkillChipListComponent,
     PostulationListComponent,
-    FixedSpinnerComponent
+    FixedSpinnerComponent,
+    SkillsDropdownComponent
   ]
 })
 export class SharedModule { }

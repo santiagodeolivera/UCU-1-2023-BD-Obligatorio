@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IHTTPResponse, ISkill } from '../interfaces';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { SKILLS_MOCK } from '../mocks/skills.mock';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -12,11 +12,14 @@ export class SkillsService {
   constructor() { }
 
   getAllSkills(): Observable<IHTTPResponse<ISkill[]>> {
-    return of({ success: true, data: SKILLS_MOCK });
+    return of({ success: true, data: SKILLS_MOCK })
+    .pipe(
+      catchError(err => of(err))
+    );
   }
 
   /*
-  
+
   //Con API
 
   private skillUrl = 'http://localhost:3000/api/skills';
@@ -25,7 +28,7 @@ export class SkillsService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
   constructor(private http: HttpClient) { }
-  
+
   getAllSkills(): Observable<ISkill[]> {
     return this.http.get<ISkill[]>(this.skillUrl).pipe(
       tap(_ => this.log('fetched skills')),
@@ -40,7 +43,7 @@ export class SkillsService {
       catchError(this.handleError<ISkill>(`getSkill name=${name}`))
     );
   }
-  
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

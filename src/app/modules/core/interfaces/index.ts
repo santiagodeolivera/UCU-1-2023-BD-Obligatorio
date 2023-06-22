@@ -5,3 +5,7 @@ export * from './IGeolocation';
 export * from './IGeoConfiguration';
 export * from './IHTTPResponse';
 export * from './ISkill'
+export * from './ISearchResult'
+export * from './IDateRange';
+export * from './INecessitySearchRequest';
+export * from './IUserSearchRequest';

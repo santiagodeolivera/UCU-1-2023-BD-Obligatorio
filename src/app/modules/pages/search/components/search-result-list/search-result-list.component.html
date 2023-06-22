@@ -1,0 +1,10 @@
+<div
+  class="my-4"
+  *ngFor="let searchResult of searchResults"
+>
+  <app-search-result-item
+    [searchResult]="searchResult"
+    [enableSkillModal]="enableSkillModal"
+  >
+  </app-search-result-item>
+</div>

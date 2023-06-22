@@ -9,13 +9,8 @@
   </app-necessity-form>
 </div>
 
-<div *ngIf="isLoading">
-  <div
-    class="spinner-background"
-  >
-  </div>
-  <mat-spinner
-    class="spinner"
-  >
-  </mat-spinner>
-</div>
+<app-fixed-spinner
+  *ngIf="isLoading"
+  [hasOverlay]="true"
+>
+</app-fixed-spinner>

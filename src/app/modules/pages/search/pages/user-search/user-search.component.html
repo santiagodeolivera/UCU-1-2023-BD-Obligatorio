@@ -1,0 +1,26 @@
+<app-fixed-spinner
+  *ngIf="isLoading"
+  [hasOverlay]="true"
+>
+</app-fixed-spinner>
+
+<div class="container">
+  <app-user-search-form
+    (search)="handleSearch($event)"
+  >
+  </app-user-search-form>
+
+  <mat-divider
+    class="m-4"
+    *ngIf="searchResults"
+  >
+  </mat-divider>
+
+  <app-search-result-list
+    *ngIf="searchResults"
+    [searchResults]="searchResults"
+    [enableSkillModal]="true"
+  >
+  </app-search-result-list>
+</div>
+

@@ -9,6 +9,7 @@ import { ISearchResult } from 'src/app/modules/core/interfaces';
 export class SearchResultListComponent implements OnInit {
 
   @Input() searchResults: ISearchResult[] = [];
+  @Input() enableSkillModal: boolean = false;
 
   constructor() { }
 

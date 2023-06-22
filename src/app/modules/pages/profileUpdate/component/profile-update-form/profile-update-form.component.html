@@ -8,7 +8,7 @@
       <mat-form-field appearance="outline">
         <mat-icon matPrefix>person</mat-icon>
         <mat-label>Nombres</mat-label>
-        <input matInput placeholder="Nombres" [formControl]="profileUpdateForm.controls.name" maxLength="20">
+        <input matInput placeholder="Nombres" [formControl]="profileUpdateForm.controls.name" maxLength="30">
         <mat-error>Por favor ingrese el nombre</mat-error>
       </mat-form-field>
       
@@ -16,7 +16,7 @@
       <mat-form-field appearance="outline">
         <mat-icon matPrefix>person</mat-icon>
         <mat-label>Apellidos</mat-label> 
-        <input matInput placeholder="Apellidos" [formControl]="profileUpdateForm.controls.surname" maxLength="20">
+        <input matInput placeholder="Apellidos" [formControl]="profileUpdateForm.controls.surname" maxLength="30">
         <mat-error>Por favor ingrese los apellidos</mat-error>
       </mat-form-field>
       
@@ -63,10 +63,10 @@
         
       <!--Phone-->
       <mat-form-field appearance="outline">
-        <mat-label>Teléfono</mat-label>
-        <input type="tel" matInput placeholder="Teléfono" [formControl]="profileUpdateForm.controls.phone" maxLength="20">
+        <mat-label>Celular</mat-label>
+        <input type="tel" matInput placeholder="Celular" [formControl]="profileUpdateForm.controls.phone" maxLength="9">
         <mat-icon matPrefix>phone</mat-icon>
-        <mat-error>Por favor ingrese un número de Teléfono válido</mat-error>
+        <mat-error>Por favor ingrese un número de Celular válido</mat-error>
       </mat-form-field>
       
       <app-map

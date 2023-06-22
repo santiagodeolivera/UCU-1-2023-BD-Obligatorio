@@ -19,15 +19,16 @@ export class ProfileUpdateFormComponent implements OnInit {
   profileUpdateForm = this.formBuilder.group(
     {
       //cada campo se completa con los datos del usuario de la variable user como el nombre user.name
-      name: [this.user?.name,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      surname : [this.user?.surname,[Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      name: [this.user?.name,[Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]],
+      surname : [this.user?.surname,[Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]],
       urlPictureID : [this.user?.urlPictureID,[Validators.required, Validators.pattern('https?://.+')]],
       isAdmin: [this.user?.isAdmin, [Validators.required]],
       hashPassword : [this.user?.hashPassword,[Validators.required,
                       Validators.minLength(8),
-                      Validators.maxLength(20),]],
+                      Validators.maxLength(20),
+                      Validators.pattern('^[A-Z](?=.*[0-9])[a-zA-Z0-9]+$')]],
       email : [this.user?.email,[Validators.required, Validators.email]],
-      phone : [this.user?.phone,[Validators.required, Validators.maxLength(9), Validators.pattern('[0-9]+')]],
+      phone : [this.user?.phone,[Validators.required, Validators.maxLength(9),Validators.pattern('09[0-9]+')]],
       geoDistance : [this.user?.geoDistance,[Validators.required, Validators.maxLength(20), Validators.pattern('[0-9]+')]],
       geoState : [this.user?.geoState,[Validators.required]],
       location: new FormControl<IGeolocation | undefined>(undefined, Validators.required),

@@ -20,7 +20,7 @@ export class LoginFormsComponent implements OnInit, AuthRequest{
     ci: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(8), Validators.pattern('[0-9]+')
           ,Validators.min(100000), Validators.max(80000000)]],
     hashPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20),
-      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]]
+      Validators.pattern('^[A-Z](?=.*[0-9])[a-zA-Z0-9]+$')]]
   });
 
   get passwordIconName(): string {

@@ -29,7 +29,8 @@ export class SignupFormsComponent implements OnInit, ILogin {
       hashPassword : ['',[Validators.required,
                       Validators.minLength(8),
                       Validators.maxLength(20),
-                      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]],
+                      //Validators.pattern('^[A-Z].*?[0-9].*$')]],
+                      Validators.pattern('^[A-Z](?=.*[0-9])[a-zA-Z0-9]+$')]],
       email : ['',[Validators.required, Validators.email]],
       // el telefono debe iniciar con 09 y tener 9 digitos
       phone : ['',[Validators.required, Validators.maxLength(9), Validators.pattern('09[0-9]+')]],

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { INecessitySearchRequest, ISearchResult } from 'src/app/modules/core/interfaces';
 import { NecessityService } from 'src/app/modules/core/services/necessity.service';
+import { SnackbarService } from 'src/app/modules/core/services/snackbar.service';
 
 @Component({
   selector: 'app-necessity-search',
@@ -13,7 +14,8 @@ export class NecessitySearchComponent implements OnInit {
   searchResults?: ISearchResult[];
 
   constructor(
-    private necessityService: NecessityService
+    private necessityService: NecessityService,
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit(): void {
@@ -21,6 +23,7 @@ export class NecessitySearchComponent implements OnInit {
 
   handleSearch($event: INecessitySearchRequest) {
     this.isLoading = true;
+    console.log($event);
     this.necessityService.getNecessitiesByFilters($event)
     .subscribe(response => {
       this.isLoading = false;
@@ -30,7 +33,10 @@ export class NecessitySearchComponent implements OnInit {
         return;
       }
 
-      // TODO: SHOW ERROR
+      this.snackbarService.openSnackBar(
+        'Hubo un error buscando necesidades. Por favor intenta de nuevo más tarde.',
+        'Aceptar'
+      );
     });
   }
 }

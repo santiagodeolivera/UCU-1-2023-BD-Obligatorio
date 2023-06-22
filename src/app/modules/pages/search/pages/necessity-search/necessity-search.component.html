@@ -10,6 +10,12 @@
   >
   </app-necessity-search-form>
 
+  <mat-divider
+    class="m-4"
+    *ngIf="searchResults"
+  >
+  </mat-divider>
+
   <app-search-result-list
     *ngIf="searchResults"
     [searchResults]="searchResults"

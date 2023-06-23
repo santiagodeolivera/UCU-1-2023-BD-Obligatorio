@@ -1,4 +1,3 @@
-
 import { User } from "../interfaces/user";
 import { IUser } from "../interfaces";
 

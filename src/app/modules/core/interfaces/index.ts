@@ -8,3 +8,7 @@ export * from './IPostulation';
 export * from './IGeolocation';
 export * from './IGeoConfiguration';
 export * from './ISkill'
+export * from './AuthRequest'
+export * from './AuthResponse'
+
+

@@ -63,7 +63,7 @@ export class NecessityFormComponent implements AfterViewInit {
       endDate: this.necessity?.endDate || null,
       location: this.necessity?.location || null,
       requiredSkills: this.necessity?.skills?.map(skill => {
-        return skill.id
+        return skill.name;
       })
     });
 
@@ -89,7 +89,7 @@ export class NecessityFormComponent implements AfterViewInit {
 
     const value = this.necessityForm.value;
     const requiredSkills: ISkill[] | undefined = value.requiredSkills?.map(skill => {
-      return { id: skill } as ISkill;
+      return { name: skill } as ISkill;
     });
     const necessity: INecessity = {
       userId: this.userService.runningUser?.id,

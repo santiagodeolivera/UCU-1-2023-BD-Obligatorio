@@ -6,8 +6,8 @@ import { MaterialModule } from 'src/app/material.module';
 import { SignupRoutingModule } from './signup-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupService } from '../../core/services/signup.service';
-
-
+import { GoogleMapsModule } from '@angular/google-maps';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,8 @@ import { SignupService } from '../../core/services/signup.service';
   imports: [
     CommonModule, 
     SignupRoutingModule,
+    GoogleMapsModule,
+    SharedModule,
     MaterialModule,
     ReactiveFormsModule
   ]

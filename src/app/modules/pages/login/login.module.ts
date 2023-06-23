@@ -4,7 +4,9 @@ import { MaterialModule } from 'src/app/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './pages/login.component';
-import { LoginFormsComponent } from './component/login-forms/login-forms.component';
+import { LoginFormsComponent } from './login-forms/login-forms.component';
+import { SharedModule } from '../../shared/shared.module';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 
@@ -17,6 +19,8 @@ import { LoginFormsComponent } from './component/login-forms/login-forms.compone
   imports: [
     CommonModule,
     LoginRoutingModule,
+    SharedModule,
+    GoogleMapsModule,
     MaterialModule,
     ReactiveFormsModule
   ]

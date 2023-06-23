@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { IUser, IHTTPResponse,  User } from '../interfaces';
 import { USER_MOCK } from '../mocks/user.mock';
 import { Observable, catchError, of, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
   runningUser?: IUser = USER_MOCK;
   private userUrl = 'http://localhost:3000/api/v1/users';
   constructor(private http: HttpClient) { }

@@ -12,6 +12,7 @@ import { SnackbarService } from 'src/app/modules/core/services/snackbar.service'
 export class SkillsDropdownComponent implements OnInit {
 
   options: ISkill[] = [];
+  skills?  : ISkill[];
 
   @Input() label: string = 'Habilidades';
   @Input() formControl!: FormControl<string[] | null | undefined>;
@@ -54,5 +55,20 @@ export class SkillsDropdownComponent implements OnInit {
       }
     })
   }
+  /*//Con API
+  getOptions() {
+    this.skillService.getAllSkills()
+    .subscribe(skills => {
+      if (skills) {
+        this.skills = skills;
+        this.options = skills;
+      } else {
+        this.snackbarService.openSnackBar(
+          'Hubo un error cargando habilidades. Por favor refresca la página o intenta de nuevo más tarde.',
+          'Aceptar'
+        );
+      }
+    })
+  }*/
 
 }

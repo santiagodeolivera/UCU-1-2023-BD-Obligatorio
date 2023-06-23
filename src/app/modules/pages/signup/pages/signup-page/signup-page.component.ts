@@ -27,7 +27,7 @@ export class SignupPageComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  
+ 
   pullFormData(){
     const user = this.formData.signUpForm.value as User;
     return user;
@@ -42,6 +42,7 @@ export class SignupPageComponent implements OnInit {
       }
     });
   }
+
   handleSubmit() {
     if (!this.formData.signUpForm.valid) return;
 

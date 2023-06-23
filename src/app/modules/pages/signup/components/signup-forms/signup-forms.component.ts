@@ -1,3 +1,4 @@
+import { ILogin } from 'src/app/modules/core/interfaces/ILogin';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { IGeolocation, ILogin } from 'src/app/modules/core/interfaces';
@@ -14,6 +15,8 @@ export class SignupFormsComponent implements OnInit, ILogin {
   ci!: string;
   hashPassword!: string;
   @Input() user?: User;
+
+=======
   @ViewChild(MapComponent) map?: MapComponent;
 
   signUpForm = this.formBuilder.group(
@@ -52,7 +55,6 @@ export class SignupFormsComponent implements OnInit, ILogin {
     {value: 'Maldonado', viewValue: 'Maldonado'},
     {value: 'Montevideo', viewValue: 'Montevideo'},
     {value: 'Paysandú', viewValue: 'Paysandú'}]
-    
     */
   
   get passwordIconName(): string {
@@ -69,13 +71,13 @@ export class SignupFormsComponent implements OnInit, ILogin {
 
   constructor(private formBuilder: FormBuilder) { }
   
-
   ngOnInit(): void {
   }
 
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
+
   handleMapClick($event: IGeolocation) {
     this.signUpForm.controls.location.setValue($event);
     this.map?.setFocusedPosition($event);

@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/pages/login/login.module').then( m => m.LoginModule ),
   },
   {
+    path: 'profile-update',
+    loadChildren: () => import('./modules/pages/profileUpdate/profile-update.module').then( m => m.ProfileUpdateModule ),
+  },
+  {
     path: 'create-necessity',
     loadChildren: () => import('./modules/pages/create-necessity/create-necessity.module').then( m => m.CreateNecessityModule ),
     //canActivate: GUARDS GO HERE,

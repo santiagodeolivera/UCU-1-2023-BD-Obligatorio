@@ -10,6 +10,7 @@ import { MaterialModule } from './material.module';
 import { SignupModule } from './modules/pages/signup/signup.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './modules/pages/login/login.module';
+import { ProfileUpdateModule } from './modules/pages/profileUpdate/profile-update.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { LoginModule } from './modules/pages/login/login.module';
     CoreModule, 
     SignupModule,
     LoginModule,
+    ProfileUpdateModule,
     MaterialModule,
     HttpClientModule
   ],

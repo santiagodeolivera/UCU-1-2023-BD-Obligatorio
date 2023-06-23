@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginFormsComponent } from '../login-forms/login-forms.component';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,13 +9,13 @@ import { User } from 'src/app/modules/core/interfaces';
 import { UserService } from 'src/app/modules/core/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   isEditMode: boolean = false;
   isOwnProfile: boolean = false;
   isUpdatingFilters: boolean = false;

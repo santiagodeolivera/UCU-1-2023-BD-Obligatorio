@@ -1,0 +1,86 @@
+<mat-card class="">
+  
+    <form [formGroup]="profileUpdateForm">
+      <mat-card-header>
+        <mat-card-title>Actualizar Perfil</mat-card-title>
+      </mat-card-header>
+      <!--Name-->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>Nombres</mat-label>
+        <input matInput placeholder="Nombres" [formControl]="profileUpdateForm.controls.name" maxLength="30">
+        <mat-error>Por favor ingrese el nombre</mat-error>
+      </mat-form-field>
+      
+      <!--Surname-->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>Apellidos</mat-label> 
+        <input matInput placeholder="Apellidos" [formControl]="profileUpdateForm.controls.surname" maxLength="30">
+        <mat-error>Por favor ingrese los apellidos</mat-error>
+      </mat-form-field>
+      
+      <!--idPicture upload an picture of Identification Card-->
+      <mat-form-field appearance="outline">
+        <mat-label>URL DNI</mat-label>
+        <input matInput placeholder="Enlace a foto de CI" [formControl]="profileUpdateForm.controls.urlPictureID" maxLength="50">
+        <mat-icon matPrefix>perm_identity</mat-icon>
+        <mat-error>Por favor ingrese el enlace a la foto de su CI</mat-error>
+      </mat-form-field>
+      
+      <!--HashPassword-->
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix >lock</mat-icon>
+        <mat-label>Contraseña</mat-label>
+        <input matInput
+        [type]="passwordInputType"
+        [formControl]="profileUpdateForm.controls.hashPassword" maxLength="20">
+        <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+          <mat-icon color="{{passwordIconColor}}">{{passwordIconName}}</mat-icon>
+        </button>
+        <mat-error>Por favor ingrese una contraseña alfa-numérica</mat-error>
+      </mat-form-field>
+      
+      <!--Email-->
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput placeholder="Correo Electrónico" [formControl]="profileUpdateForm.controls.email" maxLength="50">
+        <mat-icon matPrefix>mail</mat-icon>
+        <mat-error>Por favor ingrese un correo válido</mat-error>
+      </mat-form-field>
+      
+      <!--Is Admin default false-->
+      <mat-form-field appearance="outline">
+        <mat-label>Es Admin</mat-label>
+        <mat-select [formControl]="profileUpdateForm.controls.isAdmin">
+          <mat-option *ngFor="let isAdmin of adminOption" [value]="isAdmin.value">
+            {{isAdmin.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-icon matPrefix>verified_user</mat-icon>
+        <mat-error>Por</mat-error>
+      </mat-form-field>
+        
+      <!--Phone-->
+      <mat-form-field appearance="outline">
+        <mat-label>Celular</mat-label>
+        <input type="tel" matInput placeholder="Celular" [formControl]="profileUpdateForm.controls.phone" maxLength="9">
+        <mat-icon matPrefix>phone</mat-icon>
+        <mat-error>Por favor ingrese un número de Celular válido</mat-error>
+      </mat-form-field>
+      
+      <app-map
+        class="location-map mt-3"
+        [position]="user?.location"
+        [enableSearch]="true"
+        [queryLocationOnClick]="true"
+        (mapClick)="handleMapClick($event)"
+        (mapSearch)="handleMapSearch($event)"
+        [initialCoordinates]="{lat: -34.88838, lng: -56.15944}"
+      >
+      </app-map>
+    </form>
+    <mat-card-footer>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>

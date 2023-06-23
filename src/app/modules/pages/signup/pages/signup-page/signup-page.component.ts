@@ -66,5 +66,7 @@ export class SignupPageComponent implements OnInit {
 
   handleCancel() {
     this.cancel.emit();
+    //redireccionar a home
+    this.router.navigate(['']);
   }
 }

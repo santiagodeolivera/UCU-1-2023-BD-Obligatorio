@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+
+.title {
+  display: flex;
+  text-align: center;
+  width: 40vh;
+  height: 40vh;
+}
+.goLeft {
+  margin-left: 2rem;
+}
+.goRight {
+  margin-right: 2rem;
+}
+.downTraslator {
+  
+  padding-top: 3rem;
+}
+
+mat-card {
+  width: 50em;
+  //height: 50em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenedor-imagen {
+  position: relative;
+  display: inline-block;
+
+  .texto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+  }
+}
+
+
+
+
+

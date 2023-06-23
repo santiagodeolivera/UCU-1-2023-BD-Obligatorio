@@ -30,6 +30,7 @@ const MATERIAL_COMPONENTS = [
   MatInputModule,
   MatSelectModule,
   MatCardModule,
+  MatGridListModule,
   MatDividerModule,
   MatButtonModule,
   MatIconModule,
@@ -44,7 +45,9 @@ const MATERIAL_COMPONENTS = [
   MatProgressBarModule,
   MatSnackBarModule,
   MatProgressSpinnerModule,
-  MatExpansionModule
+  MatExpansionModule,
+  
+
 ];
 
 @NgModule({

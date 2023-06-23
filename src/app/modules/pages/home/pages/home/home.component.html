@@ -1,28 +1,58 @@
 <div class="container">
-  
-  <mat-card >
-    <img class="title" src={{urlLogo}} alt="Logo Sistema">
+  <mat-card>
+    <img class="title" src="{{ urlLogo }}" alt="Logo Sistema" />
 
     <mat-grid-list cols="2">
-      <img class="goRigth"
-        src="https://github.com/santiagodeolivera/UCU-1-2023-BD-Obligatorio/assets/88668277/4a54a0c4-c2fb-4053-b877-8cc0627d6702"
-        [routerLink]="['/login']"
-      />
+      <div
+        class="contenedor-imagen"
+        (mouseover)="mostrarTexto()"
+        (mouseout)="ocultarTexto()"
+      >
+        <img
+          class="goRigth"
+          src="{{ urlImg1 }}"
+          onclick="window.location.href = 'login'"
+        />
+        <div class="texto" [hidden]="!mostrarHover">
+          Ir a Login
+        </div>
+      </div>
 
-      <img
-        class="downTraslator goLeft"
-        src="https://github.com/santiagodeolivera/UCU-1-2023-BD-Obligatorio/assets/88668277/b6056454-f64d-472c-972e-5436779caa48"
-      />
-    </mat-grid-list >
+      <div
+        class="contenedor-imagen"
+        (mouseover)="mostrarTexto()"
+        (mouseout)="ocultarTexto()"
+      >
+        <img class="downTraslator goLeft" src="{{ urlImg2 }}" 
+        onclick="window.location.href = 'signup'"/>
+        <div class="texto" [hidden]="!mostrarHover">
+          Ir a Registro
+        </div>
+      </div>
+    </mat-grid-list>
     <mat-grid-list cols="2" class="goUpTranslator">
-      <img  class="goRigth"
-        src="https://github.com/santiagodeolivera/UCU-1-2023-BD-Obligatorio/assets/88668277/9ec63ac5-257a-40ba-b198-e31f5d46db96"
-      />
-
-      <img 
-        class="downTraslator goLeft"
-        src="https://github.com/santiagodeolivera/UCU-1-2023-BD-Obligatorio/assets/88668277/1b1f2553-8af5-4aeb-9f28-d0da178b143f"
-      />
+      <div
+        class="contenedor-imagen"
+        (mouseover)="mostrarTexto()"
+        (mouseout)="ocultarTexto()"
+      >
+        <img class="goRigth" src="{{ urlImg3 }}" 
+        onclick="window.location.href = 'create-necessity'"/>
+        <div class="texto" [hidden]="!mostrarHover">
+          Ir a Crear Necesidad
+        </div>
+      </div>
+      <div
+        class="contenedor-imagen"
+        (mouseover)="mostrarTexto()"
+        (mouseout)="ocultarTexto()"
+      >
+        <img class="downTraslator goLeft" src="{{ urlImg4 }}" 
+        onclick="window.location.href = 'profile-update'"/>
+        <div class="texto" [hidden]="!mostrarHover">
+          Ir a Actualizar Perfil
+        </div>
+      </div>
     </mat-grid-list>
   </mat-card>
 </div>

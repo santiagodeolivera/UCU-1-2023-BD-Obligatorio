@@ -19,6 +19,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 const MATERIAL_COMPONENTS = [
@@ -27,6 +28,7 @@ const MATERIAL_COMPONENTS = [
   MatInputModule,
   MatSelectModule,
   MatCardModule,
+  MatGridListModule,
   MatDividerModule,
   MatButtonModule,
   MatIconModule,
@@ -37,7 +39,9 @@ const MATERIAL_COMPONENTS = [
   MatNativeDateModule,
   MatSnackBarModule,
   MatProgressSpinnerModule,
-  MatExpansionModule
+  MatExpansionModule,
+  
+
 ];
 
 @NgModule({

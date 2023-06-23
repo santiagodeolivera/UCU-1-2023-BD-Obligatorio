@@ -13,7 +13,13 @@ const routes: Routes = [
     loadChildren: () => import('./modules/pages/necessity-detail/necessity-detail.module').then( m => m.NecessityDetailModule ),
     //canActivate: GUARDS GO HERE,
     //canLoad: GUARDS GO HERE
-  }
+  },
+  {
+    path: '',
+    loadChildren: () => import('./modules/pages/home/home.module').then( m => m.HomeModule ),
+    //canActivate: GUARDS GO HERE,
+    //canLoad: GUARDS GO HERE
+  },
 ];
 
 @NgModule({

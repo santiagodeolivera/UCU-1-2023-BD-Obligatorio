@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 // Leer documentación: https://material.angular.io/components/categories
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
@@ -14,12 +14,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
-
 
 const MATERIAL_COMPONENTS = [
   MatSlideToggleModule,
@@ -33,8 +37,12 @@ const MATERIAL_COMPONENTS = [
   MatDialogModule,
   MatCheckboxModule,
   MatChipsModule,
+  MatMenuModule,
+  MatToolbarModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatGridListModule,
+  MatProgressBarModule,
   MatSnackBarModule,
   MatProgressSpinnerModule,
   MatExpansionModule

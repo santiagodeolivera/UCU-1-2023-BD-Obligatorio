@@ -1,0 +1,34 @@
+<div class="container center-content-x">
+  <!-- <h2 class="bb-signup-title">LogIn</h2> -->
+  <div class="center-content">
+    <div class="forms-body-container">
+      <app-login-forms #loginForm></app-login-forms>
+    </div>
+  </div>
+  <div class="bb-signup-footer">
+  
+    <button
+      mat-raised-button
+      matStepperPrevious
+      class="bb-previous-button"
+      color="warn"
+      routerLink=""
+    >
+      REGRESAR
+    </button>
+
+    <button
+      mat-raised-button
+      class="bb-next-button"
+      color="primary"
+      (click)="login()"
+    >
+      INGRESAR
+    </button>
+
+    <p class="bb-signup-subtitle">
+      Quieres crearte una cuenta?
+      <a routerLink="/signup">Registrarse</a>
+    </p>
+  </div>
+</div>

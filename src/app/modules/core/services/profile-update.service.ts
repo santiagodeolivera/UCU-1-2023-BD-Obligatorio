@@ -1,25 +1,42 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IUser, IHTTPResponse,  User } from '../interfaces';
-import { USER_MOCK } from '../mocks/user.mock';
+import { User } from '../interfaces/user';
 import { Observable, catchError, of, tap } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  runningUser?: IUser = USER_MOCK;
+export class ProfileUpdateService {
   private userUrl = 'http://localhost:3000/api/v1/users';
   constructor(private http: HttpClient) { }
-  
-  getByCi(ci : string) : Observable<User> {
+
+  updateUser(user : User) : Observable<
+  {
+    success: boolean,
+    data?:string
+    message?: string,
+    error?: { message: string }
+  }> {
+    const url = `${this.userUrl}/${user.ci}`;
+    return this.http.put<
+    {
+      success: boolean,
+      data?:string
+      message?: string,
+      error?: { message: string }
+    }>(url, user);
+  }
+
+  //get user from mock
+  getUserProfile(ci : string) : Observable<User> {
     const url = `${this.userUrl}/${ci}`;
     return this.http.get<User>(url).pipe(
       tap(_ => this.log(`fetched user id=${ci}`)),
       catchError(this.handleError<User>(`getUser id=${ci}`))
     );
   }
-  
+
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
@@ -33,4 +50,5 @@ export class UserService {
     console.log(`UserService: ${message}`);
   }
 
+  
 }

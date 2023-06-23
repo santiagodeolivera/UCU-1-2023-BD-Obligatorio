@@ -1,4 +1,24 @@
+import { User } from "../interfaces/user";
 import { IUser } from "../interfaces";
+
+
+export const MOCKED_USER: User = {
+  ci: '123456789',
+  name: 'John',
+  surname: 'Doe',
+  urlPictureID: 'https://picsum.photos/200',
+  hashPassword: '123456',
+  isAdmin: false,
+  phone: '123456789',
+  geoDistance: 0,
+  geoState: false,
+  email: 'prueba@prueba.com',
+  location: {
+    latitude: -34.8825235,
+    longitude: -56.1812066
+  }
+};
+
 
 export const USER_MOCK: IUser = {
   id: '54616473',

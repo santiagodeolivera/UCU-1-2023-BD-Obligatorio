@@ -1,0 +1,58 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="menu"
+  class="example-icon"
+  aria-label="Example icon-button with menu icon"
+>
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <div *ngIf="!isLogin">
+    <!-- Se generan las opciones Home, Ingresar, Registrarse, Sobre el proyecto -->
+    <button mat-menu-item routerLink="/home">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-menu-item routerLink="/login">
+      <mat-icon>login</mat-icon>
+      <span>Ingresar</span>
+    </button>
+    <button mat-menu-item routerLink="/register">
+      <mat-icon>person_add</mat-icon>
+      <span>Registrarse</span>
+    </button>
+    <button mat-menu-item routerLink="/about">
+      <mat-icon>info</mat-icon>
+      <span>Sobre el proyecto</span>
+    </button>
+    
+  </div>
+  <div *ngIf="isLogin">
+    <!-- Se generan las opciones Home, Salir, Crear Necesidad, Crear habilidad, Actualizar Perfil, Sobre el proyecto -->
+    <button mat-menu-item routerLink="/home">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-menu-item routerLink="/logout">
+      <mat-icon>logout</mat-icon>
+      <span>Salir</span>
+    </button>
+    <button mat-menu-item routerLink="/create-need">
+      <mat-icon>add</mat-icon>
+      <span>Crear Necesidad</span>
+    </button>
+    <button mat-menu-item routerLink="/create-skill">
+      <mat-icon>add</mat-icon>
+      <span>Crear Habilidad</span>
+    </button>
+    <button mat-menu-item routerLink="/update-profile">
+      <mat-icon>update</mat-icon>
+      <span>Actualizar Perfil</span>
+    </button>
+    <button mat-menu-item routerLink="/about">
+      <mat-icon>info</mat-icon>
+      <span>Sobre el proyecto</span>
+    </button>
+
+  </div>
+</mat-menu>

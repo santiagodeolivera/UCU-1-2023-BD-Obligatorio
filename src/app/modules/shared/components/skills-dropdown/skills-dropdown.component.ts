@@ -12,16 +12,17 @@ import { SnackbarService } from 'src/app/modules/core/services/snackbar.service'
 export class SkillsDropdownComponent implements OnInit {
 
   options: ISkill[] = [];
+  skills?  : ISkill[];
 
   @Input() label: string = 'Habilidades';
-  @Input() formControl!: FormControl<string[] | null | undefined>;
+  @Input() control!: FormControl<string[] | null | undefined>;
 
   get selectedSkillsString(): string {
     const optionNamesById: Map<string, string> = new Map<string, string>();
-    this.options.forEach(opt => optionNamesById.set(opt.id, opt.name));
+    this.options.forEach(opt => optionNamesById.set(opt.name, opt.name));
 
     let skillString = '';
-    this.formControl.value?.forEach((value, i) => {
+    this.control.value?.forEach((value, i) => {
       if (i === 0) {
         skillString = `${optionNamesById.get(value)}`;
       } else {
@@ -46,6 +47,22 @@ export class SkillsDropdownComponent implements OnInit {
     .subscribe(result => {
       if (result.success) {
         this.options = result.data!;
+        return;
+      }
+
+      this.snackbarService.openSnackBar(
+        'Hubo un error cargando habilidades. Por favor refresca la página o intenta de nuevo más tarde.',
+        'Aceptar'
+      );
+    })
+  }
+  /*//Con API
+  getOptions() {
+    this.skillService.getAllSkills()
+    .subscribe(skills => {
+      if (skills) {
+        this.skills = skills;
+        this.options = skills;
       } else {
         this.snackbarService.openSnackBar(
           'Hubo un error cargando habilidades. Por favor refresca la página o intenta de nuevo más tarde.',
@@ -53,6 +70,6 @@ export class SkillsDropdownComponent implements OnInit {
         );
       }
     })
-  }
+  }*/
 
 }

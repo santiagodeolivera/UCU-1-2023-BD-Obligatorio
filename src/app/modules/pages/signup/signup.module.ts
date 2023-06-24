@@ -9,8 +9,6 @@ import { SignupService } from '../../core/services/signup.service';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { SharedModule } from '../../shared/shared.module';
 
-
-
 @NgModule({
   declarations: [
     SignupPageComponent,

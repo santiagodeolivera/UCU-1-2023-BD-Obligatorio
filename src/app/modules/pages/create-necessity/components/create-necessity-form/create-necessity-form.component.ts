@@ -44,6 +44,7 @@ export class CreateNecessityFormComponent implements OnInit {
 
   handleCancel() {
     this.cancel.emit();
+    this.router.navigate(['']);
   }
 
 }

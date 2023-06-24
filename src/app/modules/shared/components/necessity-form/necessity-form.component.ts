@@ -1,31 +1,14 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { IGeolocation, INecessity, ISkill } from 'src/app/modules/core/interfaces';
 import { UserService } from 'src/app/modules/core/services/user.service';
 
 import { MapComponent } from 'src/app/modules/shared/components/map/map.component';
 
-const UY_DATE_FORMAT = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
-
 @Component({
   selector: 'app-necessity-form',
   templateUrl: './necessity-form.component.html',
-  styleUrls: ['./necessity-form.component.scss'],
-  providers: [
-    { provide: MAT_DATE_FORMATS, useValue: UY_DATE_FORMAT },
-    { provide: MAT_DATE_LOCALE, useValue: 'es-UY' }
-  ]
+  styleUrls: ['./necessity-form.component.scss']
 })
 export class NecessityFormComponent implements AfterViewInit {
   minDate: Date = new Date();
@@ -63,7 +46,7 @@ export class NecessityFormComponent implements AfterViewInit {
       endDate: this.necessity?.endDate || null,
       location: this.necessity?.location || null,
       requiredSkills: this.necessity?.skills?.map(skill => {
-        return skill.id
+        return skill.name;
       })
     });
 
@@ -89,7 +72,7 @@ export class NecessityFormComponent implements AfterViewInit {
 
     const value = this.necessityForm.value;
     const requiredSkills: ISkill[] | undefined = value.requiredSkills?.map(skill => {
-      return { id: skill } as ISkill;
+      return { name: skill } as ISkill;
     });
     const necessity: INecessity = {
       userId: this.userService.runningUser?.id,

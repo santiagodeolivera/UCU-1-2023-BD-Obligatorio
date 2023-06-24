@@ -1,0 +1,58 @@
+<div class="container">
+  <mat-card>
+    <img class="title" src="{{ urlLogo }}" alt="Logo Sistema" />
+
+    <mat-grid-list cols="2">
+      <div
+        class="contenedor-imagen"
+        (mouseover)="mostrarTexto()"
+        (mouseout)="ocultarTexto()"
+      >
+        <img
+          class="goRigth"
+          src="{{ urlImg1 }}"
+          onclick="window.location.href = 'login'"
+        />
+        <div class="texto" [hidden]="!mostrarHover">
+          Ir a Login
+        </div>
+      </div>
+
+      <div
+        class="contenedor-imagen"
+        (mouseover)="mostrarTexto()"
+        (mouseout)="ocultarTexto()"
+      >
+        <img class="downTraslator goLeft" src="{{ urlImg2 }}" 
+        onclick="window.location.href = 'signup'"/>
+        <div class="texto" [hidden]="!mostrarHover">
+          Ir a Registro
+        </div>
+      </div>
+    </mat-grid-list>
+    <mat-grid-list cols="2" class="goUpTranslator">
+      <div
+        class="contenedor-imagen"
+        (mouseover)="mostrarTexto()"
+        (mouseout)="ocultarTexto()"
+      >
+        <img class="goRigth" src="{{ urlImg3 }}" 
+        onclick="window.location.href = 'create-necessity'"/>
+        <div class="texto" [hidden]="!mostrarHover">
+          Ir a Crear Necesidad
+        </div>
+      </div>
+      <div
+        class="contenedor-imagen"
+        (mouseover)="mostrarTexto()"
+        (mouseout)="ocultarTexto()"
+      >
+        <img class="downTraslator goLeft" src="{{ urlImg4 }}" 
+        onclick="window.location.href = 'profile-update'"/>
+        <div class="texto" [hidden]="!mostrarHover">
+          Ir a Actualizar Perfil
+        </div>
+      </div>
+    </mat-grid-list>
+  </mat-card>
+</div>

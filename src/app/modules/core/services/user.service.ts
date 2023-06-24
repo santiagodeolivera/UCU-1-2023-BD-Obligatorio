@@ -12,7 +12,6 @@ const USERS_ENDPOINT = 'users';
   providedIn: 'root'
 })
 export class UserService {
-  runningUser?: IUser = USER_MOCK;
   private userUrl = `${environment.baseUrl}/${USERS_ENDPOINT}`;
 
   constructor(

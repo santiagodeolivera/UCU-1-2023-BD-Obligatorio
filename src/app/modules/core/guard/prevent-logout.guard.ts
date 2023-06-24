@@ -4,22 +4,23 @@ import {
   CanLoad,
   Router,
 } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ValidateTokenGuard implements CanActivate, CanLoad {
+export class PreventLogoutGuard implements CanActivate, CanLoad {
   constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(): Observable<boolean> {
     return this.authService.validateToken().pipe(
       tap((valid) => {
-        if (!valid) {
-          this.router.navigateByUrl('/login');
+        if (valid) {
+          this.router.navigateByUrl('/');
         }
-      })
+      }),
+      map(valid => !valid)
     );
   }
 

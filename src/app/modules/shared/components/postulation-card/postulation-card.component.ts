@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { IPostulation } from 'src/app/modules/core/interfaces';
-import { UserService } from 'src/app/modules/core/services/user.service';
+import { AuthService } from 'src/app/modules/core/services/auth.service';
 
 @Component({
   selector: 'app-postulation-card',
@@ -16,7 +16,7 @@ export class PostulationCardComponent implements OnInit {
   @Output() postulationStatusUpdate = new EventEmitter<IPostulation>();
 
   get isRunningUser(): boolean {
-    return this.postulation.userId === this.userService.runningUser?.id;
+    return this.postulation.userId === this.authService.runningUser?.id;
   }
 
   get showNecessityOwnerActions(): boolean {
@@ -24,7 +24,7 @@ export class PostulationCardComponent implements OnInit {
   }
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {

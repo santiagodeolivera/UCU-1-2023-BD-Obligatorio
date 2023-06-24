@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   isUpdatingFilters: boolean = false;
   isLoading: boolean = false;
   user!: User;
-  
+
   @ViewChild('loginForm')
   formData!: LoginFormsComponent;
 
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     let ci = this.route.snapshot.paramMap.get('ci');
 
     if (!ci) {
-      ci = this.authService.runningUser!.ci!;
+      ci = this.authService.runningUser!.id!;
     }
 
     this.userService.getByCi(ci)
@@ -79,5 +79,5 @@ export class LoginComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/']);
   }
-  
+
 }

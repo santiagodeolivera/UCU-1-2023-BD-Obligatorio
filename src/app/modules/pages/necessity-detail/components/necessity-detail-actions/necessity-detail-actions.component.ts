@@ -32,6 +32,10 @@ export class NecessityDetailActionsComponent implements OnInit {
     return this.isByRunningUser && postulation !== undefined;
   }
 
+  get isSolved(): boolean {
+    return this.necessity.status === 'Solucionada';
+  }
+
   constructor(
     private authService: AuthService
   ) { }

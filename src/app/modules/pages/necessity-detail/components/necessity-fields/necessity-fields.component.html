@@ -17,7 +17,9 @@
     <span class="ms-2 align-bottom">{{necessity.status}}</span>
   </p>
 
-  <p class="necessity-field mt-4">
+  <p
+    class="necessity-field mt-4"
+  >
     <mat-icon class="align-middle">
       location_on
     </mat-icon>
@@ -46,9 +48,16 @@
   </h2>
 
   <app-skill-chip-list
-    [skills]="necessity.skills || []"
+    *ngIf="necessity.skills"
+    [skills]="necessity.skills"
   >
   </app-skill-chip-list>
+  <p
+    class="necessity-description"
+    *ngIf="!necessity.skills"
+  >
+    Aún no hay habilidades requeridas para esta necesidad.
+  </p>
 
   <h2 class="mt-4">
     Descripción

@@ -33,7 +33,7 @@ export class NecessityFieldsComponent implements OnInit {
     locationString = location?.province ? `${locationString}, ${location?.province}` : locationString;
     locationString = location?.country ? `${locationString}, ${location?.country}` : locationString;
 
-    return locationString ? locationString : `${location?.latitude}, ${location?.longitude}`;
+    return locationString ? locationString : `(${location?.latitude}; ${location?.longitude})`;
   }
 
   get isByRunningUser(): boolean {
@@ -58,8 +58,11 @@ export class NecessityFieldsComponent implements OnInit {
       this.necessity.location?.latitude,
       this.necessity.location?.longitude,
       GoogleMapsGeolocation
-    ).subscribe(result => {
-      this.necessity.location = result;
+    ).subscribe({
+      next: result => {
+        this.necessity.location = result;
+      },
+      error: () => {}
     });
   }
 

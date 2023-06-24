@@ -5,7 +5,8 @@ import { Observable, catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IHTTPResponse, INecessity, INecessitySearchRequest, ISearchResult, ISkill } from '../interfaces';
 import { SerializedNecessity } from '../classes';
-import { NECESSITY_MOCK } from '../mocks/necessity.mock';
+import { SkillsService } from './skills.service';
+import { UserService } from './user.service';
 
 
 const NECESSITIES_ENDPOINT = 'necessities';
@@ -13,40 +14,77 @@ const NECESSITIES_ENDPOINT = 'necessities';
   providedIn: 'root'
 })
 export class NecessityService {
+  necessitiesEndpoint = NECESSITIES_ENDPOINT;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private skillsService: SkillsService,
+    private userService: UserService
   ) { }
 
-  createNecessity(necessity: INecessity): Observable<IHTTPResponse<INecessity>>{
-    return of({ success: true, data: { id: 'test' } })
+  createNecessity(necessity: INecessity): Observable<IHTTPResponse<string>>{
+    return this.http.post<IHTTPResponse<string>>(`${environment.baseUrl}/${this.necessitiesEndpoint}`, necessity)
+    .pipe(
+      catchError(err => of(err)),
+      switchMap((res: IHTTPResponse<string>) => {
+        if (!res.success || !necessity.skills) return of(res);
+
+
+        return this.skillsService.createNecessitySkills(res.data!, necessity.skills)
+        .pipe(
+          catchError(err => of(err)),
+          map(skillsRes => res)
+        );
+      })
+    );
+  }
+
+  updateNecessity(necessity: INecessity): Observable<IHTTPResponse<void>> {
+    const necessityUpdate = this.http.put<IHTTPResponse<void>>(`${environment.baseUrl}/${this.necessitiesEndpoint}/${necessity.id}`, necessity)
+
+    const skillsUpdate = this.skillsService.updateNecessitySkills(necessity.id!, necessity.skills!);
+
+    return forkJoin([ necessityUpdate, skillsUpdate ])
+    .pipe(
+      map(([ necessityUpdateRes, skillsUpdateRes ]) => {
+        return necessityUpdateRes;
+      })
+    );
+  }
+
+  deleteNecessity(necessityId: string): Observable<IHTTPResponse<void>> {
+    return this.http.delete<IHTTPResponse<INecessity>>(`${environment.baseUrl}/${this.necessitiesEndpoint}/${necessityId}`)
     .pipe(
       catchError(err => of(err))
     );
   }
 
-  updateNecessity(necessity: INecessity): Observable<IHTTPResponse<void>> {
-    return of({
-      success: true
-    });
-  }
-
-  deleteNecessity(necessityId: string): Observable<IHTTPResponse<void>> {
-    return of({
-      success: true
-    });
-  }
-
   getNecessityById(necessityId: string): Observable<IHTTPResponse<INecessity>> {
-    return of({
-      success: true,
-      data: NECESSITY_MOCK
-    });
-    // Use this when the backend is complete.
-    // return this.http.get<IHTTPResponse<INecessity>>(`${environment.baseUrl}/${NECESSITIES_ENDPOINT}/${necessityId}`)
-    // .pipe(
-    //   catchError(err => of(err))
-    // );
+    return this.http.get<IHTTPResponse<INecessity>>(`${environment.baseUrl}/${this.necessitiesEndpoint}/${necessityId}`)
+    .pipe(
+      catchError(err => of(err)),
+      map((res: IHTTPResponse<INecessity>) => {
+        if (!res.success) return res;
+
+        res.data = new SerializedNecessity(res.data!);
+        return res;
+      }),
+      switchMap((res: IHTTPResponse<INecessity>) => {
+        if (!res.success) return of(res);
+
+
+        return forkJoin([ this.setNecessitySkills(res.data!), this.userService.getUserById(res.data?.userId!) ])
+        .pipe(
+          map(([ necessity, response ]) => {
+            if (response.success) {
+              necessity.user = response.data;
+            }
+
+            return { data: necessity, success: true };
+          })
+        );
+      })
+    );
   }
 
   getNecessitiesByFilters(filters: INecessitySearchRequest): Observable<IHTTPResponse<ISearchResult[]>> {
@@ -70,7 +108,7 @@ export class NecessityService {
       queryStr = addToQueryParams(queryStr, 'skills', skill);
     });
 
-    return this.http.get<IHTTPResponse<INecessity[]>>(`${environment.baseUrl}/${NECESSITIES_ENDPOINT}/${queryStr}`)
+    return this.http.get<IHTTPResponse<INecessity[]>>(`${environment.baseUrl}/${this.necessitiesEndpoint}/${queryStr}`)
     .pipe(
       catchError(err => of(err)),
       switchMap((res: IHTTPResponse<INecessity[]>) => {
@@ -82,6 +120,7 @@ export class NecessityService {
         });
 
         return forkJoin(observableArr).pipe(
+          catchError(err => of(res.data!)),
           switchMap((necessities: INecessity[]) => of({ success: true, data: necessities }))
         );
       }),
@@ -111,7 +150,7 @@ export class NecessityService {
   }
 
   setNecessitySkills(necessity: INecessity): Observable<INecessity> {
-    return this.http.get<IHTTPResponse<ISkill[]>>(`${environment.baseUrl}/${NECESSITIES_ENDPOINT}/${necessity.id!}/skills`)
+    return this.http.get<IHTTPResponse<ISkill[]>>(`${environment.baseUrl}/${this.necessitiesEndpoint}/${necessity.id!}/skills`)
     .pipe(
       map(res => {
         if (!res.success || res.data?.length === 0) return necessity;

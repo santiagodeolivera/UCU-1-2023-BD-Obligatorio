@@ -1,10 +1,10 @@
-import { User } from "./user"
+import { IUser } from "./IUser"
 
 export interface IAuthResponse {
   success: boolean,
   message?: string,
   data?: {
-    user: User,
+    user: IUser,
     token: string
   }
 }

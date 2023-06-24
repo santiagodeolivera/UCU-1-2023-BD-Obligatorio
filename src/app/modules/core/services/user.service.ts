@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of, tap, forkJoin, switchMap } from 'rxjs';
+import { Observable, catchError, map, of, forkJoin, switchMap } from 'rxjs';
 
-import { IHTTPResponse, ISearchResult, ISkill, IUser, IUserSearchRequest, User } from '../interfaces';
+import { IHTTPResponse, ISearchResult, ISkill, IUser, IUserSearchRequest } from '../interfaces';
 import { environment } from 'src/environments/environment';
 
 const USERS_ENDPOINT = 'users';

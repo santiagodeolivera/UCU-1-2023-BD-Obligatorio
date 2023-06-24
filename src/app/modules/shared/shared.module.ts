@@ -14,6 +14,7 @@ import { PostulationListComponent } from './components/postulation-list/postulat
 import { PostulationCardComponent } from './components/postulation-card/postulation-card.component';
 import { SkillChipComponent } from './components/skill-chip/skill-chip.component';
 import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.component';
+import { NavMenuComponent } from './components/navbar/component/nav-menu/nav-menu.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.com
     PostulationCardComponent,
     SkillChipComponent,
     SkillDialogComponent,
+    NavMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +38,7 @@ import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.com
   ],
   exports: [
     MapComponent,
+    NavbarComponent,
     NecessityFormComponent,
     SkillChipListComponent,
     PostulationListComponent

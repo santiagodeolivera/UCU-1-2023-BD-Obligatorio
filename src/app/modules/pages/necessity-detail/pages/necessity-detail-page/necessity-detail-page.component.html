@@ -9,6 +9,7 @@
 >
   <app-necessity-fields
     [necessity]="necessity"
+    [userPostulation]="userPostulation"
   >
   </app-necessity-fields>
 
@@ -33,6 +34,7 @@
   >
     <app-necessity-detail-actions
       [necessity]="necessity"
+      [userPostulation]="userPostulation"
       (newPostulation)="handleNewPostulation($event)"
       (startEdit)="navigateToEdit()"
       (delete)="deleteNecessity()"

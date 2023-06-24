@@ -17,6 +17,8 @@ export class UserService {
   ) { }
 
   getUserById(userId: string): Observable<IHTTPResponse<IUser>> {
+    if (!userId) return of( { success: false } );
+
     return this.http.get<Observable<IHTTPResponse<IUser>>>(`${environment.baseUrl}/${USERS_ENDPOINT}/${userId}`)
     .pipe(
       catchError(err => of(err))

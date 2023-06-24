@@ -17,49 +17,61 @@ export class PostulationService {
   ) { }
 
   getPostulationForUserAndNecessity(necessityId: string, userId: string): Observable<IHTTPResponse<IPostulation>> {
-    return of({
-      success: true,
-      data: {
-        ...POSTULATIONS_MOCK[1],
-        user: USER_MOCK,
-        userId: USER_MOCK.id
-      }
-    })
+    return this.getPostulations(necessityId, userId);
+  }
+
+  getPostulationsFromUser(userId: string): Observable<IHTTPResponse<IPostulation[]>> {
+    return this.getPostulations(undefined, userId);
   }
 
   getPostulationsFromNecessity(necessityId: string): Observable<IHTTPResponse<IPostulation[]>> {
-    return of({
-      success: true,
-      data: POSTULATIONS_MOCK
-    });
+    return this.getPostulations(necessityId);
+  }
+
+  getPostulations(necessityId?: string, userId?: string) {
+    let query = '';
+    if (necessityId) {
+      query += `?necessityId=${necessityId}`;
+    }
+    if (userId) {
+      query += query ? `&userId=${necessityId}` : `?userId=${necessityId}`;
+    }
+
+    return this.http.get<IHTTPResponse<string>>(
+      `${environment.baseUrl}/${POSTULATIONS_ENDPOINT}${query}`,
+    )
+    .pipe(
+      catchError(err => of(err))
+    );
   }
 
   createPostulation(newPostulation: IPostulation): Observable<IHTTPResponse<string>> {
-    return of({
-      success: true,
-      data: '123'
-    });
-
-    //Use this when the backend is complete.
-    // return this.http.post<IHTTPResponse<string>>(
-    //   `${environment.baseUrl}/${POSTULATIONS_ENDPOINT}/${newPostulation.necessityId}`,
-    //   newPostulation
-    // )
-    // .pipe(
-    //   catchError(err => of(err))
-    // );
+    return this.http.post<IHTTPResponse<string>>(
+      `${environment.baseUrl}/${POSTULATIONS_ENDPOINT}`,
+      newPostulation
+    )
+    .pipe(
+      catchError(err => of(err))
+    );
   }
 
   deletePostulation(necessityId: string, userId: string): Observable<IHTTPResponse<void>> {
-    return of({
-      success: true
-    })
+    return this.http.delete<IHTTPResponse<string>>(
+      `${environment.baseUrl}/${POSTULATIONS_ENDPOINT}/${necessityId}/${userId}`,
+    )
+    .pipe(
+      catchError(err => of(err))
+    );
   }
 
   updatePostulation(postulation: IPostulation): Observable<IHTTPResponse<void>> {
-    return of({
-      success: true
-    })
+    return this.http.put<IHTTPResponse<string>>(
+      `${environment.baseUrl}/${POSTULATIONS_ENDPOINT}`,
+      postulation
+    )
+    .pipe(
+      catchError(err => of(err))
+    );
   }
 
 }

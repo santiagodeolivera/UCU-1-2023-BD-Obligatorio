@@ -16,6 +16,7 @@ export class NecessityDetailPageComponent implements OnInit {
 
   isLoading: boolean = false;
   necessity?: INecessity;
+  userPostulation?: IPostulation;
 
   get isByRunningUser(): boolean {
     return this.necessity?.userId === this.authService.runningUser?.id
@@ -34,6 +35,15 @@ export class NecessityDetailPageComponent implements OnInit {
     this.getNecessity();
   }
 
+  getPostulationForUser() {
+    this.postulationService.getPostulationForUserAndNecessity(this.necessity!.id!, this.authService.runningUser?.id!)
+    .subscribe(result => {
+      if (!result.success) return;
+
+      this.userPostulation = result.data;
+    });
+  }
+
   getNecessity() {
     this.isLoading = true;
 
@@ -44,6 +54,7 @@ export class NecessityDetailPageComponent implements OnInit {
 
       if (result.success) {
         this.necessity = result.data;
+        this.getPostulationForUser();
         return;
       }
 
@@ -118,4 +129,5 @@ export class NecessityDetailPageComponent implements OnInit {
 
     this.router.navigate([ `/necessities/${this.necessity?.id}/edit` ])
   }
+
 }

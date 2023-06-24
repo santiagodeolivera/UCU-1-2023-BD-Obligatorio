@@ -1,25 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ILogin } from 'src/app/modules/core/interfaces/ILogin';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { IAuthRequest } from 'src/app/modules/core/interfaces';
 
 @Component({
   selector: 'app-login-forms',
   templateUrl: './login-forms.component.html',
   styleUrls: ['./login-forms.component.scss']
 })
-export class LoginFormsComponent implements OnInit, ILogin{
+export class LoginFormsComponent implements OnInit {
   hidePassword = true;
-  ci!: string;
-  hashPassword!: string;
-  constructor(private formBuilder: FormBuilder) { }
-
-  ngOnInit(): void {
-  }
 
   loginForm = this.formBuilder.group({
-    ci: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(8), Validators.pattern('[0-9]+')]],
-    hashPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]]
+    ci: new FormControl<number | undefined>(undefined, [
+      Validators.required,
+      Validators.min(100000),
+      Validators.max(80000000)
+    ]),
+    password : ['', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(20),
+      Validators.pattern('^(?=.*[A-Z])(?=.*[0-9]).+$')
+    ]],
   });
+
+  @Output() login = new EventEmitter<IAuthRequest>();
 
   get passwordIconName(): string {
     return this.hidePassword ? 'visibility_off' : 'visibility';
@@ -35,5 +40,19 @@ export class LoginFormsComponent implements OnInit, ILogin{
 
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
+  }
+
+  constructor(private formBuilder: FormBuilder) { }
+
+  ngOnInit(): void {
+  }
+
+  handleLogin() {
+    if (!this.loginForm.valid) return;
+
+    this.login.emit({
+      ci: `${this.loginForm.value.ci}`,
+      password: this.loginForm.value.password!
+    });
   }
 }

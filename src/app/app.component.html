@@ -5,7 +5,9 @@
     mode="over"
   >
     <div class="drawer h-100">
-      <app-navbar-drawer-content>
+      <app-navbar-drawer-content
+        (closeDrawer)="drawer.close()"
+      >
       </app-navbar-drawer-content>
     </div>
   </mat-drawer>

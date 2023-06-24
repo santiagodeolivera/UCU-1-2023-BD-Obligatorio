@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/core/services/auth.service';
 
@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/modules/core/services/auth.service';
   styleUrls: ['./navbar-drawer-content.component.scss']
 })
 export class NavbarDrawerContentComponent implements OnInit {
+
+  @Output() closeDrawer = new EventEmitter();
 
   constructor(
     private authService: AuthService,
@@ -19,7 +21,10 @@ export class NavbarDrawerContentComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login'])
+    .then(
+      () => this.closeDrawer.emit()
+    );
   }
 
   navHome()             { this.router.navigate(['/']); }

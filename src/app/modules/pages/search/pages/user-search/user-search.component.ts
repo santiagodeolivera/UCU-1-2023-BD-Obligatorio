@@ -11,6 +11,7 @@ import { UserService } from 'src/app/modules/core/services/user.service';
 export class UserSearchComponent implements OnInit {
 
   isLoading: boolean = false;
+  hasSearched: boolean = false;
   searchResults?: ISearchResult[];
 
   constructor(
@@ -23,7 +24,8 @@ export class UserSearchComponent implements OnInit {
 
   handleSearch($event: IUserSearchRequest) {
     this.isLoading = true;
-    console.log($event);
+    this.hasSearched = true;
+
     this.userService.getUsersByFilters($event)
     .subscribe(response => {
       this.isLoading = false;

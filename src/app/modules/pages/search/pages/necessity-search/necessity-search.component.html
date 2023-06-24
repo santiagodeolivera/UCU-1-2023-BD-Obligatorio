@@ -21,4 +21,10 @@
     [searchResults]="searchResults"
   >
   </app-search-result-list>
+
+  <p *ngIf="!searchResults?.length && hasSearched" class="mt-5 text-center">
+    No hemos podido encontrar ninguna necesidad que cumpla con los filtros.
+    <br>
+    Intenta modificarlos y realizar la búsqueda nuevamente.
+  </p>
 </div>

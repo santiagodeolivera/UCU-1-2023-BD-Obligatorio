@@ -11,6 +11,7 @@ import { SnackbarService } from 'src/app/modules/core/services/snackbar.service'
 export class NecessitySearchComponent implements OnInit {
 
   isLoading: boolean = false;
+  hasSearched: boolean = false;
   searchResults?: ISearchResult[];
 
   constructor(
@@ -23,7 +24,8 @@ export class NecessitySearchComponent implements OnInit {
 
   handleSearch($event: INecessitySearchRequest) {
     this.isLoading = true;
-    console.log($event);
+    this.hasSearched = true;
+
     this.necessityService.getNecessitiesByFilters($event)
     .subscribe(response => {
       this.isLoading = false;

@@ -4,9 +4,7 @@
   </mat-card-title>
 
   <mat-card-content class="mt-4">
-    <p>
-      {{searchResult.content}}
-    </p>
+    <p [innerHTML]="searchResult.content"></p>
 
     <app-skill-chip-list
       *ngIf="searchResult.skills"

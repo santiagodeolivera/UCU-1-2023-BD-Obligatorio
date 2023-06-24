@@ -20,5 +20,5 @@ export class NavMenuComponent implements OnInit {
   navAbout() { this.router.navigate(['/about']); }
   navCreateNecessity() { this.router.navigate(['/create-necessity']); }
   navCreateSkill() { this.router.navigate(['/postSkill']); }
-
+  
 }

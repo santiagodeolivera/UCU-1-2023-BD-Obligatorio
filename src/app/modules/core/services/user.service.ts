@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap, forkJoin, switchMap } from 'rxjs';
 
-import { IHTTPResponse, ISearchResult, IUser, IUserSearchRequest, User } from '../interfaces';
 import { USER_MOCK } from '../mocks/user.mock';
+import { IHTTPResponse, ISearchResult, ISkill, IUser, IUserSearchRequest, User } from '../interfaces';
+import { environment } from 'src/environments/environment';
+
+const USERS_ENDPOINT = 'users';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   runningUser?: IUser = USER_MOCK;
-  private userUrl = 'http://localhost:3000/api/v1/users';
-  constructor(private http: HttpClient) { }
+  private userUrl = `${environment.baseUrl}/${USERS_ENDPOINT}`;
+
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getByCi(ci : string) : Observable<User> {
     const url = `${this.userUrl}/${ci}`;
@@ -34,28 +40,75 @@ export class UserService {
     console.log(`UserService: ${message}`);
   }
 
-  getUsersByFilters(filters: IUserSearchRequest): Observable<IHTTPResponse<ISearchResult[]>> {
 
-    return of<IHTTPResponse<IUser[]>>({
-      success: true,
-      data: [ USER_MOCK, USER_MOCK ]
-    })
+  getUsersByFilters(filters: IUserSearchRequest): Observable<IHTTPResponse<ISearchResult[]>> {
+    let queryStr = '';
+    const addToQueryParams = (qstr: string, name: string, value: any) => {
+      let strValue = value;
+      if (typeof value !== 'string') {
+        strValue = JSON.stringify(value);
+        strValue = strValue.substring(1, strValue.length - 1);
+      }
+
+      return qstr ? `${qstr}&${name}=${value}` : `?${name}=${strValue}`;
+    };
+
+    queryStr = filters.firstName ? addToQueryParams(queryStr, 'firstName', filters.firstName) : queryStr;
+    queryStr = filters.lastName ? addToQueryParams(queryStr, 'lastName', filters.lastName) : queryStr;
+    filters.skills?.forEach(skill => {
+      queryStr = addToQueryParams(queryStr, 'skills', skill);
+    });
+
+    return this.http.get<IHTTPResponse<IUser[]>>(`${this.userUrl}/${queryStr}`)
     .pipe(
+      catchError(err => of(err)),
+      switchMap((res: IHTTPResponse<IUser[]>) => {
+        if (!res.success || res.data?.length === 0) return of(res);
+
+        const observableArr: Observable<IUser>[] = [];
+        res.data?.forEach(user => {
+          observableArr.push(this.setUserSkills(user));
+        });
+
+        return forkJoin(observableArr).pipe(
+          switchMap((users: IUser[]) => of({ success: true, data: users }))
+        );
+      }),
       map(res => {
         if (!res.success) return res;
 
         return {
           data: res.data!.map(user => {
             return {
-              title: user.name,
+              title: `${user.firstName} ${user.lastName}`,
               skills: user.skills,
               url: `/users/${user.id}`
             } as ISearchResult;
           }),
           success: res.success
         };
-      }),
-      catchError(err => of(err))
+      })
+    );
+  }
+
+  setUserSkills(user: IUser): Observable<IUser> {
+    return this.http.get<IHTTPResponse<{
+      skillName: string,
+      description?: string,
+      creationDate: Date
+    }[]>>(`${this.userUrl}/${user.id!}/skills`)
+    .pipe(
+      map(res => {
+        if (!res.success || res.data?.length === 0) return user;
+
+        user.skills = res.data?.map(skill => {
+          return {
+            name: skill.skillName,
+            description: skill.description
+          } as ISkill;
+        });
+        return user;
+      })
     );
   }
 }

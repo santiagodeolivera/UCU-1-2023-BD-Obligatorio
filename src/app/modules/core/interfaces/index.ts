@@ -10,8 +10,8 @@ export * from './IGeoConfiguration';
 export * from './ISkill'
 export * from './IUserSkill';
 export * from './user';
-export * from './AuthRequest'
-export * from './AuthResponse'
+export * from './IAuthRequest'
+export * from './IAuthResponse'
 export * from './ISearchResult'
 export * from './IDateRange';
 export * from './INecessitySearchRequest';

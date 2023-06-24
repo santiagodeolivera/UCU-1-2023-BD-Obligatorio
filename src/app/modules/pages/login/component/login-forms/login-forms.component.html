@@ -1,32 +1,57 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Ingresar</mat-card-title>
-  </mat-card-header>
-  <form [formGroup]="loginForm">
-    
-    <!--idPicture upload an picture of Identification Card-->
-    <mat-form-field appearance="outline">
-      <mat-label>Cédula de Identidad</mat-label>
-      <input matInput placeholder="Cédula de Identidad sin puntos ni guion" [formControl]="loginForm.controls.ci" maxLength="8">
-      <mat-icon matPrefix>perm_identity</mat-icon>
-      <mat-error>Por favor ingrese su Cédula de Identidad sin puntos ni guion</mat-error>
-    </mat-form-field>
-    
-    <!--HashPassword-->
-    <mat-form-field appearance="outline">
-      <mat-icon matPrefix >lock</mat-icon>
-      <mat-label>Contraseña</mat-label>
-      <input matInput
+
+<h2 class="w-100 text-center">Ingresar</h2>
+<form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
+
+  <mat-form-field
+    appearance="outline"
+    class="w-100"
+  >
+    <mat-label>Cédula de Identidad</mat-label>
+    <input
+      matInput
+      placeholder="Cédula de Identidad sin puntos ni guiónn"
+      formControlName="ci"
+      maxLength="8"
+      type="number"
+    >
+    <mat-icon matPrefix>perm_identity</mat-icon>
+    <mat-error>Por favor ingrese su CI, sin puntos ni guiones</mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    appearance="outline"
+    class="w-100"
+  >
+    <mat-icon matPrefix>lock</mat-icon>
+    <mat-label>Contraseña</mat-label>
+    <input
+      matInput
       [type]="passwordInputType"
-      [formControl]="loginForm.controls.hashPassword" maxLength="20">
-      <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
-        <mat-icon color="{{passwordIconColor}}">{{passwordIconName}}</mat-icon>
-      </button>
-      <mat-error>Por favor ingrese su contraseña</mat-error>
-    </mat-form-field>
-    
-  </form>
-  <mat-card-footer>
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  </mat-card-footer>
-</mat-card>
+      formControlName="password"
+      maxLength="20"
+    >
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="togglePasswordVisibility()"
+    >
+      <mat-icon color="{{passwordIconColor}}">{{passwordIconName}}</mat-icon>
+    </button>
+    <mat-error>La contraseña debe contener al menos una letra mayúscula y un número</mat-error>
+  </mat-form-field>
+
+  <div class="text-center w-100">
+    <button
+      mat-raised-button
+      color="primary"
+    >
+      Iniciar sesión
+    </button>
+
+    <p class="mt-4">
+      ¿Todavía no estás registrado?
+      <a routerLink="/signup">Crea tu cuenta</a>
+    </p>
+  </div>
+</form>

@@ -1,6 +1,6 @@
 import { User } from "./user"
 
-export interface AuthResponse {
+export interface IAuthResponse {
   success: boolean,
   message?: string,
   data?: {

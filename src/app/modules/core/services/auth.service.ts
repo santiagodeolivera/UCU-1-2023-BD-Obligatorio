@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthRequest, AuthResponse, IUser, User } from '../interfaces';
+import { IAuthRequest, IAuthResponse, IUser } from '../interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -14,8 +14,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  doUserAuth(authRequest: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(AUTH_ENDPOINT, authRequest)
+  doUserAuth(authRequest: IAuthRequest): Observable<IAuthResponse> {
+    return this.http.post<IAuthResponse>(AUTH_ENDPOINT, authRequest)
     .pipe(
       tap( response => {
         if (response.success) {
@@ -30,7 +30,7 @@ export class AuthService {
   validateToken(): Observable<any> {
     const url = `${ AUTH_ENDPOINT }/renew`;
 
-    return this.http.get<AuthResponse>( url )
+    return this.http.get<IAuthResponse>( url )
       .pipe(
         tap( response => {
           if (response.success) {

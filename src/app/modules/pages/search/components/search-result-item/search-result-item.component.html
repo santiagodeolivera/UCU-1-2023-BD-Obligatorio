@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-title>
+    {{searchResult.title}}
+  </mat-card-title>
+
+  <mat-card-content class="mt-4">
+    <p [innerHTML]="searchResult.content"></p>
+
+    <app-skill-chip-list
+      *ngIf="searchResult.skills"
+      [enableSkillModal]="enableSkillModal"
+      [skills]="searchResult.skills"
+    >
+    </app-skill-chip-list>
+  </mat-card-content>
+
+  <mat-card-footer>
+    <mat-card-actions align="end">
+      <button
+        class="me-4"
+        mat-raised-button
+        color="primary"
+        routerLink="{{searchResult.url}}"
+      >
+        Ver más
+      </button>
+    </mat-card-actions>
+  </mat-card-footer>
+</mat-card>

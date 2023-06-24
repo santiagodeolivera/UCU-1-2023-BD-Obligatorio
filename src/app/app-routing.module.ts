@@ -38,6 +38,12 @@ const routes: Routes = [
     //canActivate: GUARDS GO HERE,
     //canLoad: GUARDS GO HERE
   },
+  {
+    path: 'search',
+    loadChildren: () => import('./modules/pages/search/search.module').then( m => m.SearchModule ),
+    //canActivate: GUARDS GO HERE,
+    //canLoad: GUARDS GO HERE
+  }
 ];
 
 @NgModule({

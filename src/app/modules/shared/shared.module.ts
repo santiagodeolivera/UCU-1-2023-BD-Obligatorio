@@ -13,6 +13,7 @@ import { PostulationListComponent } from './components/postulation-list/postulat
 import { PostulationCardComponent } from './components/postulation-card/postulation-card.component';
 import { SkillChipComponent } from './components/skill-chip/skill-chip.component';
 import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.component';
+import { FixedSpinnerComponent } from './components/fixed-spinner/fixed-spinner.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.com
     PostulationListComponent,
     PostulationCardComponent,
     SkillChipComponent,
-    SkillDialogComponent
+    SkillDialogComponent,
+    FixedSpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,9 @@ import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.com
     MapComponent,
     NecessityFormComponent,
     SkillChipListComponent,
-    PostulationListComponent
+    PostulationListComponent,
+    FixedSpinnerComponent,
+    SkillsDropdownComponent
   ]
 })
 export class SharedModule { }

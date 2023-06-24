@@ -1,10 +1,9 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
-import { SignupFormsComponent } from '../../components/signup-forms/signup-forms.component';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { User } from 'src/app/modules/core/interfaces/user';
+
 import { SignupService } from 'src/app/modules/core/services/signup.service';
+import { IUser } from 'src/app/modules/core/interfaces';
+import { SnackbarService } from 'src/app/modules/core/services/snackbar.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -12,61 +11,43 @@ import { SignupService } from 'src/app/modules/core/services/signup.service';
   styleUrls: ['./signup-page.component.scss'],
 })
 export class SignupPageComponent implements OnInit {
-  
-  @ViewChild('signUpForm')
-  formData!: SignupFormsComponent;
 
-  @Output() cancel = new EventEmitter<void>();
-  @Output() save = new EventEmitter<User>();
-  
-  constructor(private fb : FormBuilder,
+  isLoading = false;
+
+  constructor(
     private router: Router,
-    private signupService : SignupService,
-    private dialog: MatDialog) { }
-  
+    private signupService: SignupService,
+    private snackbarService: SnackbarService
+  ) { }
+
   ngOnInit(): void {
-    
-  }
- 
-  pullFormData(){
-    const user = this.formData.signUpForm.value as User;
-    return user;
   }
 
-  onSubmit(){
-    const user = this.pullFormData();
-    this.signupService.createUser(user).subscribe( (res) => {
-      if (res.success) {
-        this.router.navigate(['/login']);
+  handleSubmit($event: IUser) {
+    this.isLoading = true;
+
+    this.signupService.createUser($event)
+    .subscribe(result => {
+      this.isLoading = false;
+      if (result.success) {
+
+        this.router.navigate(['/login'])
+        .then(() => this.snackbarService.openSnackBar(
+          'Te has registrado exitósamente!',
+          undefined,
+          2000
+        ));
         return;
       }
+
+      this.snackbarService.openSnackBar(
+        'Ha ocurrido un error al crear tu usuario, intenta de nuevo más tarde.',
+        'Aceptar'
+      );
     });
   }
 
-  handleSubmit() {
-    if (!this.formData.signUpForm.valid) return;
-
-    const value = this.formData.signUpForm.value;
-    const user: User = {
-      ci: value.ci || undefined,
-      name: value.name || undefined,
-      surname: value.surname || undefined,
-      urlPictureID: value.urlPictureID || undefined,
-      isAdmin: false,
-      hashPassword: value.hashPassword || undefined,
-      email: value.email || undefined,
-      phone: value.phone || undefined,
-      geoDistance: value.geoDistance || undefined,
-      geoState: value.geoState || undefined,
-      location: value.location || undefined,
-    };
-
-    this.save.emit(user);
-  }
-
   handleCancel() {
-    this.cancel.emit();
-    //redireccionar a home
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
   }
 }

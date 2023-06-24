@@ -1,83 +1,107 @@
-<mat-card class="">
-  
-  <form [formGroup]="signUpForm">
-    <mat-card-header>
-      <mat-card-title>Registrarse</mat-card-title>
-    </mat-card-header>
-    <!--CI-->
-    <mat-form-field appearance="outline">
-      <mat-icon matPrefix>perm_identity</mat-icon>
-      <mat-label>CI</mat-label>
-      <input matInput placeholder="CI" [formControl]="signUpForm.controls.ci" maxLength="8">
-      <mat-error>Por favor ingrese su CI, sin puntos ni guiones</mat-error>
-    </mat-form-field>
+<form [formGroup]="signUpForm" class="w-100" (ngSubmit)="handleSubmit()">
+  <h2>Registro</h2>
+  <!--CI-->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-icon matPrefix>perm_identity</mat-icon>
+    <mat-label>CI</mat-label>
+    <input matInput placeholder="CI" formControlName="ci" type="number">
+    <mat-error>Por favor ingrese su CI, sin puntos ni guiones</mat-error>
+  </mat-form-field>
 
-    <!--Name-->
-    <mat-form-field appearance="outline">
-      <mat-icon matPrefix>person</mat-icon>
-      <mat-label>Nombres</mat-label>
-      <input matInput placeholder="Nombres" [formControl]="signUpForm.controls.name" maxLength="30">
-      <mat-error>Por favor ingrese el nombre</mat-error>
-    </mat-form-field>
-    
-    <!--Surname-->
-    <mat-form-field appearance="outline">
-      <mat-icon matPrefix>person</mat-icon>
-      <mat-label>Apellidos</mat-label> 
-      <input matInput placeholder="Apellidos" [formControl]="signUpForm.controls.surname" maxLength="30">
-      <mat-error>Por favor ingrese los apellidos</mat-error>
-    </mat-form-field>
-    
-    <!--idPicture upload an picture of Identification Card-->
-    <mat-form-field appearance="outline">
-      <mat-label>URL DNI</mat-label>
-      <input matInput placeholder="Enlace a foto de CI" [formControl]="signUpForm.controls.urlPictureID" maxLength="50">
-      <mat-icon matPrefix>perm_identity</mat-icon>
-      <mat-error>Por favor ingrese el enlace a la foto de su CI</mat-error>
-    </mat-form-field>
-    
-    <!--HashPassword-->
-    <mat-form-field appearance="outline">
-      <mat-icon matPrefix >lock</mat-icon>
-      <mat-label>Contraseña</mat-label>
-      <input matInput
-      [type]="passwordInputType"
-      [formControl]="signUpForm.controls.hashPassword" maxLength="20">
-      <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
-        <mat-icon color="{{passwordIconColor}}">{{passwordIconName}}</mat-icon>
-      </button>
-      <mat-error>Debe iniciar con una Mayúscula e incluir al menos un número</mat-error>
-    </mat-form-field>
-    
-    <!--Email-->
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput placeholder="Correo Electrónico" [formControl]="signUpForm.controls.email" maxLength="50">
-      <mat-icon matPrefix>mail</mat-icon>
-      <mat-error>Por favor ingrese un correo válido</mat-error>
-    </mat-form-field>
-        
-    <!--Phone-->
-    <mat-form-field appearance="outline">
-      <mat-label>Celular</mat-label>
-      <input type="tel" matInput placeholder="Celular" [formControl]="signUpForm.controls.phone" maxLength="9">
-      <mat-icon matPrefix>phone</mat-icon>
-      <mat-error>Por favor ingrese un número de Celular válido</mat-error>
-    </mat-form-field>
-    
-    <!--Map-->
-    <app-map
-        class="location-map mt-3"
-        [position]="user?.location"
-        [enableSearch]="true"
-        [queryLocationOnClick]="true"
-        (mapClick)="handleMapClick($event)"
-        (mapSearch)="handleMapSearch($event)"
-        [initialCoordinates]="{lat: -34.88838, lng: -56.15944}"
+  <!--Name-->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-icon matPrefix>person</mat-icon>
+    <mat-label>Nombre</mat-label>
+    <input matInput placeholder="Nombre" formControlName="name" maxLength="30">
+    <mat-error>Por favor ingrese su nombre</mat-error>
+  </mat-form-field>
+
+  <!--Surname-->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-icon matPrefix>person</mat-icon>
+    <mat-label>Apellido</mat-label>
+    <input matInput placeholder="Apellido" formControlName="surname" maxLength="30">
+    <mat-error>Por favor ingrese su apellido</mat-error>
+  </mat-form-field>
+
+  <!--HashPassword-->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-icon matPrefix >lock</mat-icon>
+    <mat-label>Contraseña</mat-label>
+    <input matInput [type]="passwordInputType" formControlName="password" maxLength="20">
+    <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+      <mat-icon color="{{passwordIconColor}}">{{passwordIconName}}</mat-icon>
+    </button>
+    <mat-error>La contraseña debe contener al menos una letra mayúscula y un número</mat-error>
+  </mat-form-field>
+
+  <!--Email-->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput placeholder="Correo Electrónico" formControlName="email" maxLength="50">
+    <mat-icon matPrefix>mail</mat-icon>
+    <mat-error>Por favor ingrese un correo válido</mat-error>
+  </mat-form-field>
+
+  <!--Phone-->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Celular</mat-label>
+    <input type="tel" matInput placeholder="Celular" formControlName="phone" maxLength="9">
+    <mat-icon matPrefix>phone</mat-icon>
+    <mat-error>Por favor ingrese un número de Celular válido</mat-error>
+  </mat-form-field>
+
+  <!--idPicture upload an picture of Identification Card-->
+  <button
+    class="w-100"
+    mat-raised-button
+    type="button"
+    (click)="ciInput.click()"
+    [color]="ciUploaded ? 'primary' : ''"
+  >
+    <span>
+      Fóto de DNI
+      <mat-icon
+        *ngIf="ciUploaded"
+        class="align-middle"
       >
-      </app-map>
-  </form>
-  <mat-card-footer>
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  </mat-card-footer>
-</mat-card>
+        check
+      </mat-icon>
+    </span>
+  </button>
+  <input hidden (change)="ciUploaded = true" #ciInput type="file"/>
+
+  <!--Map-->
+  <app-map
+      class="location-map mt-3"
+      [enableSearch]="true"
+      [queryLocationOnClick]="true"
+      (mapClick)="handleMapClick($event)"
+      (mapSearch)="handleMapSearch($event)"
+    >
+  </app-map>
+
+  <div class="text-center w-100 mt-5">
+    <button
+      mat-stroked-button
+      class=""
+      type="button"
+      (click)="handleCancel()"
+    >
+      Cancelar
+    </button>
+
+    <button
+      mat-flat-button
+      class="ms-3"
+      color="primary"
+    >
+      Registrarme
+    </button>
+
+    <p class="mt-3">
+      Ya tengo una cuenta.
+      <a routerLink="/login">Ingresar</a>
+    </p>
+  </div>
+</form>

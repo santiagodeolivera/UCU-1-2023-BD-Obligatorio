@@ -37,6 +37,8 @@ export class MapComponent implements OnInit {
   }
 
   get locationString(): string {
+    if (!this.position) return '';
+
     const location = this.position;
     let locationString = location?.streetAddress ? location.streetAddress : '';
     locationString = location?.city ? `${locationString}, ${location?.city}` : locationString;

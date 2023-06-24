@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { User } from '../interfaces/user';
-import { ILogin } from '../interfaces';
+import { Observable, catchError, of } from 'rxjs';
+import { IUser } from '../interfaces';
 import { IHTTPResponse } from '../interfaces';
+import { environment } from 'src/environments/environment';
+
+const USERS_ENDPOINT = 'users';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,11 @@ export class SignupService {
 
   constructor(private http: HttpClient) { }
 
-  createUser(user : User) : Observable<IHTTPResponse<User>>{
-    return this.http.post<IHTTPResponse<User>>('http://localhost:3000/users', user);
+  createUser(user: IUser): Observable<IHTTPResponse<void>>{
+    return this.http.post<IHTTPResponse<void>>(`${environment.baseUrl}/${USERS_ENDPOINT}`, user)
+    .pipe(
+      catchError(err => of(err))
+    );
   }
 
 }

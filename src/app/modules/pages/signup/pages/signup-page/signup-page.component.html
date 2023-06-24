@@ -1,30 +1,16 @@
-<div class="container center-content-x">
-  <div class="center-content">
-    
-      
-    <div class="forms-body-container">
-      <app-signup-forms #signUpForm ></app-signup-forms>
-    </div>
-  </div>
-  <div class="bb-signup-footer">
-    <button mat-raised-button
-      matStepperPrevious
-      class="bb-previous-button"
-      color="warn"
-      (click)="handleCancel()">REGRESAR
-    </button>
-    
-    <button mat-raised-button
-      matStepperNext
-      class="bb-next-button"
-      color="primary"
-      (click)="handleSubmit()">CREAR CUENTA
-    </button>
-   
-    <p class="bb-signup-subtitle">
-      Ya tengo una cuenta.
-      <a routerLink="/login">Ingresar</a>
-    </p>
-  </div>
+<div class="container">
+  <app-signup-forms
+    #signUpForm
+    (signup)="handleSubmit($event)"
+    (cancel)="handleCancel()"
+  >
+  </app-signup-forms>
 </div>
+
+<app-fixed-spinner
+  *ngIf="isLoading"
+  [hasOverlay]="true"
+>
+</app-fixed-spinner>
+
 

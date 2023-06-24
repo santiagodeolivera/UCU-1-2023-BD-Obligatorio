@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { INecessity, IPostulation } from 'src/app/modules/core/interfaces';
-import { UserService } from 'src/app/modules/core/services/user.service';
+import { AuthService } from 'src/app/modules/core/services/auth.service';
 
 @Component({
   selector: 'app-necessity-detail-actions',
@@ -17,7 +17,7 @@ export class NecessityDetailActionsComponent implements OnInit {
   @Output() solve = new EventEmitter<void>();
 
   get runningUserId(): string | undefined {
-    return this.userService.runningUser?.id;
+    return this.authService.runningUser?.id;
   }
 
   get isByRunningUser(): boolean {
@@ -33,7 +33,7 @@ export class NecessityDetailActionsComponent implements OnInit {
   }
 
   constructor(
-    private userService: UserService
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class NecessityDetailActionsComponent implements OnInit {
 
     const postulation: IPostulation = {
       necessityId: this.necessity.id,
-      userId: this.userService.runningUser?.id
+      userId: this.authService.runningUser?.id
     };
 
     this.newPostulation.emit(postulation);

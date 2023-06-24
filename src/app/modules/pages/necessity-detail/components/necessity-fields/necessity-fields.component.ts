@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GoogleMapsGeolocation } from 'src/app/modules/core/classes';
 import { INecessity } from 'src/app/modules/core/interfaces';
+import { AuthService } from 'src/app/modules/core/services/auth.service';
 import { MapService } from 'src/app/modules/core/services/map.service';
 import { PostulationService } from 'src/app/modules/core/services/postulation.service';
-import { UserService } from 'src/app/modules/core/services/user.service';
 
 @Component({
   selector: 'app-necessity-fields',
@@ -37,12 +37,12 @@ export class NecessityFieldsComponent implements OnInit {
   }
 
   get isByRunningUser(): boolean {
-    return this.necessity.userId !== this.userService.runningUser?.id;
+    return this.necessity.userId !== this.authService.runningUser?.id;
   }
 
   constructor(
     private mapService: MapService,
-    private userService: UserService,
+    private authService: AuthService,
     private postulationService: PostulationService
   ) { }
 
@@ -64,7 +64,7 @@ export class NecessityFieldsComponent implements OnInit {
   }
 
   getPostulationForUser() {
-    this.postulationService.getPostulationForUserAndNecessity(this.necessity.id!, this.userService.runningUser?.id!)
+    this.postulationService.getPostulationForUserAndNecessity(this.necessity.id!, this.authService.runningUser?.id!)
     .subscribe(result => {
       if (!result.success) return;
 

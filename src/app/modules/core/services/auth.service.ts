@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthRequest, AuthResponse, User } from '../interfaces';
+import { AuthRequest, AuthResponse, IUser, User } from '../interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -10,7 +10,7 @@ const AUTH_ENDPOINT = `${environment.baseUrl}/auth`;
   providedIn: 'root'
 })
 export class AuthService {
-  runningUser?: User;
+  runningUser?: IUser;
 
   constructor(private http: HttpClient) { }
 
@@ -46,5 +46,6 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    this.runningUser = undefined;
   }
 }

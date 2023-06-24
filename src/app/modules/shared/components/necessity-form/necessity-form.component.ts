@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { IGeolocation, INecessity, ISkill } from 'src/app/modules/core/interfaces';
-import { UserService } from 'src/app/modules/core/services/user.service';
+import { AuthService } from 'src/app/modules/core/services/auth.service';
 
 import { MapComponent } from 'src/app/modules/shared/components/map/map.component';
 
@@ -31,7 +31,7 @@ export class NecessityFormComponent implements AfterViewInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService
+    private authService: AuthService
   ) { }
 
   ngAfterViewInit(): void {
@@ -75,7 +75,7 @@ export class NecessityFormComponent implements AfterViewInit {
       return { name: skill } as ISkill;
     });
     const necessity: INecessity = {
-      userId: this.userService.runningUser?.id,
+      userId: this.authService.runningUser?.id,
       title: value.title || undefined,
       description: value.description || undefined,
       startDate: value.startDate || undefined,

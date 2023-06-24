@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ValidateTokenGuard } from './modules/core/guard/validate-token.guard';
+import { PreventLogoutGuard } from './modules/core/guard/prevent-logout.guard';
 
 const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./modules/pages/signup/signup.module').then( m => m.SignupModule ),
+    canActivate: [ PreventLogoutGuard ],
+    canLoad: [ PreventLogoutGuard ]
   },
   {
     path: 'login',
     loadChildren: () => import('./modules/pages/login/login.module').then( m => m.LoginModule ),
+    canActivate: [ PreventLogoutGuard ],
+    canLoad: [ PreventLogoutGuard ]
   },
   {
     path: 'profile-update',

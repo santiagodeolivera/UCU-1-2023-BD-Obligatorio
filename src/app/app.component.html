@@ -11,6 +11,7 @@
   </mat-drawer>
 
   <app-navbar
+    *ngIf="showNavbar"
     (menuClick)="drawer.toggle()"
   >
   </app-navbar>

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { INecessity, IPostulation } from 'src/app/modules/core/interfaces';
+import { AuthService } from 'src/app/modules/core/services/auth.service';
 
 import { NecessityService } from 'src/app/modules/core/services/necessity.service';
 import { PostulationService } from 'src/app/modules/core/services/postulation.service';
 import { SnackbarService } from 'src/app/modules/core/services/snackbar.service';
-import { UserService } from 'src/app/modules/core/services/user.service';
 
 @Component({
   selector: 'app-necessity-detail-page',
@@ -18,11 +18,11 @@ export class NecessityDetailPageComponent implements OnInit {
   necessity?: INecessity;
 
   get isByRunningUser(): boolean {
-    return this.necessity?.userId === this.userService.runningUser?.id
+    return this.necessity?.userId === this.authService.runningUser?.id
   }
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private necessityService: NecessityService,
     private postulationService: PostulationService,
     private snackbarService: SnackbarService,

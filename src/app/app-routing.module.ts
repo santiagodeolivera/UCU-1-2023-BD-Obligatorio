@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ValidateTokenGuard } from './modules/core/guard/validate-token.guard';
 
 const routes: Routes = [
   {
@@ -11,16 +12,40 @@ const routes: Routes = [
     loadChildren: () => import('./modules/pages/login/login.module').then( m => m.LoginModule ),
   },
   {
+    path: 'profile-update',
+    loadChildren: () => import('./modules/pages/profileUpdate/profile-update.module').then( m => m.ProfileUpdateModule ),
+    canActivate: [ ValidateTokenGuard ],
+    canLoad: [ ValidateTokenGuard ]
+  },
+  {
     path: 'create-necessity',
     loadChildren: () => import('./modules/pages/create-necessity/create-necessity.module').then( m => m.CreateNecessityModule ),
-    //canActivate: GUARDS GO HERE,
-    //canLoad: GUARDS GO HERE
+    canActivate: [ ValidateTokenGuard ],
+    canLoad: [ ValidateTokenGuard ]
   },
   {
     path: 'necessities/:id',
     loadChildren: () => import('./modules/pages/necessity-detail/necessity-detail.module').then( m => m.NecessityDetailModule ),
-    //canActivate: GUARDS GO HERE,
-    //canLoad: GUARDS GO HERE
+    canActivate: [ ValidateTokenGuard ],
+    canLoad: [ ValidateTokenGuard ]
+  },
+  {
+    path: '',
+    loadChildren: () => import('./modules/pages/home/home.module').then( m => m.HomeModule ),
+    canActivate: [ ValidateTokenGuard ],
+    canLoad: [ ValidateTokenGuard ]
+  },
+  {
+    path: 'postSkill',
+    loadChildren: () => import('./modules/pages/post-skill/post-skill.module').then( m => m.PostSkillModule ),
+    canActivate: [ ValidateTokenGuard ],
+    canLoad: [ ValidateTokenGuard ]
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./modules/pages/search/search.module').then( m => m.SearchModule ),
+    canActivate: [ ValidateTokenGuard ],
+    canLoad: [ ValidateTokenGuard ]
   }
 ];
 

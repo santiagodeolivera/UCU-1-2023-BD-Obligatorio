@@ -1,0 +1,112 @@
+<form
+  [formGroup]="necessitySearchForm"
+  (ngSubmit)="handleSubmit()"
+>
+
+  <mat-expansion-panel class="mt-4">
+    <mat-expansion-panel-header>
+      Filtros
+    </mat-expansion-panel-header>
+
+    <mat-form-field
+      class="w-100"
+      appearance="outline"
+    >
+      <mat-label>
+        Título o Descripción
+      </mat-label>
+
+      <input
+        matInput
+        formControlName="searchTerm"
+        placeholder="Ingresa una frase o palabra clave."
+      />
+    </mat-form-field>
+
+    <app-skills-dropdown
+      class="mt-5"
+      [control]="necessitySearchForm.controls.skills"
+      label="Habilidades"
+    >
+    </app-skills-dropdown>
+
+    <mat-form-field
+      class="w-100"
+      appearance="outline"
+    >
+      <mat-label>Fecha de inicio</mat-label>
+
+      <mat-date-range-input
+        formGroupName="startDateRange"
+        [rangePicker]="startDatePicker"
+        [comparisonStart]="necessitySearchForm.controls.startDateRange.value.start"
+        [comparisonEnd]="necessitySearchForm.controls.startDateRange.value.end"
+      >
+        <input
+          matStartDate
+          placeholder="Fecha de inicio mínima"
+          formControlName="start"
+        >
+        <input
+          matEndDate
+          placeholder="Fecha de inicio máxima"
+          formControlName="end"
+        >
+      </mat-date-range-input>
+
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="startDatePicker"
+      >
+      </mat-datepicker-toggle>
+      <mat-date-range-picker #startDatePicker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field
+      class="w-100 mt-2"
+      appearance="outline"
+    >
+      <mat-label>Fecha de finalización</mat-label>
+
+      <mat-date-range-input
+        formGroupName="endDateRange"
+        [rangePicker]="endDatePicker"
+        [comparisonStart]="necessitySearchForm.controls.endDateRange.value.start"
+        [comparisonEnd]="necessitySearchForm.controls.endDateRange.value.end"
+      >
+        <input
+          matStartDate
+          placeholder="Fecha de finalización mínima"
+          formControlName="start"
+        >
+        <input
+          matEndDate
+          placeholder="Fecha de finalización máxima"
+          formControlName="end"
+        >
+      </mat-date-range-input>
+
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="endDatePicker"
+      >
+      </mat-datepicker-toggle>
+      <mat-date-range-picker #endDatePicker></mat-date-range-picker>
+    </mat-form-field>
+  </mat-expansion-panel>
+
+  <div class="w-100 text-center">
+    <button
+      class="mt-4 search-button"
+      mat-raised-button
+      color="primary"
+    >
+      Buscar
+    </button>
+  </div>
+
+</form>

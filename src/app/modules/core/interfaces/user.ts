@@ -1,4 +1,5 @@
 import { IGeolocation } from ".";
+
 export interface User {
   ci?: string;
   name?: string;

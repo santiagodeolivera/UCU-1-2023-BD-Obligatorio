@@ -8,13 +8,13 @@ import { User } from 'src/app/modules/core/interfaces';
 import { UserService } from 'src/app/modules/core/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   isEditMode: boolean = false;
   isOwnProfile: boolean = false;
   isUpdatingFilters: boolean = false;

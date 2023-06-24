@@ -15,6 +15,7 @@ import { PostulationCardComponent } from './components/postulation-card/postulat
 import { SkillChipComponent } from './components/skill-chip/skill-chip.component';
 import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.component';
 import { NavMenuComponent } from './components/navbar/component/nav-menu/nav-menu.component';
+import { FixedSpinnerComponent } from './components/fixed-spinner/fixed-spinner.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NavMenuComponent } from './components/navbar/component/nav-menu/nav-men
     SkillChipComponent,
     SkillDialogComponent,
     NavMenuComponent,
+    FixedSpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,9 @@ import { NavMenuComponent } from './components/navbar/component/nav-menu/nav-men
     NavbarComponent,
     NecessityFormComponent,
     SkillChipListComponent,
-    PostulationListComponent
+    PostulationListComponent,
+    FixedSpinnerComponent,
+    SkillsDropdownComponent
   ]
 })
 export class SharedModule { }

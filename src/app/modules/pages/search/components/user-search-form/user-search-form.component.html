@@ -1,0 +1,58 @@
+<form
+  [formGroup]="userSearchForm"
+  (ngSubmit)="handleSubmit()"
+>
+  <mat-expansion-panel class="mt-4">
+    <mat-expansion-panel-header>
+      Filtros
+    </mat-expansion-panel-header>
+
+    <mat-form-field
+      class="w-100"
+      appearance="outline"
+    >
+      <mat-label>
+        Primer Nombre
+      </mat-label>
+
+      <input
+        matInput
+        formControlName="firstName"
+        placeholder="Ingresa un nombre de pila."
+      />
+    </mat-form-field>
+
+    <mat-form-field
+      class="w-100"
+      appearance="outline"
+    >
+      <mat-label>
+        Apellido
+      </mat-label>
+
+      <input
+        matInput
+        formControlName="lastName"
+        placeholder="Ingresa un apellido."
+      />
+    </mat-form-field>
+
+    <app-skills-dropdown
+      class="mt-5"
+      [control]="userSearchForm.controls.skills"
+      label="Habilidades"
+    >
+    </app-skills-dropdown>
+
+  </mat-expansion-panel>
+
+  <div class="w-100 text-center">
+    <button
+      class="mt-4 search-button"
+      mat-raised-button
+      color="primary"
+    >
+      Buscar
+    </button>
+  </div>
+</form>

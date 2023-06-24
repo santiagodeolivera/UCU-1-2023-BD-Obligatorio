@@ -1,0 +1,58 @@
+html,body{
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    align-self: center;
+    justify-self: center;
+}
+  
+.center-content{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  
+  width: fit-content;
+  height: 100%;
+  margin-left: 4rem;
+  margin-right: 4rem;
+  max-width: 35rem;
+}
+
+input{
+  width: 100%;
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  margin: 1rem;
+  font-size: 1rem;
+  outline: none;
+}
+
+// Alinear contenido en el centro de la pantalla en el eje X
+.center-content-x{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  
+  width: 100%;
+  height: 100%;
+}
+
+.bb-signup-title{
+  justify-items: center;
+  align-items: center;
+  justify-content:  center;
+  text-align: center;
+  font-size: 1.2rem;
+  font-family: 'Roboto', sans-serif;
+  color: 'primary';
+  margin: 0.7rem 0 0 0;
+}
+  
+button{
+  margin: 2rem;
+}
+

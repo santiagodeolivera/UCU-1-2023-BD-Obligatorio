@@ -11,6 +11,8 @@ import { SignupModule } from './modules/pages/signup/signup.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './modules/pages/login/login.module';
 import { SharedModule } from './modules/shared/shared.module';
+import { ProfileUpdateModule } from './modules/pages/profileUpdate/profile-update.module';
+
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { SharedModule } from './modules/shared/shared.module';
     SignupModule,
     LoginModule,
     SharedModule,
+    ProfileUpdateModule,
     MaterialModule,
     HttpClientModule
   ],

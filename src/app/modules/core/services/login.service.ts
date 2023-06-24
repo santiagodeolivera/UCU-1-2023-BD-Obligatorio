@@ -8,7 +8,6 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class LoginService {
-
   constructor(private http: HttpClient, private us: UserService ) { }
   
   // generar login utilizando el servicio de usuario y validando en el backend que la contraseña sea correcta
@@ -32,7 +31,6 @@ export class LoginService {
       catchError(err => of(err))
     )
   }*/
-
   
   logout() {
     localStorage.removeItem('token');

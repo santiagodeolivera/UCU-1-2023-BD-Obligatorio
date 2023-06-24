@@ -52,7 +52,6 @@ export class SignupFormsComponent implements OnInit, ILogin {
     {value: 'Maldonado', viewValue: 'Maldonado'},
     {value: 'Montevideo', viewValue: 'Montevideo'},
     {value: 'Paysandú', viewValue: 'Paysandú'}]
-    
     */
   
   get passwordIconName(): string {
@@ -69,13 +68,13 @@ export class SignupFormsComponent implements OnInit, ILogin {
 
   constructor(private formBuilder: FormBuilder) { }
   
-
   ngOnInit(): void {
   }
 
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
+
   handleMapClick($event: IGeolocation) {
     this.signUpForm.controls.location.setValue($event);
     this.map?.setFocusedPosition($event);

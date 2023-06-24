@@ -24,13 +24,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 
-
 const MATERIAL_COMPONENTS = [
   MatSlideToggleModule,
   MatFormFieldModule,
   MatInputModule,
   MatSelectModule,
   MatCardModule,
+  MatGridListModule,
   MatDividerModule,
   MatButtonModule,
   MatIconModule,
@@ -45,7 +45,9 @@ const MATERIAL_COMPONENTS = [
   MatProgressBarModule,
   MatSnackBarModule,
   MatProgressSpinnerModule,
-  MatExpansionModule
+  MatExpansionModule,
+  
+
 ];
 
 @NgModule({

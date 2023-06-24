@@ -9,19 +9,19 @@
 <mat-menu #menu="matMenu">
   <div *ngIf="!isLogin">
     <!-- Se generan las opciones Home, Ingresar, Registrarse, Sobre el proyecto -->
-    <button mat-menu-item routerLink="/home">
+    <button mat-menu-item (click)="navHome()">
       <mat-icon>home</mat-icon>
       <span>Home</span>
     </button>
-    <button mat-menu-item routerLink="/login">
+    <button mat-menu-item (click)="navLogin()">
       <mat-icon>login</mat-icon>
       <span>Ingresar</span>
     </button>
-    <button mat-menu-item routerLink="/register">
+    <button mat-menu-item (click)="navSignup()">
       <mat-icon>person_add</mat-icon>
       <span>Registrarse</span>
     </button>
-    <button mat-menu-item routerLink="/about">
+    <button mat-menu-item (click)="navAbout()">
       <mat-icon>info</mat-icon>
       <span>Sobre el proyecto</span>
     </button>
@@ -29,30 +29,31 @@
   </div>
   <div *ngIf="isLogin">
     <!-- Se generan las opciones Home, Salir, Crear Necesidad, Crear habilidad, Actualizar Perfil, Sobre el proyecto -->
-    <button mat-menu-item routerLink="/home">
+    <button mat-menu-item (click)="navHome()">
       <mat-icon>home</mat-icon>
       <span>Home</span>
     </button>
-    <button mat-menu-item routerLink="/logout">
+    <button mat-menu-item (click)="navLogout()">
       <mat-icon>logout</mat-icon>
       <span>Salir</span>
     </button>
-    <button mat-menu-item routerLink="/create-need">
+    <button mat-menu-item (click)="navCreateNecessity()">
       <mat-icon>add</mat-icon>
       <span>Crear Necesidad</span>
     </button>
-    <button mat-menu-item routerLink="/create-skill">
+    <button mat-menu-item (click)="navCreateSkill()">
       <mat-icon>add</mat-icon>
       <span>Crear Habilidad</span>
     </button>
-    <button mat-menu-item routerLink="/update-profile">
+    <button mat-menu-item (click)="navUpdateProfile()">
       <mat-icon>update</mat-icon>
       <span>Actualizar Perfil</span>
     </button>
-    <button mat-menu-item routerLink="/about">
+    <button mat-menu-item (click)="navAbout()">
       <mat-icon>info</mat-icon>
       <span>Sobre el proyecto</span>
     </button>
+
 
   </div>
 </mat-menu>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavMenuComponent implements OnInit {
   isLogin: boolean = true;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
+  navHome() { this.router.navigate(['/']); }
+  navLogin() { this.router.navigate(['/login']); }
+  navSignup() { this.router.navigate(['/signup']); }
+  navUpdateProfile() { this.router.navigate(['/profileUpdate']); }
+  navLogout() { this.router.navigate(['/logout']); }
+  navAbout() { this.router.navigate(['/about']); }
+  navCreateNecessity() { this.router.navigate(['/create-necessity']); }
+  navCreateSkill() { this.router.navigate(['/postSkill']); }
   
-
 }

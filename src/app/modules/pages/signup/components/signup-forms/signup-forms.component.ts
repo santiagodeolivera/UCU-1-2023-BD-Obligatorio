@@ -22,9 +22,9 @@ export class SignupFormsComponent implements OnInit, ILogin {
   signUpForm = this.formBuilder.group(
     {
       // La cedula debe tener entre 6 y 8 digitos, y no puede comenzar ser mayor a 100000 y menor a 80000000
-      ci: new FormControl<number | undefined>(undefined, [Validators.required, Validators.min(100000), Validators.max(80000000)]),
-      name: [ '', [ Validators.required ] ],
-      surname : ['',[ Validators.required ] ],
+      ci: new FormControl<number | undefined>(undefined, [Validators.required, Validators.min(100000), Validators.max(80000000), ]),
+      name: [ '', [ Validators.required , Validators.minLength(3), Validators.pattern('[a-zA-Z ]*') ] ],
+      surname : ['',[ Validators.required, Validators.minLength(3), Validators.pattern('[a-zA-Z ]*')] ],
       // La contraseña debe iniciar con mayuscula y tener al menos un numero
       password : ['', [
         Validators.required,

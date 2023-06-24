@@ -14,8 +14,8 @@ import { PostulationListComponent } from './components/postulation-list/postulat
 import { PostulationCardComponent } from './components/postulation-card/postulation-card.component';
 import { SkillChipComponent } from './components/skill-chip/skill-chip.component';
 import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.component';
-import { NavMenuComponent } from './components/navbar/component/nav-menu/nav-menu.component';
 import { FixedSpinnerComponent } from './components/fixed-spinner/fixed-spinner.component';
+import { NavbarDrawerContentComponent } from './components/navbar-drawer-content/navbar-drawer-content.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +29,8 @@ import { FixedSpinnerComponent } from './components/fixed-spinner/fixed-spinner.
     PostulationCardComponent,
     SkillChipComponent,
     SkillDialogComponent,
-    NavMenuComponent,
-    FixedSpinnerComponent
+    FixedSpinnerComponent,
+    NavbarDrawerContentComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +41,7 @@ import { FixedSpinnerComponent } from './components/fixed-spinner/fixed-spinner.
   exports: [
     MapComponent,
     NavbarComponent,
+    NavbarDrawerContentComponent,
     NecessityFormComponent,
     SkillChipListComponent,
     PostulationListComponent,

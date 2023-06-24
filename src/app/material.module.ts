@@ -23,6 +23,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 const MATERIAL_COMPONENTS = [
   MatSlideToggleModule,
@@ -46,8 +48,8 @@ const MATERIAL_COMPONENTS = [
   MatSnackBarModule,
   MatProgressSpinnerModule,
   MatExpansionModule,
-  
-
+  MatSidenavModule,
+  MatListModule
 ];
 
 @NgModule({

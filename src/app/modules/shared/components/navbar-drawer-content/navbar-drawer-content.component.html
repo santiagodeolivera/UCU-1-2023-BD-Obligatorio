@@ -1,0 +1,46 @@
+<!-- TODO: mover routerlinks a metodos -->
+<mat-list class="d-flex flex-column">
+  <button
+    mat-button
+    (click)="navHome()"
+  >
+    <mat-list-item
+      class="text-light"
+    >
+      Home
+    </mat-list-item>
+  </button>
+
+  <button
+    mat-button
+    (click)="navSearch()"
+  >
+    <mat-list-item
+      class="text-light"
+    >
+      Buscar
+    </mat-list-item>
+  </button>
+
+  <button
+    mat-button
+    (click)="navCreateNecessity()"
+  >
+    <mat-list-item
+      class="text-light"
+    >
+      Crear Necesidad
+    </mat-list-item>
+  </button>
+
+  <button
+    mat-button
+    (click)="logout()"
+  >
+    <mat-list-item
+      class="text-light"
+    >
+      Cerrar Sesión
+    </mat-list-item>
+  </button>
+</mat-list>

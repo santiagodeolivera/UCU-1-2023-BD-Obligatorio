@@ -9,7 +9,7 @@
 </button>
 
 <div
-  *ngIf="isByRunningUser"
+  *ngIf="isByRunningUser && !isSolved"
 >
   <button
     class="action-button"
@@ -20,6 +20,7 @@
     Eliminar
   </button>
   <button
+    *ngIf="necessity.startDate! > today"
     class="action-button ms-2"
     mat-raised-button
     color="primary"

@@ -76,7 +76,7 @@ export class NecessityDetailPageComponent implements OnInit {
     this.necessityService.updateNecessity({
         ...this.necessity!,
         status: 'Solucionada'
-    })
+    }, false)
     .subscribe(result => {
       if (result.success) {
         this.snackbarService.openSnackBar(

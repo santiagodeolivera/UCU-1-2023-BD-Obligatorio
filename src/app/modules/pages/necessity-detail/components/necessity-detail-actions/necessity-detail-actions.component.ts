@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/modules/core/services/auth.service';
   styleUrls: ['./necessity-detail-actions.component.scss']
 })
 export class NecessityDetailActionsComponent implements OnInit {
+  today = new Date();
 
   @Input() necessity!: INecessity;
 

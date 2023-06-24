@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { IHTTPResponse, INecessity, ISkill } from '../interfaces';
+import { IHTTPResponse, ISkill } from '../interfaces';
 import { Observable, catchError, forkJoin, map, of, single, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { NecessityService } from './necessity.service';
+import { NecessityRequestHandler } from '../classes/NecessityRequestHandler';
+import { UserService } from './user.service';
 
 
 const SKILLS_ENDPOINT = 'skills';
@@ -12,14 +13,15 @@ const SKILLS_ENDPOINT = 'skills';
   providedIn: 'root'
 })
 export class SkillsService {
+  necessityRequestHandler: NecessityRequestHandler = new NecessityRequestHandler(this.http, this, this.userService);
 
   get necessitiesEndpoint(): string {
-    return this.necessityService.necessitiesEndpoint;
+    return this.necessityRequestHandler.necessitiesEndpoint;
   }
 
   constructor(
     private http: HttpClient,
-    private necessityService: NecessityService
+    private userService: UserService
   ) { }
 
   getAllSkills(): Observable<IHTTPResponse<ISkill[]>> {
@@ -53,7 +55,7 @@ export class SkillsService {
     const updatedSkillsByName: Map<string, ISkill> = new Map();
     skills.forEach(skill => updatedSkillsByName.set(skill.name, skill));
 
-    return this.necessityService.getNecessityById(necessityId)
+    return this.necessityRequestHandler.getNecessityById(necessityId)
     .pipe(
       switchMap(res => {
         if (!res.success) return of(res);

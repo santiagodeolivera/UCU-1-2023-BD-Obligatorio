@@ -36,6 +36,10 @@ export class NecessityFieldsComponent implements OnInit {
     return locationString ? locationString : `(${location?.latitude}; ${location?.longitude})`;
   }
 
+  get necessityDescription(): string {
+    return this.necessity.description?.replace(/\n/g, '<br>') || '';
+  }
+
   get isByRunningUser(): boolean {
     return this.necessity.userId !== this.authService.runningUser?.id;
   }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { INecessity, IPostulation } from 'src/app/modules/core/interfaces';
 import { AuthService } from 'src/app/modules/core/services/auth.service';
-
 import { NecessityService } from 'src/app/modules/core/services/necessity.service';
 import { PostulationService } from 'src/app/modules/core/services/postulation.service';
 import { SnackbarService } from 'src/app/modules/core/services/snackbar.service';
@@ -28,7 +28,7 @@ export class NecessityDetailPageComponent implements OnInit {
     private postulationService: PostulationService,
     private snackbarService: SnackbarService,
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +38,10 @@ export class NecessityDetailPageComponent implements OnInit {
   getPostulationForUser() {
     this.postulationService.getPostulationForUserAndNecessity(this.necessity!.id!, this.authService.runningUser?.id!)
     .subscribe(result => {
-      if (!result.success) return;
+      if (!result.success) {
+        this.userPostulation = undefined;
+        return;
+      };
 
       this.userPostulation = result.data;
     });
@@ -127,7 +130,7 @@ export class NecessityDetailPageComponent implements OnInit {
   navigateToEdit() {
     if (!this.isByRunningUser) return;
 
-    this.router.navigate([ `/necessities/${this.necessity?.id}/edit` ])
+    this.router.navigate([ `/necessities/${this.necessity?.id}/edit` ]);
   }
 
 }

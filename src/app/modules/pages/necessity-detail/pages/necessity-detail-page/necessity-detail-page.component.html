@@ -14,10 +14,9 @@
   </app-necessity-fields>
 
   <div
-    *ngIf="isByRunningUser"
     class="mt-3"
   >
-    <mat-expansion-panel>
+    <mat-expansion-panel *ngIf="isByRunningUser">
       <mat-expansion-panel-header>
         <mat-panel-title>Postulaciones</mat-panel-title>
       </mat-expansion-panel-header>
@@ -27,14 +26,21 @@
       >
       </app-necessity-postulation-list>
     </mat-expansion-panel>
+    <app-postulation-list
+      *ngIf="!isByRunningUser && userPostulation"
+      [isRunningUserNecessity]="isByRunningUser"
+      [postulations]="[ userPostulation ]"
+      (postulationUpdate)="userPostulation = undefined"
+    >
+    </app-postulation-list>
   </div>
 
   <div
     class="w-100 mt-4 text-center"
   >
     <app-necessity-detail-actions
+      *ngIf="!userPostulation"
       [necessity]="necessity"
-      [userPostulation]="userPostulation"
       (newPostulation)="handleNewPostulation($event)"
       (startEdit)="navigateToEdit()"
       (delete)="deleteNecessity()"

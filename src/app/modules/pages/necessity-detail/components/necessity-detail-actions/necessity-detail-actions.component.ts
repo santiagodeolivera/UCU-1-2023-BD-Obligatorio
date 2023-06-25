@@ -11,7 +11,6 @@ export class NecessityDetailActionsComponent implements OnInit {
   today = new Date();
 
   @Input() necessity!: INecessity;
-  @Input() userPostulation?: IPostulation;
 
   @Output() newPostulation = new EventEmitter<IPostulation>();
   @Output() startEdit = new EventEmitter<void>();
@@ -26,10 +25,6 @@ export class NecessityDetailActionsComponent implements OnInit {
     return this.necessity.userId === this.runningUserId;
   }
 
-  get hasPostulation(): boolean {
-    return this.userPostulation !== undefined;
-  }
-
   get isSolved(): boolean {
     return this.necessity.status === 'Solucionada';
   }
@@ -42,7 +37,7 @@ export class NecessityDetailActionsComponent implements OnInit {
   }
 
   handleNewPostulation() {
-    if (this.isByRunningUser || this.hasPostulation) return;
+    if (this.isByRunningUser) return;
 
     const postulation: IPostulation = {
       necessityId: this.necessity.id,

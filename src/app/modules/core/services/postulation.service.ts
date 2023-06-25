@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { IHTTPResponse, IPostulation } from '../interfaces';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { POSTULATIONS_MOCK } from '../mocks/postulation.mock';
-import { USER_MOCK } from '../mocks/user.mock';
+import { UserService } from './user.service';
 
 const POSTULATIONS_ENDPOINT = 'postulations';
 @Injectable({
@@ -13,11 +12,24 @@ const POSTULATIONS_ENDPOINT = 'postulations';
 export class PostulationService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UserService
   ) { }
 
   getPostulationForUserAndNecessity(necessityId: string, userId: string): Observable<IHTTPResponse<IPostulation>> {
-    return this.getPostulations(necessityId, userId);
+    return this.getPostulations(necessityId, userId)
+    .pipe(
+      map(res => {
+        if (!res.success || res.data?.length === 0) return { ...res, data: undefined };
+
+        const mappedRes: IHTTPResponse<IPostulation> = {
+          success: res.success,
+          data: res.data![0]
+        };
+
+        return mappedRes;
+      })
+    );
   }
 
   getPostulationsFromUser(userId: string): Observable<IHTTPResponse<IPostulation[]>> {
@@ -28,20 +40,33 @@ export class PostulationService {
     return this.getPostulations(necessityId);
   }
 
-  getPostulations(necessityId?: string, userId?: string) {
+  getPostulations(necessityId?: string, userId?: string): Observable<IHTTPResponse<IPostulation[]>> {
     let query = '';
     if (necessityId) {
       query += `?necessityId=${necessityId}`;
     }
     if (userId) {
-      query += query ? `&userId=${necessityId}` : `?userId=${necessityId}`;
+      query += query ? `&userId=${userId}` : `?userId=${userId}`;
     }
 
-    return this.http.get<IHTTPResponse<string>>(
+    return this.http.get<IHTTPResponse<IPostulation>>(
       `${environment.baseUrl}/${POSTULATIONS_ENDPOINT}${query}`,
     )
     .pipe(
-      catchError(err => of(err))
+      catchError(err => of(err)),
+      switchMap((res: IHTTPResponse<IPostulation[]>) => {
+        if (!res.success) return of(res);
+
+        const observableArr: Observable<IPostulation>[] = [];
+        res.data?.forEach(postulation => {
+          observableArr.push(this.setPostulationUser(postulation));
+        });
+
+        return forkJoin(observableArr).pipe(
+          catchError(err => of(res.data!)),
+          switchMap((postulations: IPostulation[]) => of({ success: true, data: postulations }))
+        );
+      })
     );
   }
 
@@ -66,11 +91,23 @@ export class PostulationService {
 
   updatePostulation(postulation: IPostulation): Observable<IHTTPResponse<void>> {
     return this.http.put<IHTTPResponse<string>>(
-      `${environment.baseUrl}/${POSTULATIONS_ENDPOINT}`,
+      `${environment.baseUrl}/${POSTULATIONS_ENDPOINT}/${postulation.necessityId}/${postulation.userId}`,
       postulation
     )
     .pipe(
       catchError(err => of(err))
+    );
+  }
+
+  setPostulationUser(postulation: IPostulation): Observable<IPostulation> {
+    return this.userService.getUserById(postulation.userId!)
+    .pipe(
+      map(res => {
+        if (!res.success) return postulation;
+
+        postulation.user = res.data;
+        return postulation;
+      })
     );
   }
 

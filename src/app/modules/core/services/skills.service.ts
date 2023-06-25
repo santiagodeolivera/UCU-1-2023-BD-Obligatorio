@@ -86,30 +86,4 @@ export class SkillsService {
       })
     );
   }
-
-  /*
-  getAllSkills(): Observable<ISkill[]> {
-    return this.http.get<ISkill[]>(this.skillUrl).pipe(
-      tap(_ => this.log('fetched skills')),
-      catchError(this.handleError<ISkill[]>('getSkills'))
-    );
-  }
-
-  getSkill(name: string): Observable<ISkill> {
-    const url = `${this.skillUrl}/${name}`;
-    return this.http.get<ISkill>(url).pipe(
-      tap(_ => this.log(`fetched skill name=${name}`)),
-      catchError(this.handleError<ISkill>(`getSkill name=${name}`))
-    );
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      this.log(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
-  }
-
-  }*/
 }

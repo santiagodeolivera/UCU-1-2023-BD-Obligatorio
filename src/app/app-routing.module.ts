@@ -47,11 +47,17 @@ const routes: Routes = [
     canLoad: [ ValidateTokenGuard ]
   },
   {
+    path: 'users/:id',
+    loadChildren: () => import('./modules/pages/user-detail/user-detail.module').then( m => m.UserDetailModule ),
+    canActivate: [ ValidateTokenGuard ],
+    canLoad: [ ValidateTokenGuard ]
+  },
+  {
     path: '**',
     loadChildren: () => import('./modules/pages/home/home.module').then( m => m.HomeModule ),
     canActivate: [ ValidateTokenGuard ],
     canLoad: [ ValidateTokenGuard ],
-  }
+  },
 ];
 
 @NgModule({

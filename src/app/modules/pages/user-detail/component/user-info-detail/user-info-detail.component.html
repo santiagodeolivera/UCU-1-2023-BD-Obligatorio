@@ -1,19 +1,60 @@
 <div class="mt-4">
-  <h1 class="mt-4">Bienvenido {{ user.name }}</h1>
-  <!-- a continuacion se detallaran los datos de los usuarios -->
-  
+  <h1 class="mt-4">Bienvenido {{ user.firstName}} {{user.lastName}}</h1>
+  <!-- user email -->
   <p class="user-field mt-4">
     <mat-icon class="align-middle"> mail </mat-icon>
     <span class="ms-2 align-bottom">{{ user.email }}</span>
   </p>
   
-  <p class="user-field mt-4">
-    <mat-icon class="align-middle"> phone </mat-icon>
-    <span class="ms-2 align-bottom">{{ user.phoneNumbers }}</span>
-  </p>
+  <!-- user phone from user.phoneNumbers -->
+  <!-- <div class="mt-4">
+    <h2 class="mt-4">Teléfono</h2>
+    <div class="mt-4">
+      <mat-chip-list>
+        <mat-chip *ngFor="let phone of user.phoneNumbers" color="primary" selected="true">
+          {{ phone }}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div> -->
   
-  <p class="user-field mt-4">
-    <mat-icon class="align-middle"> location_on </mat-icon>
-    <span class="ms-2 align-bottom">{{ locationString }}</span>
-  </p>
+
+  <!-- user skills -->
+  <div class="mt-4">
+    <h2 class="mt-4">Habilidades</h2>
+    <div class="mt-4" *ngFor="let skill of user.skills">
+      <mat-chip-list>
+        <mat-chip  color="primary" selected="true">
+          {{ skill.name }}
+        </mat-chip>
+        <span>{{skill.description}}</span>
+      </mat-chip-list>
+    </div>
+  </div>
+
+  <!-- user necessities -->
+  <div class="mt-4">
+    <h2 class="mt-4">Necesidades</h2>
+    <div class="mt-4" *ngFor="let necessity of necessities">
+      <mat-chip-list>
+        <mat-chip  color="primary" selected="true">
+          {{ necessity.title }}
+        </mat-chip>
+        <span>{{necessity.description}}</span>
+      </mat-chip-list>
+    </div>
+  </div>
+
+  <!-- ir a actualizar perfil -->
+  <button
+      mat-flat-button
+      class="ms-3"
+      color="primary"
+      onclick="window.location.href='/profile-update'"
+    >
+      Actualizar Perfil
+    </button>
+  
+
+
 </div>

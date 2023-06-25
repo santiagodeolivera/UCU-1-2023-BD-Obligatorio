@@ -32,7 +32,7 @@ export class UserInfoComponent implements OnInit {
     this.isLoading = true;
 
     const userId = this.route.snapshot.paramMap.get('id') || '';
-    this.userService.getByCi(userId)
+    this.userService.getUserById(userId)
     .subscribe(result => {
       this.isLoading = false;
 
@@ -45,5 +45,5 @@ export class UserInfoComponent implements OnInit {
     })
   }
 
-  
+
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GoogleMapsGeolocation } from 'src/app/modules/core/classes';
-import { IUser } from 'src/app/modules/core/interfaces';
+import { INecessity, IUser } from 'src/app/modules/core/interfaces';
 import { AuthService } from 'src/app/modules/core/services/auth.service';
 import { MapService } from 'src/app/modules/core/services/map.service';
 
@@ -11,16 +11,10 @@ import { MapService } from 'src/app/modules/core/services/map.service';
 })
 export class UserInfoDetailComponent implements OnInit {
   @Input() user!: IUser;
-
-  constructor(
-    private mapService: MapService,
-    private authService: AuthService,
-
-  ) { }
-
-  ngOnInit(): void {
-  }
-  get locationString(): string { 
+  @Input() isRunningUser!: boolean;
+  @Input() necessities!: INecessity[];
+  
+  get locationString(): string {
     const location = this.user.address;
     let locationString = location?.streetAddress ? location.streetAddress : '';
     locationString = location?.city ? `${locationString}, ${location?.city}` : locationString;
@@ -29,7 +23,16 @@ export class UserInfoDetailComponent implements OnInit {
 
     return locationString ? locationString : `${location?.latitude}, ${location?.longitude}`;
   }
-
+  
+  constructor(
+    private mapService: MapService,
+    private authService: AuthService,
+  ) { }
+    
+  ngOnInit(): void {
+    this.getUserLocation();
+  }
+    
   get isByRunningUser(): boolean {
     return this.user.id !== this.authService.runningUser?.id;
   }
@@ -46,7 +49,6 @@ export class UserInfoDetailComponent implements OnInit {
       this.user.address = result;
     });
   }
-
 
 
 }

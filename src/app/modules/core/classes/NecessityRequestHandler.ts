@@ -148,6 +148,26 @@ export class NecessityRequestHandler {
     );
   }
 
+  getNecessitiesByUser(userId: string): Observable<IHTTPResponse<INecessity[]>> {
+    return this.http.get<IHTTPResponse<INecessity[]>>(`${environment.baseUrl}/users/${userId}/${this.necessitiesEndpoint}`)
+    .pipe(
+      catchError(err => of(err)),
+      switchMap((res: IHTTPResponse<INecessity[]>) => {
+        if (!res.success || res.data?.length === 0) return of(res);
+
+        const observableArr: Observable<INecessity>[] = [];
+        res.data?.forEach(necessity => {
+          observableArr.push(this.setNecessitySkills(new SerializedNecessity(necessity)));
+        });
+
+        return forkJoin(observableArr).pipe(
+          catchError(err => of(res.data!)),
+          switchMap((necessities: INecessity[]) => of({ success: true, data: necessities }))
+        );
+      })
+    );
+  }
+
   setNecessitySkills(necessity: INecessity): Observable<INecessity> {
     return this.http.get<IHTTPResponse<ISkill[]>>(`${environment.baseUrl}/${this.necessitiesEndpoint}/${necessity.id!}/skills`)
     .pipe(

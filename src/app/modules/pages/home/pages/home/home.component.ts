@@ -1,30 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 
+import { INecessity, IPostulation, IUser } from 'src/app/modules/core/interfaces';
+import { AuthService } from 'src/app/modules/core/services/auth.service';
+import { NecessityService } from 'src/app/modules/core/services/necessity.service';
+import { PostulationService } from 'src/app/modules/core/services/postulation.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  mostrarHover: boolean = false;
-  constructor() { }
-  urlLogo = 'https://github.com/santiagodeolivera/UCU-1-2023-BD-Obligatorio/assets/88668277/0979832d-25f7-4c0f-aa55-e7b38bdf6197';
-  urlImg1 = 'https://github.com/santiagodeolivera/UCU-1-2023-BD-Obligatorio/assets/88668277/4a54a0c4-c2fb-4053-b877-8cc0627d6702';
-  urlImg2 = 'https://github.com/santiagodeolivera/UCU-1-2023-BD-Obligatorio/assets/88668277/b6056454-f64d-472c-972e-5436779caa48';
-  urlImg3 = 'https://github.com/santiagodeolivera/UCU-1-2023-BD-Obligatorio/assets/88668277/9ec63ac5-257a-40ba-b198-e31f5d46db96';
-  urlImg4 = 'https://github.com/santiagodeolivera/UCU-1-2023-BD-Obligatorio/assets/88668277/1b1f2553-8af5-4aeb-9f28-d0da178b143f';
+
+  userPostulations?: IPostulation[];
+  userNecessities?: INecessity[];
+
+  get runningUser(): IUser {
+    return this.authService.runningUser!;
+  }
+
+  constructor(
+    private authService: AuthService,
+    private postulationService: PostulationService,
+    private necessityService: NecessityService
+  ) { }
+
   ngOnInit(): void {
+    this.getUserPostulations();
+    this.getUserNecessities();
   }
 
-  navigateLogin() {
-    window.location.href = 'login'
-  }
-  mostrarTexto() {
-    this.mostrarHover = true;
-  }
-  
-  ocultarTexto() {
-    this.mostrarHover = false;
+  getUserPostulations() {
+    this.postulationService.getPostulationsFromUser(this.runningUser.id!)
+    .subscribe(res => {
+      if (!res.success) return;
+
+      this.userPostulations = res.data;
+    });
   }
 
+  getUserNecessities() {
+    this.necessityService.getNecessitiesByUser(this.runningUser.id!)
+    .subscribe(res => {
+      if (!res.success) return;
+
+      this.userNecessities = res.data;
+    });;
+  }
 }

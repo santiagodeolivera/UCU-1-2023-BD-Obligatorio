@@ -38,4 +38,8 @@ export class NecessityService {
   getNecessitiesByFilters(filters: INecessitySearchRequest): Observable<IHTTPResponse<ISearchResult[]>> {
     return this.necessityRequestHandler.getNecessitiesByFilters(filters);
   }
+
+  getNecessitiesByUser(userId: string): Observable<IHTTPResponse<INecessity[]>> {
+    return this.necessityRequestHandler.getNecessitiesByUser(userId);
+  }
 }

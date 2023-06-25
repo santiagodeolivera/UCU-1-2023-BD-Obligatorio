@@ -1,0 +1,13 @@
+<div
+  class="row flex-nowrap w-100 overflow-x-scroll"
+>
+  <div
+    class="col-lg-4 col-md-6 col-12 h-100"
+    *ngFor="let necessity of necessities"
+  >
+    <app-necessity-card
+      [necessity]="necessity"
+    >
+    </app-necessity-card>
+  </div>
+</div>

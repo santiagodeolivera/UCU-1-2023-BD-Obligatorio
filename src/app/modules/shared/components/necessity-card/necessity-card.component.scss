@@ -1,0 +1,17 @@
+.necessity-link {
+  text-decoration: none;
+  color: black;
+}
+
+.necessity-field {
+  font-size: 1.1rem;
+
+  & a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.necessity-description {
+  font-size: .9rem;
+}

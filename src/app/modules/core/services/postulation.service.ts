@@ -4,6 +4,7 @@ import { IHTTPResponse, IPostulation } from '../interfaces';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
+import { NecessityService } from './necessity.service';
 
 const POSTULATIONS_ENDPOINT = 'postulations';
 @Injectable({
@@ -13,7 +14,8 @@ export class PostulationService {
 
   constructor(
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private necessityService: NecessityService
   ) { }
 
   getPostulationForUserAndNecessity(necessityId: string, userId: string): Observable<IHTTPResponse<IPostulation>> {
@@ -55,11 +57,11 @@ export class PostulationService {
     .pipe(
       catchError(err => of(err)),
       switchMap((res: IHTTPResponse<IPostulation[]>) => {
-        if (!res.success) return of(res);
+        if (!res.success || res.data?.length === 0) return of(res);
 
         const observableArr: Observable<IPostulation>[] = [];
         res.data?.forEach(postulation => {
-          observableArr.push(this.setPostulationUser(postulation));
+          observableArr.push(this.setPostulationUser(postulation), this.setPostulationNecessity(postulation));
         });
 
         return forkJoin(observableArr).pipe(
@@ -106,6 +108,18 @@ export class PostulationService {
         if (!res.success) return postulation;
 
         postulation.user = res.data;
+        return postulation;
+      })
+    );
+  }
+
+  setPostulationNecessity(postulation: IPostulation): Observable<IPostulation> {
+    return this.necessityService.getNecessityById(postulation.necessityId!)
+    .pipe(
+      map(res => {
+        if (!res.success) return postulation;
+
+        postulation.necessity = res.data;
         return postulation;
       })
     );

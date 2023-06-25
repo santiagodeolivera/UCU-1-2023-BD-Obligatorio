@@ -2,19 +2,22 @@
   <mat-card-header>
     <mat-card-title>
       <a
-        class="user-link"
-        routerLink="/users/{{postulation.userId}}"
+        class="necessity-link"
+        routerLink="/necessities/{{postulation.necessityId}}"
       >
-        {{postulation.user!.firstName}} {{postulation.user!.lastName}} - {{postulation.status}}
+        {{postulation.necessity!.title}} - {{postulation.status}}
       </a>
     </mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
     <div class="mt-2">
+      <p [innerHTML]="necessityDescription"></p>
+    </div>
+
+    <div class="mt-2">
       <app-skill-chip-list
-        [skills]="postulation.user!.skills!"
-        [enableSkillModal]="true"
+        [skills]="postulation.necessity!.skills!"
       >
       </app-skill-chip-list>
     </div>
@@ -23,7 +26,7 @@
       *ngIf="postulation.status === 'Aprobada'"
       class="mt-3"
     >
-      <p>
+      <p *ngIf="postulation.necessity && postulation.necessity.user">
         <mat-icon
           class="align-middle"
           color="primary"
@@ -31,11 +34,13 @@
           mail
         </mat-icon>
         <a
-          class="ms-2 align-bottom user-field"
+          class="ms-2 align-bottom necessity-field"
           href="mailto:{{postulation.user!.email}}"
-        >{{ postulation.user!.email }}</a>
+        >{{ postulation.necessity.user.email }}</a>
       </p>
-      <p *ngFor="let phone of postulation.user?.phoneNumbers || []">
+      <p
+        *ngFor="let phone of postulation.necessity?.user?.phoneNumbers || []"
+      >
         <mat-icon
           class="align-middle"
           color="primary"
@@ -43,7 +48,7 @@
           phone
         </mat-icon>
         <a
-          class="ms-2 align-bottom user-field"
+          class="ms-2 align-bottom necessity-field"
           href="tel:{{phone}}"
         >{{ phone }}</a>
       </p>

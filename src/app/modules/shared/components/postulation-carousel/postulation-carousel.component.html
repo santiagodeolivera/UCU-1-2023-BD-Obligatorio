@@ -1,0 +1,28 @@
+<div
+  class="row flex-nowrap w-100 overflow-x-scroll"
+>
+  <div
+    class="col-lg-4 col-md-6 col-12 h-100"
+    *ngFor="let postulation of postulations"
+  >
+    <app-postulation-card
+      *ngIf="perspective === 'necessity'"
+      class="h-100"
+      [postulation]="postulation"
+      [isRunningUserNecessity]="isRunningUserNecessity"
+      (postulationDelete)="handlePostulationDelete($event)"
+      (postulationStatusUpdate)="updatePostulationStatus($event)"
+    >
+    </app-postulation-card>
+
+    <app-necessity-postulation-card
+      *ngIf="perspective === 'user'"
+      class="h-100"
+      [postulation]="postulation"
+      [isRunningUserNecessity]="isRunningUserNecessity"
+      (postulationDelete)="handlePostulationDelete($event)"
+      (postulationStatusUpdate)="updatePostulationStatus($event)"
+    >
+    </app-necessity-postulation-card>
+  </div>
+</div>

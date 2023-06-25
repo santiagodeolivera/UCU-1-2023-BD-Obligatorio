@@ -30,7 +30,7 @@
       *ngIf="!isByRunningUser && userPostulation"
       [isRunningUserNecessity]="isByRunningUser"
       [postulations]="[ userPostulation ]"
-      (postulationUpdate)="userPostulation = undefined"
+      (postulationUpdate)="getPostulationForUser()"
     >
     </app-postulation-list>
   </div>

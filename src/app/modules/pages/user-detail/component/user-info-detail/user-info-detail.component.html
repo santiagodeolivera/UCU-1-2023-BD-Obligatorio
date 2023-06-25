@@ -1,0 +1,19 @@
+<div class="mt-4">
+  <h1 class="mt-4">Bienvenido {{ user.name }}</h1>
+  <!-- a continuacion se detallaran los datos de los usuarios -->
+  
+  <p class="user-field mt-4">
+    <mat-icon class="align-middle"> mail </mat-icon>
+    <span class="ms-2 align-bottom">{{ user.email }}</span>
+  </p>
+  
+  <p class="user-field mt-4">
+    <mat-icon class="align-middle"> phone </mat-icon>
+    <span class="ms-2 align-bottom">{{ user.phoneNumbers }}</span>
+  </p>
+  
+  <p class="user-field mt-4">
+    <mat-icon class="align-middle"> location_on </mat-icon>
+    <span class="ms-2 align-bottom">{{ locationString }}</span>
+  </p>
+</div>

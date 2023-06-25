@@ -1,0 +1,14 @@
+<app-fixed-spinner
+  *ngIf="isLoading"
+>
+</app-fixed-spinner>
+<div
+    *ngIf="user && !isLoading"
+    class="container"
+  >
+  <app-user-info-detail
+    [user]="user"
+    >
+    </app-user-info-detail>
+    
+  </div>

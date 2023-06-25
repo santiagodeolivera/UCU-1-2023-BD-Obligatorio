@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GoogleMapsGeolocation } from 'src/app/modules/core/classes';
-import { INecessity } from 'src/app/modules/core/interfaces';
+import { INecessity, IPostulation } from 'src/app/modules/core/interfaces';
 import { AuthService } from 'src/app/modules/core/services/auth.service';
 import { MapService } from 'src/app/modules/core/services/map.service';
 import { PostulationService } from 'src/app/modules/core/services/postulation.service';
@@ -11,9 +11,12 @@ import { PostulationService } from 'src/app/modules/core/services/postulation.se
   styleUrls: ['./necessity-fields.component.scss']
 })
 export class NecessityFieldsComponent implements OnInit {
-  isApprovedNecessity: boolean = false;
-
   @Input() necessity!: INecessity;
+  @Input() userPostulation?: IPostulation;
+
+  get hasApprovedPostulation(): boolean {
+    return this.userPostulation?.status === 'Aprobada';
+  }
 
   get dateString(): string {
     const startDateString = this.necessity.startDate?.toLocaleDateString();
@@ -33,7 +36,11 @@ export class NecessityFieldsComponent implements OnInit {
     locationString = location?.province ? `${locationString}, ${location?.province}` : locationString;
     locationString = location?.country ? `${locationString}, ${location?.country}` : locationString;
 
-    return locationString ? locationString : `${location?.latitude}, ${location?.longitude}`;
+    return locationString ? locationString : `(${location?.latitude}; ${location?.longitude})`;
+  }
+
+  get necessityDescription(): string {
+    return this.necessity.description?.replace(/\n/g, '<br>') || '';
   }
 
   get isByRunningUser(): boolean {
@@ -48,7 +55,6 @@ export class NecessityFieldsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNecessityLocation();
-    if (!this.isByRunningUser) this.getPostulationForUser();
   }
 
   getNecessityLocation() {
@@ -58,17 +64,11 @@ export class NecessityFieldsComponent implements OnInit {
       this.necessity.location?.latitude,
       this.necessity.location?.longitude,
       GoogleMapsGeolocation
-    ).subscribe(result => {
-      this.necessity.location = result;
-    });
-  }
-
-  getPostulationForUser() {
-    this.postulationService.getPostulationForUserAndNecessity(this.necessity.id!, this.authService.runningUser?.id!)
-    .subscribe(result => {
-      if (!result.success) return;
-
-      this.isApprovedNecessity = result.success && result.data?.status === 'Aprobada';
+    ).subscribe({
+      next: result => {
+        this.necessity.location = result;
+      },
+      error: () => {}
     });
   }
 

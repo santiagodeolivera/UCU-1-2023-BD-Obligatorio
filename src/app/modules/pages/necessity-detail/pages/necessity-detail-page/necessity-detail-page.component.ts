@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { INecessity, IPostulation } from 'src/app/modules/core/interfaces';
 import { AuthService } from 'src/app/modules/core/services/auth.service';
-
 import { NecessityService } from 'src/app/modules/core/services/necessity.service';
 import { PostulationService } from 'src/app/modules/core/services/postulation.service';
 import { SnackbarService } from 'src/app/modules/core/services/snackbar.service';
@@ -16,6 +16,7 @@ export class NecessityDetailPageComponent implements OnInit {
 
   isLoading: boolean = false;
   necessity?: INecessity;
+  userPostulation?: IPostulation;
 
   get isByRunningUser(): boolean {
     return this.necessity?.userId === this.authService.runningUser?.id
@@ -27,11 +28,23 @@ export class NecessityDetailPageComponent implements OnInit {
     private postulationService: PostulationService,
     private snackbarService: SnackbarService,
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getNecessity();
+  }
+
+  getPostulationForUser() {
+    this.postulationService.getPostulationForUserAndNecessity(this.necessity!.id!, this.authService.runningUser?.id!)
+    .subscribe(result => {
+      if (!result.success) {
+        this.userPostulation = undefined;
+        return;
+      };
+
+      this.userPostulation = result.data;
+    });
   }
 
   getNecessity() {
@@ -44,6 +57,7 @@ export class NecessityDetailPageComponent implements OnInit {
 
       if (result.success) {
         this.necessity = result.data;
+        this.getPostulationForUser();
         return;
       }
 
@@ -76,7 +90,7 @@ export class NecessityDetailPageComponent implements OnInit {
     this.necessityService.updateNecessity({
         ...this.necessity!,
         status: 'Solucionada'
-    })
+    }, false)
     .subscribe(result => {
       if (result.success) {
         this.snackbarService.openSnackBar(
@@ -116,6 +130,7 @@ export class NecessityDetailPageComponent implements OnInit {
   navigateToEdit() {
     if (!this.isByRunningUser) return;
 
-    this.router.navigate([ `/necessities/${this.necessity?.id}/edit` ])
+    this.router.navigate([ `/necessities/${this.necessity?.id}/edit` ]);
   }
+
 }

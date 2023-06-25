@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/modules/core/services/auth.service';
   styleUrls: ['./necessity-detail-actions.component.scss']
 })
 export class NecessityDetailActionsComponent implements OnInit {
+  today = new Date();
 
   @Input() necessity!: INecessity;
 
@@ -24,12 +25,8 @@ export class NecessityDetailActionsComponent implements OnInit {
     return this.necessity.userId === this.runningUserId;
   }
 
-  get hasPostulation(): boolean {
-    const postulation = this.necessity.postulations?.find(
-      pos => pos.userId === this.runningUserId
-    );
-
-    return this.isByRunningUser && postulation !== undefined;
+  get isSolved(): boolean {
+    return this.necessity.status === 'Solucionada';
   }
 
   constructor(
@@ -40,7 +37,7 @@ export class NecessityDetailActionsComponent implements OnInit {
   }
 
   handleNewPostulation() {
-    if (this.isByRunningUser || this.hasPostulation) return;
+    if (this.isByRunningUser) return;
 
     const postulation: IPostulation = {
       necessityId: this.necessity.id,

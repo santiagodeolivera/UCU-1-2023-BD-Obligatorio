@@ -31,7 +31,7 @@ export class CreateNecessityFormComponent implements OnInit {
       this.isLoading = false;
 
       if (response.success) {
-        this.router.navigate([`/necessities/${response.data?.id}`]);
+        this.router.navigate([`/necessities/${response.data}`]);
         return;
       }
 

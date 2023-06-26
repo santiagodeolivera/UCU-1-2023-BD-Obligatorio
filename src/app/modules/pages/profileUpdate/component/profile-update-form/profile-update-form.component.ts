@@ -68,7 +68,8 @@ export class ProfileUpdateFormComponent implements OnInit {
       phoneNumbers: value.phone ? [
         value.phone
       ] : undefined,
-      address: value.location || undefined
+      address: value.location || undefined,
+      geoConfiguration: this.runningUser.geoConfiguration
     });
 
   }

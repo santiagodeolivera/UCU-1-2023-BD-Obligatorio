@@ -16,7 +16,7 @@ export class PostSkillFormComponent implements OnInit {
   @Input() skill?: IUserSkill;
   @Output() cancel = new EventEmitter<void>();
   @Output() save = new EventEmitter<IUserSkill>();
-
+  skills?  : ISkill[];
   postSkillForm = this.fb.group({
     userId : [ '', Validators.required ],
     // Se permite seleccionar solo una skill de la lista de skills por su nombre
@@ -37,6 +37,17 @@ export class PostSkillFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getSkills();
+  }
+
+  getSkills() {
+    this.skillService.getAllSkills()
+    .subscribe(result => {
+      if (result.success) {
+        this.skills = result.data!;
+        return;
+      }
+    })
   }
 
   ngAfterViewInit(): void {
@@ -56,6 +67,8 @@ export class PostSkillFormComponent implements OnInit {
     if (!this.postSkillForm.valid) return;
 
     const value = this.postSkillForm.value;
+    const name: string = this.skill?.name || '';
+
     
     const skill: IUserSkill = {
       userId: value.userId || undefined,

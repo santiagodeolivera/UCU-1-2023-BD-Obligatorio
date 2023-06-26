@@ -1,6 +1,6 @@
 <form [formGroup]="profileUpdateForm" class="w-100" (ngSubmit)="handleSubmit()">
   <h2>Actualizar usuario</h2>
-  
+
   <!--Name-->
   <mat-form-field appearance="outline" class="w-100">
     <mat-icon matPrefix>person</mat-icon>
@@ -8,7 +8,7 @@
     <input matInput placeholder="Nombre" formControlName="name" maxLength="30">
     <mat-error>Por favor ingrese su nombre</mat-error>
   </mat-form-field>
-  
+
   <!--Surname-->
   <mat-form-field appearance="outline" class="w-100">
     <mat-icon matPrefix>person</mat-icon>
@@ -16,18 +16,7 @@
     <input matInput placeholder="Apellido" formControlName="surname" maxLength="30">
     <mat-error>Por favor ingrese su apellido</mat-error>
   </mat-form-field>
-  
-  <!--HashPassword-->
-  <mat-form-field appearance="outline" class="w-100">
-    <mat-icon matPrefix >lock</mat-icon>
-    <mat-label>Contraseña</mat-label>
-    <input matInput [type]="passwordInputType" formControlName="password" maxLength="20">
-    <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
-      <mat-icon color="{{passwordIconColor}}">{{passwordIconName}}</mat-icon>
-    </button>
-    <mat-error>La contraseña debe contener al menos una letra mayúscula y un número</mat-error>
-  </mat-form-field>
-  
+
   <!--Email-->
   <mat-form-field appearance="outline" class="w-100">
     <mat-label>Email</mat-label>
@@ -35,19 +24,7 @@
     <mat-icon matPrefix>mail</mat-icon>
     <mat-error>Por favor ingrese un correo válido</mat-error>
   </mat-form-field>
-  
-  <!--Is Admin default false-->
-  <!-- <mat-form-field appearance="outline" class="w-100">
-    <mat-label>Es Admin</mat-label>
-    <mat-select [formControl]="profileUpdateForm.controls.isAdmin">
-      <mat-option *ngFor="let isAdmin of adminOption" [value]="isAdmin.value">
-        {{isAdmin.viewValue}}
-      </mat-option>
-    </mat-select>
-    <mat-icon matPrefix>verified_user</mat-icon>
-    <mat-error>Por</mat-error>
-  </mat-form-field> -->
-    
+
   <!--Phone-->
   <mat-form-field appearance="outline" class="w-100">
     <mat-label>Celular</mat-label>
@@ -55,7 +32,7 @@
     <mat-icon matPrefix>phone</mat-icon>
     <mat-error>Por favor ingrese un número de Celular válido</mat-error>
   </mat-form-field>
-  
+
   <!--idPicture upload an picture of Identification Card-->
   <!-- <button
     class="w-100"
@@ -79,6 +56,7 @@
   <!--Map-->
   <app-map
       class="location-map mt-3"
+      [position]="runningUser.address"
       [enableSearch]="true"
       [queryLocationOnClick]="true"
       (mapClick)="handleMapClick($event)"
@@ -99,13 +77,9 @@
       mat-flat-button
       class="ms-3"
       color="primary"
-      (click)="handleSubmit()"
     >
-      Actualizar usuario
+      Guardar
     </button>
 
   </div>
 </form>
-<mat-card-footer>
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</mat-card-footer>

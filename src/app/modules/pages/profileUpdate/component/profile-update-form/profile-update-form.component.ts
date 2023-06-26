@@ -11,60 +11,39 @@ import { MapComponent } from 'src/app/modules/shared/components/map/map.componen
   styleUrls: ['./profile-update-form.component.scss']
 })
 export class ProfileUpdateFormComponent implements OnInit {
-  hidePassword = true;
-  @Input() user?: IUser;
-  hashPassword!: string;
-  ciUploaded = false;
-  @ViewChild(MapComponent) map?: MapComponent;
-  @Output() profileUpdate = new EventEmitter<{ password: string } & IUser>();
+
+  profileUpdateForm = this.formBuilder.group({
+    name: [ this.runningUser.firstName ],
+    surname : [this.runningUser.lastName ],
+    password : ['', [
+      Validators.minLength(8),
+      Validators.maxLength(20),
+      Validators.pattern('^(?=.*[A-Z])(?=.*[0-9]).+$')
+    ]],
+    email : [this.runningUser.email,[ Validators.email]],
+    phone : [this.phoneNumber , [ Validators.maxLength(9),Validators.pattern('09[0-9]+') ]],
+    location: new FormControl<IGeolocation | undefined>(this.runningUser.address),
+  });
+
   @Output() cancel = new EventEmitter<void>();
   @Output() save = new EventEmitter<IUser>();
 
-  profileUpdateForm = this.formBuilder.group(
-    {
-      name: [ this.runningUser.firstName ],
-      surname : [this.runningUser.lastName ],
-      isAdmin: [this.user?.isAdmin, [Validators.required]],
-      password : ['', [
-        Validators.minLength(8),
-        Validators.maxLength(20),
-        Validators.pattern('^(?=.*[A-Z])(?=.*[0-9]).+$')
-      ]],
-      email : [this.runningUser.email,[ Validators.email]],
-      phone : ['',[ Validators.maxLength(9),Validators.pattern('09[0-9]+')]],
-      location: new FormControl<IGeolocation | undefined>(undefined),
-    }
-  );
+  @ViewChild(MapComponent) map?: MapComponent;
 
   get runningUser(): IUser {
     return this.authService.runningUser!;
   }
 
-  adminOption = [
-    {value: 'true', viewValue: 'Si'},
-    {value: 'false', viewValue: 'No'}
-  ]
-  
-  get passwordIconName(): string {
-    return this.hidePassword ? 'visibility_off' : 'visibility';
-  }
+  get phoneNumber(): string {
+    if (!this.runningUser.phoneNumbers?.length) return '';
 
-  get passwordIconColor(): string {
-    return this.hidePassword ? '' : 'primary';
-  }
-
-  get passwordInputType(): string {
-    return this.hidePassword ? 'password' : 'text';
+    return this.runningUser.phoneNumbers[0];
   }
 
   constructor(private formBuilder: FormBuilder,
     public authService: AuthService) { }
 
   ngOnInit(): void {
-  }
-
-  togglePasswordVisibility() {
-    this.hidePassword = !this.hidePassword;
   }
 
   handleMapClick($event: IGeolocation) {
@@ -80,16 +59,16 @@ export class ProfileUpdateFormComponent implements OnInit {
   handleSubmit() {
     if (!this.profileUpdateForm.valid) return;
     const value = this.profileUpdateForm.value;
-    
-    this.profileUpdate.emit({      
-      password: value.password!,
-      firstName: value.name!,
-      lastName: value.surname!,
-      email: value.email!,
-      phoneNumbers: [
-        value.phone!
-      ],
-      address: value.location!
+
+    this.save.emit({
+      id: this.runningUser.id,
+      firstName: value.name || undefined,
+      lastName: value.surname || undefined,
+      email: value.email || undefined,
+      phoneNumbers: value.phone ? [
+        value.phone
+      ] : undefined,
+      address: value.location || undefined
     });
 
   }

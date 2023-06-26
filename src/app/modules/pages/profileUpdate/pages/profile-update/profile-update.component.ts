@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/modules/core/services/auth.service';
   styleUrls: ['./profile-update.component.scss']
 })
 export class ProfileUpdateComponent implements OnInit {
-  
+
   isLoading = false;
 
   constructor(
@@ -21,19 +21,19 @@ export class ProfileUpdateComponent implements OnInit {
     private profileUpdateService : ProfileUpdateService,
     private snackbarService : SnackbarService,
     public authService : AuthService) { }
-  
+
   ngOnInit(): void {
   }
 
   handleSubmit($event: IUser) {
     this.isLoading = true;
 
-    this.profileUpdateService.updateUser($event.id!, $event)
+    this.profileUpdateService.updateUser($event)
     .subscribe(response => {
       this.isLoading = false;
 
       if (response.success) {
-        this.router.navigate(['/users/${this.authService.user?.id}'])
+        this.router.navigate([`/users/${this.authService.runningUser!.id}`])
         .then(() => this.snackbarService.openSnackBar(
           'Tu perfil se ha actualizado exitósamente!',
           undefined,
@@ -52,5 +52,5 @@ export class ProfileUpdateComponent implements OnInit {
   handleCancel() {
     this.router.navigate(['/users/${this.authService.user?.id}']);
   }
-  
+
 }

@@ -21,7 +21,7 @@ export class ProfileUpdateFormComponent implements OnInit {
       Validators.pattern('^(?=.*[A-Z])(?=.*[0-9]).+$')
     ]],
     email : [this.runningUser.email,[ Validators.email]],
-    phone : [this.phoneNumber , [ Validators.maxLength(9),Validators.pattern('09[0-9]+') ]],
+    phone : [this.phoneNumber , [ Validators.maxLength(9),Validators.pattern('9[0-9]+') ]],
     location: new FormControl<IGeolocation | undefined>(this.runningUser.address),
   });
 

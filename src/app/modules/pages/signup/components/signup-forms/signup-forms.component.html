@@ -28,7 +28,7 @@
   <mat-form-field appearance="outline" class="w-100">
     <mat-icon matPrefix >lock</mat-icon>
     <mat-label>Contraseña</mat-label>
-    <input matInput [type]="passwordInputType" formControlName="password" maxLength="20">
+    <input matInput [type]="passwordInputType" formControlName="password" maxLength="20" autocomplete="off">
     <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
       <mat-icon color="{{passwordIconColor}}">{{passwordIconName}}</mat-icon>
     </button>
@@ -86,6 +86,7 @@
       mat-flat-button
       color="primary"
       type="submit"
+      [disabled]="!signUpForm.valid"
     >
       Registrarme
     </button>

@@ -1,57 +1,56 @@
 <div class="mt-4">
-  <h1 class="mt-4">Bienvenido {{ runningUser.firstName}} {{runningUser.lastName}}</h1>
-  <!-- user email -->
-  <p class="user-field mt-4">
+  <h1 class="mt-4">{{ user.firstName}} {{user.lastName}}</h1>
+
+  <p class="mt-4">
     <mat-icon class="align-middle"> mail </mat-icon>
-    <span class="ms-2 align-bottom">{{ runningUser.email }}</span>
+    <a class="ms-2 align-bottom user-field"
+      href="mailto:{{user.email}}"
+    >{{ user.email }}</a>
   </p>
-  
-  <!-- user phone from user.phoneNumbers -->
-  <div class="mt-4">
-    <h2 class="mt-4">Teléfono</h2>
-    <div class="mt-4">
-      <mat-chip-list>
-        <mat-chip *ngFor="let phone of runningUser.phoneNumbers" color="primary" selected="true">
-          0{{ phone }}
-        </mat-chip>
-      </mat-chip-list>
-    </div>
-  </div>
-  
+  <p *ngFor="let phone of user.phoneNumbers || []"
+    class="mt-4">
+    <mat-icon class="align-middle"> phone </mat-icon>
+    <a class="ms-2 align-bottom user-field"
+      href="tel:{{phone}}"
+    >{{ phone }}</a>
+  </p>
 
   <!-- user skills -->
   <div class="mt-4">
     <h2 class="mt-4">Habilidades</h2>
-    <div class="mt-4" *ngFor="let skill of runningUser.skills">
-      <mat-chip-list>
-        <mat-chip  color="primary" selected="true">
-          {{ skill.name }}
-        </mat-chip>
-        <span>{{skill.description}}</span>
-      </mat-chip-list>
-    </div>
+    <app-skill-chip-list
+      *ngIf="user.skills && user.skills.length > 0"
+      [enableSkillModal]="true"
+      [skills]="user.skills"
+    >
+    </app-skill-chip-list>
+    <p *ngIf="!user.skills || user.skills.length === 0">
+      Todavía no hay habilidades para este usuario.
+    </p>
   </div>
 
   <!-- user necessities -->
   <div class="mt-4">
-    <h2 class="mt-4">Necesidades</h2>
-    <div class="mt-4" *ngFor="let necessity of userNecessities">
-      <mat-chip-list>
-        <mat-chip  color="primary" selected="true">
-          {{ necessity.title }}
-        </mat-chip>
-        
-      </mat-chip-list>
-    </div>
+    <h2 class="mt-4">Solicitudes de Ayuda</h2>
+    <app-necessity-carousel
+      *ngIf="userNecessities && userNecessities.length > 0"
+      [necessities]="userNecessities"
+    >
+    </app-necessity-carousel>
+    <p *ngIf="!userNecessities || userNecessities.length === 0">
+      Todavía no hay solicitudes de ayuda para este usuario.
+    </p>
   </div>
 
   <!-- ir a actualizar perfil -->
-  <button
+  <div class="w-100 text-center mt-4 mb-3">
+    <button
       mat-flat-button
-      class="ms-3"
+      *ngIf="enableEdit"
       color="primary"
       routerLink="/profile-update"
     >
-      Actualizar Perfil
+      Editar
     </button>
+  </div>
 </div>

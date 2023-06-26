@@ -34,7 +34,7 @@ export class SignupFormsComponent implements OnInit, ILogin {
       ]],
       email : [ '', [ Validators.required, Validators.email] ],
       // el telefono debe iniciar con 09 y tener 9 digitos
-      phone : ['', [ Validators.required, Validators.maxLength(9), Validators.pattern('09[0-9]+') ] ],
+      phone : ['', [ Validators.required, Validators.maxLength(9), Validators.pattern('9[0-9]+') ] ],
       location: new FormControl<IGeolocation | undefined>(undefined, Validators.required),
     }
   );

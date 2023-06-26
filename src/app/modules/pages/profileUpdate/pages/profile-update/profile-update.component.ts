@@ -1,11 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileUpdateService } from 'src/app/modules/core/services/profile-update.service';
 import { IUser } from 'src/app/modules/core/interfaces';
-import { ProfileUpdateFormComponent } from '../../component/profile-update-form/profile-update-form.component';
 import { SnackbarService } from 'src/app/modules/core/services/snackbar.service';
-import { AuthService } from 'src/app/modules/core/services/auth.service';
 
 @Component({
   selector: 'app-profile-update',
@@ -20,7 +17,7 @@ export class ProfileUpdateComponent implements OnInit {
     private router: Router,
     private profileUpdateService : ProfileUpdateService,
     private snackbarService : SnackbarService,
-    public authService : AuthService) { }
+  ) { }
 
   ngOnInit(): void {
   }
@@ -33,7 +30,7 @@ export class ProfileUpdateComponent implements OnInit {
       this.isLoading = false;
 
       if (response.success) {
-        this.router.navigate([`/users/${this.authService.runningUser!.id}`])
+        this.router.navigate([`/profile`])
         .then(() => this.snackbarService.openSnackBar(
           'Tu perfil se ha actualizado exitósamente!',
           undefined,
@@ -50,7 +47,7 @@ export class ProfileUpdateComponent implements OnInit {
   }
 
   handleCancel() {
-    this.router.navigate(['/users/${this.authService.user?.id}']);
+    this.router.navigate(['/profile']);
   }
 
 }

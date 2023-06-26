@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { GoogleMapsGeolocation } from 'src/app/modules/core/classes';
 import { INecessity, IUser } from 'src/app/modules/core/interfaces';
-import { AuthService } from 'src/app/modules/core/services/auth.service';
 import { MapService } from 'src/app/modules/core/services/map.service';
 import { NecessityService } from 'src/app/modules/core/services/necessity.service';
 
@@ -13,15 +11,14 @@ import { NecessityService } from 'src/app/modules/core/services/necessity.servic
   styleUrls: ['./user-info-detail.component.scss']
 })
 export class UserInfoDetailComponent implements OnInit {
-  
+
   userNecessities?: INecessity[];
-  
-  get runningUser(): IUser {
-    return this.authService.runningUser!;
-  }
+
+  @Input() user!: IUser;
+  @Input() enableEdit: boolean = false;
 
   get locationString(): string {
-    const location = this.runningUser.address;
+    const location = this.user.address;
     let locationString = location?.streetAddress ? location.streetAddress : '';
     locationString = location?.city ? `${locationString}, ${location?.city}` : locationString;
     locationString = location?.province ? `${locationString}, ${location?.province}` : locationString;
@@ -29,21 +26,19 @@ export class UserInfoDetailComponent implements OnInit {
 
     return locationString ? locationString : `${location?.latitude}, ${location?.longitude}`;
   }
-  
+
   constructor(
     private mapService: MapService,
-    private authService: AuthService,
-    private router: Router,
     private necessityService: NecessityService
   ) { }
-    
+
   ngOnInit(): void {
     this.getUserLocation();
     this.getUserNecessities();
   }
 
   getUserNecessities() {
-    this.necessityService.getNecessitiesByUser(this.runningUser.id!)
+    this.necessityService.getNecessitiesByUser(this.user.id!)
     .subscribe(res => {
       if (!res.success) return;
 
@@ -52,15 +47,15 @@ export class UserInfoDetailComponent implements OnInit {
   }
 
   getUserLocation() {
-    if (!(this.runningUser.address?.latitude && this.runningUser.address.longitude)) return;
+    if (!(this.user.address?.latitude && this.user.address.longitude)) return;
 
     this.mapService.getPlaceInformationFromCoordinates(
-      this.runningUser.address?.latitude,
-      this.runningUser.address?.longitude,
+      this.user.address?.latitude,
+      this.user.address?.longitude,
       GoogleMapsGeolocation
     )
     .subscribe(result => {
-      this.runningUser.address = result;
+      this.user.address = result;
     });
   }
 

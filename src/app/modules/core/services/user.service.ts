@@ -91,6 +91,7 @@ export class UserService {
             description: skill.description
           } as ISkill;
         });
+
         return user;
       })
     );

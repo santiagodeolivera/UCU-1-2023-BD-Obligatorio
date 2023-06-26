@@ -12,21 +12,24 @@ import { SnackbarService } from 'src/app/modules/core/services/snackbar.service'
 export class SkillsDropdownComponent implements OnInit {
 
   options: ISkill[] = [];
-  skills?  : ISkill[];
+  skills?: ISkill[];
 
   @Input() label: string = 'Habilidades';
-  @Input() control!: FormControl<string[] | null | undefined>;
+  @Input() control!: FormControl<string[] | string | null | undefined>;
+  @Input() omittedOptions: ISkill[] = [];
+  @Input() isMultiple: boolean = false;
 
   get selectedSkillsString(): string {
-    const optionNamesById: Map<string, string> = new Map<string, string>();
-    this.options.forEach(opt => optionNamesById.set(opt.name, opt.name));
+    if (typeof this.control.value === 'string') {
+      return this.control.value;
+    }
 
     let skillString = '';
     this.control.value?.forEach((value, i) => {
       if (i === 0) {
-        skillString = `${optionNamesById.get(value)}`;
+        skillString = `${value}`;
       } else {
-        skillString = `${skillString}, ${optionNamesById.get(value)}`;
+        skillString = `${skillString}, ${value}`;
       }
     });
 
@@ -47,6 +50,9 @@ export class SkillsDropdownComponent implements OnInit {
     .subscribe(result => {
       if (result.success) {
         this.options = result.data!;
+
+        if (this.omittedOptions && this.omittedOptions.length) this.filterOptions();
+
         return;
       }
 
@@ -56,20 +62,22 @@ export class SkillsDropdownComponent implements OnInit {
       );
     })
   }
-  /*//Con API
-  getOptions() {
-    this.skillService.getAllSkills()
-    .subscribe(skills => {
-      if (skills) {
-        this.skills = skills;
-        this.options = skills;
-      } else {
-        this.snackbarService.openSnackBar(
-          'Hubo un error cargando habilidades. Por favor refresca la página o intenta de nuevo más tarde.',
-          'Aceptar'
-        );
-      }
-    })
-  }*/
+
+  filterOptions() {
+    const finalOptions: ISkill[] = [];
+    const omittedOptionsSet = new Set<string>();
+
+    this.omittedOptions.forEach(opt => {
+      omittedOptionsSet.add(opt.name);
+    });
+
+    this.options.forEach(opt => {
+      if (omittedOptionsSet.has(opt.name)) return;
+
+      finalOptions.push(opt);
+    });
+
+    this.options = finalOptions;
+  }
 
 }

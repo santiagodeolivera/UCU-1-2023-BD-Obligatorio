@@ -1,28 +1,28 @@
 <div class="mt-4">
-  <h1 class="mt-4">Bienvenido {{ user.firstName}} {{user.lastName}}</h1>
+  <h1 class="mt-4">Bienvenido {{ runningUser.firstName}} {{runningUser.lastName}}</h1>
   <!-- user email -->
   <p class="user-field mt-4">
     <mat-icon class="align-middle"> mail </mat-icon>
-    <span class="ms-2 align-bottom">{{ user.email }}</span>
+    <span class="ms-2 align-bottom">{{ runningUser.email }}</span>
   </p>
   
   <!-- user phone from user.phoneNumbers -->
-  <!-- <div class="mt-4">
+  <div class="mt-4">
     <h2 class="mt-4">Teléfono</h2>
     <div class="mt-4">
       <mat-chip-list>
-        <mat-chip *ngFor="let phone of user.phoneNumbers" color="primary" selected="true">
-          {{ phone }}
+        <mat-chip *ngFor="let phone of runningUser.phoneNumbers" color="primary" selected="true">
+          0{{ phone }}
         </mat-chip>
       </mat-chip-list>
     </div>
-  </div> -->
+  </div>
   
 
   <!-- user skills -->
   <div class="mt-4">
     <h2 class="mt-4">Habilidades</h2>
-    <div class="mt-4" *ngFor="let skill of user.skills">
+    <div class="mt-4" *ngFor="let skill of runningUser.skills">
       <mat-chip-list>
         <mat-chip  color="primary" selected="true">
           {{ skill.name }}
@@ -35,12 +35,12 @@
   <!-- user necessities -->
   <div class="mt-4">
     <h2 class="mt-4">Necesidades</h2>
-    <div class="mt-4" *ngFor="let necessity of necessities">
+    <div class="mt-4" *ngFor="let necessity of userNecessities">
       <mat-chip-list>
         <mat-chip  color="primary" selected="true">
           {{ necessity.title }}
         </mat-chip>
-        <span>{{necessity.description}}</span>
+        
       </mat-chip-list>
     </div>
   </div>
@@ -50,7 +50,7 @@
       mat-flat-button
       class="ms-3"
       color="primary"
-      onclick="window.location.href='/profile-update'"
+      routerLink="/profile-update"
     >
       Actualizar Perfil
     </button>

@@ -4,6 +4,7 @@ import { User } from '../interfaces/user';
 import { Observable, catchError, of, tap } from 'rxjs';
 import { IHTTPResponse, IUser } from '../interfaces';
 import { environment } from 'src/environments/environment';
+import { UserService } from './user.service';
 
 const USERS_ENDPOINT = 'users';
 @Injectable({
@@ -11,7 +12,8 @@ const USERS_ENDPOINT = 'users';
 })
 export class ProfileUpdateService {
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private userService: UserService) { }
 
   updateUser(userId: string, userData: IUser): Observable<IHTTPResponse<void>>{
     if (!userId) return of( { success: false } );
@@ -21,12 +23,12 @@ export class ProfileUpdateService {
     );
   }
 
-  getUser(id:string): Observable<IHTTPResponse<IUser>>{
-    if (!id) return of( { success: false } );
-    return this.http.get<IHTTPResponse<IUser>>(`${environment.baseUrl}/${USERS_ENDPOINT}/${id}`)
+  /*getUser(userId: string): Observable<IHTTPResponse<IUser>>{
+    if (!userId) return of( { success: false } );
+    return this.http.get<IHTTPResponse<IUser>>(`${environment.baseUrl}/${USERS_ENDPOINT}/${userId}`)
     .pipe(
       catchError(err => of(err))
     );
-  }
+  }*/
 
 }

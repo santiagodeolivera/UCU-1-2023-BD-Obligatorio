@@ -46,6 +46,21 @@
 
   <button
     mat-button
+    (click)="navCreateSkill()"
+  >
+    <mat-list-item
+      class="text-light"
+    >
+      <mat-icon class="me-3 align-middle">
+        add
+      </mat-icon>
+
+      Crear Habilidad
+    </mat-list-item>
+  </button>
+
+  <button
+    mat-button
     (click)="logout()"
   >
     <mat-list-item

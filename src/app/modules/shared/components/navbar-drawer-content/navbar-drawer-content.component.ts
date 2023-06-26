@@ -33,6 +33,6 @@ export class NavbarDrawerContentComponent implements OnInit {
 
   // navUpdateProfile() { this.router.navigate(['/profileUpdate']); }
   // navAbout() { this.router.navigate(['/about']); }
-  // navCreateSkill() { this.router.navigate(['/postSkill']); }
+  navCreateSkill() { this.router.navigate(['/postSkill']); }
 
 }

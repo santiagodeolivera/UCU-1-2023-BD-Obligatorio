@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ISkill, IUserSkill } from 'src/app/modules/core/interfaces';
+import { ISkill, IUserSkill, IUser } from 'src/app/modules/core/interfaces';
 import { AuthService } from 'src/app/modules/core/services/auth.service';
 import { SkillsService } from 'src/app/modules/core/services/skills.service';
 
@@ -12,16 +12,15 @@ import { SkillsService } from 'src/app/modules/core/services/skills.service';
 })
 export class PostSkillFormComponent implements OnInit {
   creationDate: Date = new Date();
-  @Input() skill? : IUserSkill;
-  @Input() skills?: ISkill[];
-
+  @Input() user!: IUser;
+  @Input() skill?: IUserSkill;
   @Output() cancel = new EventEmitter<void>();
   @Output() save = new EventEmitter<IUserSkill>();
 
   postSkillForm = this.fb.group({
     userId : [ '', Validators.required ],
     // Se permite seleccionar solo una skill de la lista de skills por su nombre
-    name : [ '', Validators.required ],
+    name : new FormControl<string | undefined>(undefined, Validators.required),
     description : [ '', Validators.required, Validators.maxLength(500) ],
     creationDate: new FormControl<Date | undefined>(undefined, Validators.required),
   });
@@ -33,21 +32,11 @@ export class PostSkillFormComponent implements OnInit {
     private skillService: SkillsService
   ) { }
 
-  /* //Con la API
-  ngOnInit(): void {
-    this.skillService.getAllSkills().subscribe(
-      skills => this.skills = skills
-    );
-  }*/
+  get runningUser(): IUser {
+    return this.authService.runningUser!;
+  }
 
   ngOnInit(): void {
-    this.skillService.getAllSkills().subscribe(
-      (response) => {
-        if (response.success) {
-          this.skills = response.data;
-        }
-      }
-    );
   }
 
   ngAfterViewInit(): void {
@@ -67,6 +56,7 @@ export class PostSkillFormComponent implements OnInit {
     if (!this.postSkillForm.valid) return;
 
     const value = this.postSkillForm.value;
+    
     const skill: IUserSkill = {
       userId: value.userId || undefined,
       name: value.name || undefined,

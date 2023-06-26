@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-skill.component.scss']
 })
 export class PostSkillComponent implements OnInit {
-
+  isLoading: boolean = false;
   constructor() { }
 
   ngOnInit(): void {

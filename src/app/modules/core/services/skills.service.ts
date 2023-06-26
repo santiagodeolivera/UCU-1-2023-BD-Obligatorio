@@ -96,7 +96,7 @@ export class SkillsService {
       catchError(err => of(err))
     );
   }
-  
+
   deleteUserSkills(userId: string, skill: ISkill): Observable<IHTTPResponse<void>> {
     return this.http.post<Observable<IHTTPResponse<void>>>(
       `${environment.baseUrl}/users/${userId}/${SKILLS_ENDPOINT}/delete`,

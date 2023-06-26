@@ -6,9 +6,16 @@
 </mat-spinner>
 
 <app-postulation-list
-  *ngIf="!isLoading"
+  *ngIf="!isLoading && postulations.length"
   [postulations]="postulations"
   [isRunningUserNecessity]="isRunningUserNecessity"
   (postulationUpdate)="getPostulations()"
 >
 </app-postulation-list>
+
+<p
+  class="text-center"
+  *ngIf="!isLoading && !postulations.length"
+>
+  Aún no hay postulaciones para esta necesidad. Revisa de nuevo más tarde.
+</p>

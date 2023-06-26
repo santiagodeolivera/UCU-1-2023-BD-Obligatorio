@@ -1,58 +1,28 @@
-<div class="container">
-  <mat-card>
-    <img class="title" src="{{ urlLogo }}" alt="Logo Sistema" />
+<div class="container mt-3">
+  <h1>¡Bienvenido {{runningUser.firstName}}!</h1>
 
-    <mat-grid-list cols="2">
-      <div
-        class="contenedor-imagen"
-        (mouseover)="mostrarTexto()"
-        (mouseout)="ocultarTexto()"
-      >
-        <img
-          class="goRigth"
-          src="{{ urlImg1 }}"
-          onclick="window.location.href = 'login'"
-        />
-        <div class="texto" [hidden]="!mostrarHover">
-          Ir a Login
-        </div>
-      </div>
+  <div class="mt-4">
+    <h2>Tus Postulaciones</h2>
+    <app-postulation-carousel
+      *ngIf="userPostulations"
+      [postulations]="userPostulations"
+      [perspective]="'user'"
+    >
+    </app-postulation-carousel>
+    <h3 *ngIf="!userPostulations">
+      Aún no te has postulado a ninguna solicitud de ayuda.
+    </h3>
+  </div>
 
-      <div
-        class="contenedor-imagen"
-        (mouseover)="mostrarTexto()"
-        (mouseout)="ocultarTexto()"
-      >
-        <img class="downTraslator goLeft" src="{{ urlImg2 }}" 
-        onclick="window.location.href = 'signup'"/>
-        <div class="texto" [hidden]="!mostrarHover">
-          Ir a Registro
-        </div>
-      </div>
-    </mat-grid-list>
-    <mat-grid-list cols="2" class="goUpTranslator">
-      <div
-        class="contenedor-imagen"
-        (mouseover)="mostrarTexto()"
-        (mouseout)="ocultarTexto()"
-      >
-        <img class="goRigth" src="{{ urlImg3 }}" 
-        onclick="window.location.href = 'create-necessity'"/>
-        <div class="texto" [hidden]="!mostrarHover">
-          Ir a Crear Necesidad
-        </div>
-      </div>
-      <div
-        class="contenedor-imagen"
-        (mouseover)="mostrarTexto()"
-        (mouseout)="ocultarTexto()"
-      >
-        <img class="downTraslator goLeft" src="{{ urlImg4 }}" 
-        onclick="window.location.href = 'profile-update'"/>
-        <div class="texto" [hidden]="!mostrarHover">
-          Ir a Actualizar Perfil
-        </div>
-      </div>
-    </mat-grid-list>
-  </mat-card>
+  <div class="mt-4 mb-2">
+    <h2>Tus Necesidades</h2>
+    <app-necessity-carousel
+      *ngIf="userNecessities"
+      [necessities]="userNecessities"
+    >
+    </app-necessity-carousel>
+    <h3 *ngIf="!userNecessities">
+      Aún no has creado ninguna solicitud de ayuda.
+    </h3>
+  </div>
 </div>

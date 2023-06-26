@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from 'src/app/material.module';
 import { MapComponent } from './components/map/map.component';
@@ -16,6 +17,10 @@ import { SkillChipComponent } from './components/skill-chip/skill-chip.component
 import { SkillDialogComponent } from './components/skill-dialog/skill-dialog.component';
 import { FixedSpinnerComponent } from './components/fixed-spinner/fixed-spinner.component';
 import { NavbarDrawerContentComponent } from './components/navbar-drawer-content/navbar-drawer-content.component';
+import { PostulationCarouselComponent } from './components/postulation-carousel/postulation-carousel.component';
+import { NecessityPostulationCardComponent } from './components/necessity-postulation-card/necessity-postulation-card.component';
+import { NecessityCarouselComponent } from './components/necessity-carousel/necessity-carousel.component';
+import { NecessityCardComponent } from './components/necessity-card/necessity-card.component';
 
 
 @NgModule({
@@ -31,13 +36,18 @@ import { NavbarDrawerContentComponent } from './components/navbar-drawer-content
     SkillChipComponent,
     SkillDialogComponent,
     FixedSpinnerComponent,
-    NavbarDrawerContentComponent
+    NavbarDrawerContentComponent,
+    PostulationCarouselComponent,
+    NecessityPostulationCardComponent,
+    NecessityCarouselComponent,
+    NecessityCardComponent
   ],
   imports: [
     CommonModule,
     GoogleMapsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     MapComponent,
@@ -47,7 +57,10 @@ import { NavbarDrawerContentComponent } from './components/navbar-drawer-content
     SkillChipListComponent,
     PostulationListComponent,
     FixedSpinnerComponent,
-    SkillsDropdownComponent
+    SkillsDropdownComponent,
+    PostulationCarouselComponent,
+    NecessityCarouselComponent,
+    NecessityCardComponent
   ]
 })
 export class SharedModule { }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoogleMapsGeolocation } from 'src/app/modules/core/classes';
 import { INecessity } from 'src/app/modules/core/interfaces';
+import { AuthService } from 'src/app/modules/core/services/auth.service';
 import { MapService } from 'src/app/modules/core/services/map.service';
 import { NecessityService } from 'src/app/modules/core/services/necessity.service';
 
@@ -18,6 +19,7 @@ export class NecessityEditPageComponent implements OnInit {
   constructor(
     private necessityService: NecessityService,
     private mapService: MapService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
@@ -34,13 +36,20 @@ export class NecessityEditPageComponent implements OnInit {
     .subscribe(result => {
       this.isLoading = false;
 
-      if (result.success) {
-        this.necessity = result.data;
-        this.getNecessityLocation();
-        return;
+      if (!result.success) {
+        this.router.navigate(['']);
       }
 
-      this.router.navigate(['']);
+      this.necessity = result.data;
+      if (
+        this.necessity?.startDate! <= new Date() ||
+        this.necessity?.userId !== this.authService.runningUser?.id
+      ) {
+        this.router.navigate([`/necessities/${this.necessity?.id}`]);
+      }
+
+      this.getNecessityLocation();
+      return;
     });
   }
 
@@ -55,4 +64,5 @@ export class NecessityEditPageComponent implements OnInit {
       this.necessity!.location = result;
     });
   }
+
 }

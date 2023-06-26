@@ -1,22 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GoogleMapsGeolocation } from 'src/app/modules/core/classes';
-import { INecessity, IPostulation } from 'src/app/modules/core/interfaces';
+import { INecessity } from 'src/app/modules/core/interfaces';
 import { AuthService } from 'src/app/modules/core/services/auth.service';
 import { MapService } from 'src/app/modules/core/services/map.service';
-import { PostulationService } from 'src/app/modules/core/services/postulation.service';
 
 @Component({
-  selector: 'app-necessity-fields',
-  templateUrl: './necessity-fields.component.html',
-  styleUrls: ['./necessity-fields.component.scss']
+  selector: 'app-necessity-card',
+  templateUrl: './necessity-card.component.html',
+  styleUrls: ['./necessity-card.component.scss']
 })
-export class NecessityFieldsComponent implements OnInit {
+export class NecessityCardComponent implements OnInit {
   @Input() necessity!: INecessity;
-  @Input() userPostulation?: IPostulation;
-
-  get hasApprovedPostulation(): boolean {
-    return this.userPostulation?.status === 'Aprobada';
-  }
 
   get dateString(): string {
     const startDateString = this.necessity.startDate?.toLocaleDateString();
@@ -40,7 +34,13 @@ export class NecessityFieldsComponent implements OnInit {
   }
 
   get necessityDescription(): string {
-    return this.necessity.description?.replace(/\n/g, '<br>') || '';
+    const necessityDescription = this.necessity.description?.replace(/\n/g, '<br>') || '';
+
+    if (necessityDescription.length > 100) {
+      return `${necessityDescription.substring(0, 100)}...`;
+    }
+
+    return necessityDescription;
   }
 
   get isByRunningUser(): boolean {
@@ -49,8 +49,7 @@ export class NecessityFieldsComponent implements OnInit {
 
   constructor(
     private mapService: MapService,
-    private authService: AuthService,
-    private postulationService: PostulationService
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -71,5 +70,4 @@ export class NecessityFieldsComponent implements OnInit {
       error: () => {}
     });
   }
-
 }

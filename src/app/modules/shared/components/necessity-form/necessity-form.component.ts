@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { IGeolocation, INecessity, ISkill } from 'src/app/modules/core/interfaces';
 import { AuthService } from 'src/app/modules/core/services/auth.service';
@@ -10,13 +10,13 @@ import { MapComponent } from 'src/app/modules/shared/components/map/map.componen
   templateUrl: './necessity-form.component.html',
   styleUrls: ['./necessity-form.component.scss']
 })
-export class NecessityFormComponent implements AfterViewInit {
+export class NecessityFormComponent implements AfterContentInit {
   minDate: Date = new Date();
 
   necessityForm = this.fb.group({
     title: [ '', [ Validators.required, Validators.maxLength(80) ] ],
     description: [ '', Validators.maxLength(500) ],
-    startDate: new FormControl<Date | undefined>(undefined, Validators.required), //Validators.min(new Date().getTime())
+    startDate: new FormControl<Date | undefined>(undefined, Validators.required),
     endDate: new FormControl<Date | undefined>(undefined),
     requiredSkills: new FormControl<string[] | undefined>(undefined),
     location: new FormControl<IGeolocation | undefined>(undefined, Validators.required),
@@ -34,7 +34,7 @@ export class NecessityFormComponent implements AfterViewInit {
     private authService: AuthService
   ) { }
 
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     if (this.necessity) this.prepopulateForm();
   }
 
@@ -75,6 +75,7 @@ export class NecessityFormComponent implements AfterViewInit {
       return { name: skill } as ISkill;
     });
     const necessity: INecessity = {
+      id: this.necessity?.id,
       userId: this.authService.runningUser?.id,
       title: value.title || undefined,
       description: value.description || undefined,

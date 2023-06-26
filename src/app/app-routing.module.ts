@@ -35,12 +35,6 @@ const routes: Routes = [
     canLoad: [ ValidateTokenGuard ]
   },
   {
-    path: '',
-    loadChildren: () => import('./modules/pages/home/home.module').then( m => m.HomeModule ),
-    canActivate: [ ValidateTokenGuard ],
-    canLoad: [ ValidateTokenGuard ]
-  },
-  {
     path: 'postSkill',
     loadChildren: () => import('./modules/pages/post-skill/post-skill.module').then( m => m.PostSkillModule ),
     canActivate: [ ValidateTokenGuard ],
@@ -51,6 +45,12 @@ const routes: Routes = [
     loadChildren: () => import('./modules/pages/search/search.module').then( m => m.SearchModule ),
     canActivate: [ ValidateTokenGuard ],
     canLoad: [ ValidateTokenGuard ]
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./modules/pages/home/home.module').then( m => m.HomeModule ),
+    canActivate: [ ValidateTokenGuard ],
+    canLoad: [ ValidateTokenGuard ],
   }
 ];
 

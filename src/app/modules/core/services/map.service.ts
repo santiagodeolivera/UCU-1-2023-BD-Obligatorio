@@ -19,8 +19,7 @@ export class MapService {
     .pipe(
       map((response: any): T => {
         return new constr(response);
-      }),
-      catchError( err => of(err))
+      })
     );
   }
 }

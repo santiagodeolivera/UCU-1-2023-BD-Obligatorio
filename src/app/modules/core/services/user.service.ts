@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of, tap, forkJoin, switchMap } from 'rxjs';
+import { Observable, catchError, map, of, forkJoin, switchMap } from 'rxjs';
 
-import { USER_MOCK } from '../mocks/user.mock';
-import { IHTTPResponse, ISearchResult, ISkill, IUser, IUserSearchRequest, User } from '../interfaces';
+import { IHTTPResponse, ISearchResult, ISkill, IUser, IUserSearchRequest } from '../interfaces';
 import { environment } from 'src/environments/environment';
 
 const USERS_ENDPOINT = 'users';
@@ -12,33 +11,19 @@ const USERS_ENDPOINT = 'users';
   providedIn: 'root'
 })
 export class UserService {
-  private userUrl = `${environment.baseUrl}/${USERS_ENDPOINT}`;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
   ) { }
 
-  getByCi(ci : string) : Observable<User> {
-    const url = `${this.userUrl}/${ci}`;
-    return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`fetched user id=${ci}`)),
-      catchError(this.handleError<User>(`getUser id=${ci}`))
+  getUserById(userId: string): Observable<IHTTPResponse<IUser>> {
+    if (!userId) return of( { success: false } );
+
+    return this.http.get<Observable<IHTTPResponse<IUser>>>(`${environment.baseUrl}/${USERS_ENDPOINT}/${userId}`)
+    .pipe(
+      catchError(err => of(err))
     );
   }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      this.log(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
-  }
-
-  // TODO: implement better logging mechanism
-  private log(message: string) {
-    console.log(`UserService: ${message}`);
-  }
-
 
   getUsersByFilters(filters: IUserSearchRequest): Observable<IHTTPResponse<ISearchResult[]>> {
     let queryStr = '';
@@ -58,7 +43,7 @@ export class UserService {
       queryStr = addToQueryParams(queryStr, 'skills', skill);
     });
 
-    return this.http.get<IHTTPResponse<IUser[]>>(`${this.userUrl}/${queryStr}`)
+    return this.http.get<IHTTPResponse<IUser[]>>(`${environment.baseUrl}/${USERS_ENDPOINT}/${queryStr}`)
     .pipe(
       catchError(err => of(err)),
       switchMap((res: IHTTPResponse<IUser[]>) => {
@@ -95,7 +80,7 @@ export class UserService {
       skillName: string,
       description?: string,
       creationDate: Date
-    }[]>>(`${this.userUrl}/${user.id!}/skills`)
+    }[]>>(`${environment.baseUrl}/${USERS_ENDPOINT}/${user.id!}/skills`)
     .pipe(
       map(res => {
         if (!res.success || res.data?.length === 0) return user;

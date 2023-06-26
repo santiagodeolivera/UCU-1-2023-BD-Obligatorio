@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   googleMapsKey: 'AIzaSyA54hOBFif3kxMjxNcSMld8Kx4UYD0j5KU',
-  baseUrl: 'http://localhost:3000/api/v1'
+  baseUrl: 'http://localhost:3000/api/v1' // Swap for local network IP to allow access from other devices.
 };
 
 /*

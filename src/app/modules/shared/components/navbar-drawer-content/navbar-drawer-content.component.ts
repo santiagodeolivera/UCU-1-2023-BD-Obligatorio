@@ -21,18 +21,20 @@ export class NavbarDrawerContentComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login'])
-    .then(
-      () => this.closeDrawer.emit()
-    );
+    this.navigate('/login');
   }
 
-  navHome()             { this.router.navigate(['/']); }
-  navSearch()           { this.router.navigate(['/search']); }
-  navCreateNecessity()  { this.router.navigate(['/create-necessity']); }
+  navHome()             { this.navigate('/'); }
+  navSearch()           { this.navigate('/search'); }
+  navCreateNecessity()  { this.navigate('/create-necessity'); }
+  navCreateSkill()      { this.navigate('/postSkill'); }
 
-  // navUpdateProfile() { this.router.navigate(['/profileUpdate']); }
-  // navAbout() { this.router.navigate(['/about']); }
-  navCreateSkill() { this.router.navigate(['/postSkill']); }
+  navigate(route: string) {
+    this.router.navigate([ route ])
+    .then(() => this.close());
+  }
 
+  close() {
+    this.closeDrawer.emit();
+  }
 }

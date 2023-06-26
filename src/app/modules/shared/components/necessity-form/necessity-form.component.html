@@ -92,6 +92,7 @@
     *ngIf="necessityForm?.controls?.requiredSkills"
     class="mt-5"
     [control]="necessityForm.controls.requiredSkills"
+    [isMultiple]="true"
     label="¿Qué habilidades requieres?"
   >
   </app-skills-dropdown>

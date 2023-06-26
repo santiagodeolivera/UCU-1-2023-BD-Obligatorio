@@ -90,13 +90,13 @@ export class SkillsService {
   createUserSkills(userId: string, skill: ISkill): Observable<IHTTPResponse<void>> {
     return this.http.post<Observable<IHTTPResponse<void>>>(
       `${environment.baseUrl}/users/${userId}/${SKILLS_ENDPOINT}`,
-      { skillNames: skill.name }
+      skill
     )
     .pipe(
       catchError(err => of(err))
     );
   }
-  
+
   deleteUserSkills(userId: string, skill: ISkill): Observable<IHTTPResponse<void>> {
     return this.http.post<Observable<IHTTPResponse<void>>>(
       `${environment.baseUrl}/users/${userId}/${SKILLS_ENDPOINT}/delete`,

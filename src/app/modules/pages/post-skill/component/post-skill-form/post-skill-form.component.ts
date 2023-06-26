@@ -1,9 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ISkill, IUserSkill } from 'src/app/modules/core/interfaces';
+import { ISkill, IUser } from 'src/app/modules/core/interfaces';
 import { AuthService } from 'src/app/modules/core/services/auth.service';
 import { SkillsService } from 'src/app/modules/core/services/skills.service';
+import { SnackbarService } from 'src/app/modules/core/services/snackbar.service';
+import { UserService } from 'src/app/modules/core/services/user.service';
+import { SkillsDropdownComponent } from 'src/app/modules/shared/components/skills-dropdown/skills-dropdown.component';
 
 @Component({
   selector: 'app-post-skill-form',
@@ -11,75 +14,81 @@ import { SkillsService } from 'src/app/modules/core/services/skills.service';
   styleUrls: ['./post-skill-form.component.scss']
 })
 export class PostSkillFormComponent implements OnInit {
-  creationDate: Date = new Date();
-  @Input() skill? : IUserSkill;
-  @Input() skills?: ISkill[];
 
-  @Output() cancel = new EventEmitter<void>();
-  @Output() save = new EventEmitter<IUserSkill>();
-
+  isLoading: boolean = false;
   postSkillForm = this.fb.group({
-    userId : [ '', Validators.required ],
-    // Se permite seleccionar solo una skill de la lista de skills por su nombre
-    name : [ '', Validators.required ],
-    description : [ '', Validators.required, Validators.maxLength(500) ],
-    creationDate: new FormControl<Date | undefined>(undefined, Validators.required),
+    name: new FormControl<string | undefined>(undefined, Validators.required),
+    description: [ '', Validators.maxLength(100) ],
   });
+
+  @ViewChild(SkillsDropdownComponent) skillsDropdown?: SkillsDropdownComponent;
+
+  get omittedOptions(): ISkill[] {
+    return this.runningUser.skills || [];
+  }
+
+  get runningUser(): IUser {
+    return this.authService.runningUser!;
+  }
 
   constructor(
     private fb: FormBuilder,
     private router : Router,
     private authService: AuthService,
-    private skillService: SkillsService
+    private userService: UserService,
+    private skillsService: SkillsService,
+    private snackbarService: SnackbarService
   ) { }
 
-  /* //Con la API
   ngOnInit(): void {
-    this.skillService.getAllSkills().subscribe(
-      skills => this.skills = skills
-    );
-  }*/
-
-  ngOnInit(): void {
-    this.skillService.getAllSkills().subscribe(
-      (response) => {
-        if (response.success) {
-          this.skills = response.data;
-        }
-      }
-    );
-  }
-
-  ngAfterViewInit(): void {
-    if (this.skill) this.prepopulateForm();
-  }
-
-  prepopulateForm() {
-    this.postSkillForm.setValue({
-      userId: this.authService.runningUser?.id || null,
-      name: this.skill?.name || null,
-      description: this.skill?.description || null,
-      creationDate: this.skill?.creationDate || null,
-    });
+    this.updateRunnningUserSkills();
   }
 
   handleSubmit() {
     if (!this.postSkillForm.valid) return;
 
     const value = this.postSkillForm.value;
-    const skill: IUserSkill = {
-      userId: value.userId || undefined,
-      name: value.name || undefined,
-      description: value.description || undefined,
-      creationDate: value.creationDate || undefined,
+
+    const skill: ISkill = {
+      name: value.name!,
+      description: value.description || undefined
     };
 
-    this.save.emit(skill);
+    this.skillsService.createUserSkills(this.authService.runningUser?.id!, skill)
+    .subscribe(result => {
+      if (result.success) {
+        this.postSkillForm.setValue({ name: '', description: '' });
+        this.snackbarService.openSnackBar(
+          'Tu habilidad ha sido cargada exitósamente',
+          undefined, 2000
+        );
+        this.updateRunnningUserSkills();
+        return;
+      }
+
+      this.snackbarService.openSnackBar(
+        'Ha ocurrido un error al cargar tu habilidad. Intenta de nuevo más tarde.',
+        'Aceptar'
+      );
+    });
+  }
+
+  updateRunnningUserSkills() {
+    this.isLoading = true;
+    this.userService.setUserSkills(this.authService.runningUser!)
+    .subscribe({
+      next: (result) => {
+        this.authService.runningUser = result;
+        this.skillsDropdown?.filterOptions();
+      },
+      error: (err) => this.snackbarService.openSnackBar(
+        'Ha ocurrido un error actualizando la información de tu usuario. Por favor refresca la página.',
+        undefined, 2000),
+      complete: () => this.isLoading = false
+    });
   }
 
   handleCancel() {
-    this.cancel.emit();
     return this.router.navigate(['/']);
   }
-
 }

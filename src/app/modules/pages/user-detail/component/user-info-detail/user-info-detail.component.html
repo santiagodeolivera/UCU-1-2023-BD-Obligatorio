@@ -1,4 +1,12 @@
-<div class="mt-4">
+<app-fixed-spinner
+  *ngIf="isLoading"
+>
+</app-fixed-spinner>
+
+<div
+  class="mt-4"
+  *ngIf="!isLoading"
+>
   <h1 class="mt-4">{{ user.firstName}} {{user.lastName}}</h1>
 
   <p class="mt-4">

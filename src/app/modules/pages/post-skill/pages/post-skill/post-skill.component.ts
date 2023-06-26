@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ISkill } from 'src/app/modules/core/interfaces';
 
 @Component({
   selector: 'app-post-skill',
@@ -11,5 +12,4 @@ export class PostSkillComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

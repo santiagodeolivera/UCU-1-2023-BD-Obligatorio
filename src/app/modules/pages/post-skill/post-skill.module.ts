@@ -7,6 +7,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MaterialModule } from 'src/app/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NecessityDetailRoutingModule } from '../necessity-detail/necessity-detail-routing.module';
 
 
 
@@ -18,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     PostSkillRoutingModule,
+    NecessityDetailRoutingModule,
     SharedModule,
     GoogleMapsModule,
     MaterialModule,

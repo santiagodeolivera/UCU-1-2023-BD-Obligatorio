@@ -3,6 +3,8 @@ import { IAuthRequest, IAuthResponse, IUser } from '../interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { MapService } from './map.service';
+import { GoogleMapsGeolocation } from '../classes';
 
 const AUTH_ENDPOINT = `${environment.baseUrl}/auth`;
 
@@ -12,7 +14,10 @@ const AUTH_ENDPOINT = `${environment.baseUrl}/auth`;
 export class AuthService {
   runningUser?: IUser;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private mapService: MapService
+  ) { }
 
   doUserAuth(authRequest: IAuthRequest): Observable<IAuthResponse> {
     return this.http.post<IAuthResponse>(AUTH_ENDPOINT, authRequest)
@@ -25,6 +30,16 @@ export class AuthService {
       }),
       catchError( err => of(err))
     );
+  }
+
+  getUserAddress() {
+    const { latitude, longitude } = this.runningUser?.address!;
+    if (!latitude || !longitude) return;
+
+    this.mapService.getPlaceInformationFromCoordinates(latitude, longitude, GoogleMapsGeolocation)
+    .subscribe(result => {
+      this.runningUser!.address = result;
+    });
   }
 
   validateToken(): Observable<any> {

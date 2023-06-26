@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { IGeolocation } from 'src/app/modules/core/interfaces';
-import { User } from 'src/app/modules/core/interfaces/user';
+import { IUser } from 'src/app/modules/core/interfaces';
+import { AuthService } from 'src/app/modules/core/services/auth.service';
 import { MapComponent } from 'src/app/modules/shared/components/map/map.component';
 
 @Component({
@@ -10,68 +11,39 @@ import { MapComponent } from 'src/app/modules/shared/components/map/map.componen
   styleUrls: ['./profile-update-form.component.scss']
 })
 export class ProfileUpdateFormComponent implements OnInit {
-  hidePassword = true;
-  @Input() user?: User;
-  @ViewChild(MapComponent) map?: MapComponent;
+
+  profileUpdateForm = this.formBuilder.group({
+    name: [ this.runningUser.firstName ],
+    surname : [this.runningUser.lastName ],
+    password : ['', [
+      Validators.minLength(8),
+      Validators.maxLength(20),
+      Validators.pattern('^(?=.*[A-Z])(?=.*[0-9]).+$')
+    ]],
+    email : [this.runningUser.email,[ Validators.email]],
+    phone : [this.phoneNumber , [ Validators.maxLength(9),Validators.pattern('9[0-9]+') ]],
+    location: new FormControl<IGeolocation | undefined>(this.runningUser.address),
+  });
+
   @Output() cancel = new EventEmitter<void>();
-  @Output() save = new EventEmitter<User>();
+  @Output() save = new EventEmitter<IUser>();
 
-  profileUpdateForm = this.formBuilder.group(
-    {
-      //cada campo se completa con los datos del usuario de la variable user como el nombre user.name
-      name: [this.user?.name,[Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]],
-      surname : [this.user?.surname,[Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')]],
-      urlPictureID : [this.user?.urlPictureID,[Validators.required, Validators.pattern('https?://.+')]],
-      isAdmin: [this.user?.isAdmin, [Validators.required]],
-      hashPassword : [this.user?.hashPassword,[Validators.required,
-                      Validators.minLength(8),
-                      Validators.maxLength(20),
-                      Validators.pattern('^[A-Z](?=.*[0-9])[a-zA-Z0-9]+$')]],
-      email : [this.user?.email,[Validators.required, Validators.email]],
-      phone : [this.user?.phone,[Validators.required, Validators.maxLength(9),Validators.pattern('09[0-9]+')]],
-      geoDistance : [this.user?.geoDistance,[Validators.required, Validators.maxLength(20), Validators.pattern('[0-9]+')]],
-      geoState : [this.user?.geoState,[Validators.required]],
-      location: new FormControl<IGeolocation | undefined>(undefined, Validators.required),
-    }
-  );
-  // list with the viewValue of state of Uruguay
-  states = [ 
-    {value: 'Artigas', viewValue: 'Artigas'},
-    {value: 'Canelones', viewValue: 'Canelones'},
-    {value: 'Cerro Largo', viewValue: 'Cerro Largo'},
-    {value: 'Colonia', viewValue: 'Colonia'},
-    {value: 'Durazno', viewValue: 'Durazno'},
-    {value: 'Flores', viewValue: 'Flores'},
-    {value: 'Florida', viewValue: 'Florida'},
-    {value: 'Lavalleja', viewValue: 'Lavalleja'},
-    {value: 'Maldonado', viewValue: 'Maldonado'},
-    {value: 'Montevideo', viewValue: 'Montevideo'},
-    {value: 'Paysandú', viewValue: 'Paysandú'}]
-  
-  adminOption = [
-    {value: 'true', viewValue: 'Si'},
-    {value: 'false', viewValue: 'No'}
-  ]
-  
-  get passwordIconName(): string {
-    return this.hidePassword ? 'visibility_off' : 'visibility';
+  @ViewChild(MapComponent) map?: MapComponent;
+
+  get runningUser(): IUser {
+    return this.authService.runningUser!;
   }
 
-  get passwordIconColor(): string {
-    return this.hidePassword ? '' : 'primary';
+  get phoneNumber(): string {
+    if (!this.runningUser.phoneNumbers?.length) return '';
+
+    return this.runningUser.phoneNumbers[0];
   }
 
-  get passwordInputType(): string {
-    return this.hidePassword ? 'password' : 'text';
-  }
-
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+    public authService: AuthService) { }
 
   ngOnInit(): void {
-  }
-
-  togglePasswordVisibility() {
-    this.hidePassword = !this.hidePassword;
   }
 
   handleMapClick($event: IGeolocation) {
@@ -83,30 +55,26 @@ export class ProfileUpdateFormComponent implements OnInit {
     this.profileUpdateForm.controls.location.setValue($event);
     this.map?.setFocusedPosition($event);
   }
-/*
+
   handleSubmit() {
     if (!this.profileUpdateForm.valid) return;
-
     const value = this.profileUpdateForm.value;
-    const user: User = {
-      ci: this.user?.ci,
-      name: value.name || undefined,
-      surname: value.surname || undefined,
-      urlPictureID: value.urlPictureID || undefined,
-      isAdmin: value.isAdmin || undefined,
-      hashPassword: value.hashPassword || undefined,
-      email: value.email || undefined,
-      phone: value.phone || undefined,
-      geoDistance: value.geoDistance || undefined,
-      geoState: value.geoState || undefined,
-      location: value.location || undefined,
-    };
 
-    this.save.emit(user);
+    this.save.emit({
+      id: this.runningUser.id,
+      firstName: value.name || undefined,
+      lastName: value.surname || undefined,
+      email: value.email || undefined,
+      phoneNumbers: value.phone ? [
+        value.phone
+      ] : undefined,
+      address: value.location || undefined,
+      geoConfiguration: this.runningUser.geoConfiguration
+    });
+
   }
 
   handleCancel() {
     this.cancel.emit();
   }
-*/
 }

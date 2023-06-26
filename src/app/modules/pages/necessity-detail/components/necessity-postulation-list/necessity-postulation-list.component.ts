@@ -27,10 +27,9 @@ export class NecessityPostulationListComponent implements OnInit {
 
   getPostulations() {
     this.isLoading = true;
-    console.log('test');
+
     this.postulationService.getPostulationsFromNecessity(this.necessity!.id!)
     .subscribe(result => {
-      console.log(result);
       this.isLoading = false;
 
       if (result.success) {

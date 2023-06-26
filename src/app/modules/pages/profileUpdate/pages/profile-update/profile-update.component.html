@@ -1,25 +1,15 @@
-<div class="container center-content-x">
-    <div class="center-content">
-      
-        
-      <div class="forms-body-container">
-        <app-profile-update-form #profileUpdateForm ></app-profile-update-form>
-      </div>
-    </div>
-    <div class="bb-signup-footer">
-      <button mat-raised-button
-        matStepperPrevious
-        class="bb-previous-button"
-        routerLink="/">REGRESAR
-      </button>
-    
-      
-      <button mat-raised-button
-        matStepperNext
-        class="bb-next-button"
-        color="primary"
-        (click)="pullFormData()">ACTUALIZAR AHORA
-      </button>
-     
-    </div>
-  </div>
+<div class="container">
+  <app-profile-update-form
+    #profileUpdateForm
+    (profileUpdate)="handleSubmit($event)"
+    (cancel)="handleCancel()"
+  >
+  </app-profile-update-form>
+
+  <app-fixed-spinner
+    *ngIf="isLoading"
+    [hasOverlay]="true"
+  >
+  </app-fixed-spinner>
+
+</div>

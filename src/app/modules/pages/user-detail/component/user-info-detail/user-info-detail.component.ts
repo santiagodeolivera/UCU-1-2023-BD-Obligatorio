@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GoogleMapsGeolocation } from 'src/app/modules/core/classes';
-import { IUser } from 'src/app/modules/core/interfaces';
+import { INecessity, IUser } from 'src/app/modules/core/interfaces';
 import { AuthService } from 'src/app/modules/core/services/auth.service';
 import { MapService } from 'src/app/modules/core/services/map.service';
+import { NecessityService } from 'src/app/modules/core/services/necessity.service';
+
 
 @Component({
   selector: 'app-user-info-detail',
@@ -10,18 +13,15 @@ import { MapService } from 'src/app/modules/core/services/map.service';
   styleUrls: ['./user-info-detail.component.scss']
 })
 export class UserInfoDetailComponent implements OnInit {
-  @Input() user!: IUser;
-
-  constructor(
-    private mapService: MapService,
-    private authService: AuthService,
-
-  ) { }
-
-  ngOnInit(): void {
+  
+  userNecessities?: INecessity[];
+  
+  get runningUser(): IUser {
+    return this.authService.runningUser!;
   }
-  get locationString(): string { 
-    const location = this.user.address;
+
+  get locationString(): string {
+    const location = this.runningUser.address;
     let locationString = location?.streetAddress ? location.streetAddress : '';
     locationString = location?.city ? `${locationString}, ${location?.city}` : locationString;
     locationString = location?.province ? `${locationString}, ${location?.province}` : locationString;
@@ -29,24 +29,39 @@ export class UserInfoDetailComponent implements OnInit {
 
     return locationString ? locationString : `${location?.latitude}, ${location?.longitude}`;
   }
+  
+  constructor(
+    private mapService: MapService,
+    private authService: AuthService,
+    private router: Router,
+    private necessityService: NecessityService
+  ) { }
+    
+  ngOnInit(): void {
+    this.getUserLocation();
+    this.getUserNecessities();
+  }
 
-  get isByRunningUser(): boolean {
-    return this.user.id !== this.authService.runningUser?.id;
+  getUserNecessities() {
+    this.necessityService.getNecessitiesByUser(this.runningUser.id!)
+    .subscribe(res => {
+      if (!res.success) return;
+
+      this.userNecessities = res.data;
+    });;
   }
 
   getUserLocation() {
-    if (!(this.user.address?.latitude && this.user.address.longitude)) return;
+    if (!(this.runningUser.address?.latitude && this.runningUser.address.longitude)) return;
 
     this.mapService.getPlaceInformationFromCoordinates(
-      this.user.address?.latitude,
-      this.user.address?.longitude,
+      this.runningUser.address?.latitude,
+      this.runningUser.address?.longitude,
       GoogleMapsGeolocation
     )
     .subscribe(result => {
-      this.user.address = result;
+      this.runningUser.address = result;
     });
   }
-
-
 
 }

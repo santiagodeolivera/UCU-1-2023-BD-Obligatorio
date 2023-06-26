@@ -22,19 +22,23 @@ export class ProfileUpdateFormComponent implements OnInit {
 
   profileUpdateForm = this.formBuilder.group(
     {
-      name: [ '' ],
-      surname : ['' ],
+      name: [ this.runningUser.firstName ],
+      surname : [this.runningUser.lastName ],
       isAdmin: [this.user?.isAdmin, [Validators.required]],
       password : ['', [
         Validators.minLength(8),
         Validators.maxLength(20),
         Validators.pattern('^(?=.*[A-Z])(?=.*[0-9]).+$')
       ]],
-      email : [this.user?.email,[ Validators.email]],
+      email : [this.runningUser.email,[ Validators.email]],
       phone : ['',[ Validators.maxLength(9),Validators.pattern('09[0-9]+')]],
       location: new FormControl<IGeolocation | undefined>(undefined),
     }
   );
+
+  get runningUser(): IUser {
+    return this.authService.runningUser!;
+  }
 
   adminOption = [
     {value: 'true', viewValue: 'Si'},
@@ -75,8 +79,8 @@ export class ProfileUpdateFormComponent implements OnInit {
 
   handleSubmit() {
     if (!this.profileUpdateForm.valid) return;
-
     const value = this.profileUpdateForm.value;
+    
     this.profileUpdate.emit({      
       password: value.password!,
       firstName: value.name!,

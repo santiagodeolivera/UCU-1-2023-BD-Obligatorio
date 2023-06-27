@@ -48,7 +48,7 @@ export class UserInfoDetailComponent implements OnInit {
     .subscribe({
       complete: () => this.isLoading = false,
       error: (err) => this.snackbarService.openSnackBar(
-        'Ha ocurrido un error actualizando la información de tu usuario. Por favor refresca la página.',
+        'Ha ocurrido un error actualizando la información del usuario. Por favor refresca la página.',
         undefined, 2000)
     });
   }

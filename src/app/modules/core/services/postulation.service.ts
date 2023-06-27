@@ -61,14 +61,27 @@ export class PostulationService {
 
         const observableArr: Observable<IPostulation>[] = [];
         res.data?.forEach(postulation => {
-          observableArr.push(this.setPostulationUser(postulation), this.setPostulationNecessity(postulation));
+          observableArr.push(this.setPostulationUser(postulation));
+        });
+        //this.setPostulationNecessity(postulation)
+        return forkJoin(observableArr).pipe(
+          catchError(err => of(res.data!)),
+          switchMap((postulations: IPostulation[]) => of({ success: true, data: postulations }))
+        );
+      }),
+      switchMap((res: IHTTPResponse<IPostulation[]>) => {
+        if (!res.success || res.data?.length === 0) return of(res);
+
+        const observableArr: Observable<IPostulation>[] = [];
+        res.data?.forEach(postulation => {
+          observableArr.push(this.setPostulationNecessity(postulation));
         });
 
         return forkJoin(observableArr).pipe(
           catchError(err => of(res.data!)),
           switchMap((postulations: IPostulation[]) => of({ success: true, data: postulations }))
         );
-      })
+      }),
     );
   }
 

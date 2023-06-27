@@ -6,4 +6,5 @@ export interface ISearchResult {
   url?: string;
   content?: string;
   skills?: ISkill[];
+  relatedUserId?: string;
 }

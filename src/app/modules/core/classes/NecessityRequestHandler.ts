@@ -139,7 +139,8 @@ export class NecessityRequestHandler {
               title: necessity.title,
               content: content,
               skills: necessity.skills,
-              url: `/necessities/${necessity.id}`
+              url: `/necessities/${necessity.id}`,
+              relatedUserId: necessity.userId
             } as ISearchResult;
           }),
           success: res.success

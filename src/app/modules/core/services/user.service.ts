@@ -66,7 +66,8 @@ export class UserService {
             return {
               title: `${user.firstName} ${user.lastName}`,
               skills: user.skills,
-              url: `/users/${user.id}`
+              url: `/users/${user.id}`,
+              relatedUserId: user.id
             } as ISearchResult;
           }),
           success: res.success
